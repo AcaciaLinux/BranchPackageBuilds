@@ -1,0 +1,10 @@
+name=make-ca
+version=1.10
+source=https://github.com/lfs-book/make-ca/releases/download/v1.10/make-ca-1.10.tar.xz
+dependencies=[p11-kit]
+description=Contains make-ca utility and certificates.
+build={
+	cd make-ca-1.10
+	make DESTDIR=$PKG_INSTALL_DIR -j1 install
+	install -vdm755 $PKG_INSTALL_DIR/etc/ssl/local
+}
