@@ -1,0 +1,36 @@
+name=nss
+version=3.77
+source=https://archive.mozilla.org/pub/security/nss/releases/NSS_3_77_RTM/src/nss-3.77.tar.gz
+dependencies=[nspr][sqlite][p11-kit]
+description=The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications.
+build={
+	wget https://www.linuxfromscratch.org/patches/blfs/svn/nss-3.77-standalone-1.patch
+	
+	cd nss-3.77
+	patch -Np1 -i ../nss-3.77-standalone-1.patch &&
+
+	cd nss &&
+
+	make -j$(nproc) BUILD_OPT=1                  \
+  		NSPR_INCLUDE_DIR=/usr/include/nspr  \
+  		USE_SYSTEM_ZLIB=1                   \
+  		ZLIB_LIBS=-lz                       \
+  		NSS_ENABLE_WERROR=0                 \
+ 		$([ $(uname -m) = x86_64 ] && echo USE_64=1) \
+ 		$([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)
+	
+	cd ../dist                                                          
+
+	install -v -m755 Linux*/lib/*.so              $PKG_INSTALL_DIR/usr/lib              
+	install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $PKG_INSTALL_DIR/usr/lib              
+
+	install -v -m755 -d                           $PKG_INSTALL_DIR/usr/include/nss      
+	cp -v -RL {public,private}/nss/*              $PKG_INSTALL_DIR/usr/include/nss      
+	chmod -v 644                                  $PKG_INSTALL_DIR/usr/include/nss/*    
+	
+	mkdir -v $PKG_INSTALL_DIR/usr/bin
+	install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $PKG_INSTALL_DIR/usr/bin
+
+	mkdir -v $PKG_INSTALL_DIR/usr/lib
+	install -v -m644 Linux*/lib/pkgconfig/nss.pc  $PKG_INSTALL_DIR/usr/lib/pkgconfig
+}

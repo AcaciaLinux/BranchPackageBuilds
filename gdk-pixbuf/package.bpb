@@ -1,0 +1,9 @@
+name=gdk-pixbuf
+version=2.42.8
+source= https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.8.tar.xz
+dependencies=[glib][libjpeg-turbo][libpng][shared-mime-info]
+description=The Gdk Pixbuf package is a toolkit for image loading and pixel buffer manipulation.
+build={
+
+	
+}

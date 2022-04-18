@@ -1,0 +1,14 @@
+name=Wayland-protocols
+version=1.25
+source=https://wayland.freedesktop.org/releases/wayland-protocols-1.25.tar.xz
+dependencies=[wayland]
+description=The Wayland-Protocols package contains additional Wayland protocols that add functionality outside of protocols already in the Wayland core. 
+build={
+	cd wayland-protocols-1.25
+	mkdir build
+	cd    build
+
+	meson --prefix=/usr --buildtype=release &&
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

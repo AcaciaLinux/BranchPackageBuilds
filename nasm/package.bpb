@@ -1,0 +1,12 @@
+name=nasm
+version=2.15.05
+source=https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz
+dependencies=
+description=NASM (Netwide Assembler) is an 80x86 assembler designed for portability and modularity.
+build={
+	cd nasm-2.15.05
+	./configure --prefix=/usr &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

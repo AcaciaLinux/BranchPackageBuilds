@@ -1,0 +1,16 @@
+name=graphite2
+version=1.3.14
+source=https://github.com/silnrsi/graphite/releases/download/1.3.14/graphite2-1.3.14.tgz
+dependencies=[cmake]
+description=Graphite2 is a rendering engine for graphite fonts.
+build={
+	cd graphite2-1.3.14
+	sed -i '/cmptest/d' tests/CMakeLists.txt
+	mkdir build &&
+	cd    build &&
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .. &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

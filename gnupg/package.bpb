@@ -1,0 +1,25 @@
+name=gnupg
+version=2.3.4
+source=https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.4.tar.bz2
+dependencies=[libassuan][libgcrypt][libksba][npth][gnutls][pinentry]
+description=The GnuPG package is GNU's tool for secure communication and data storage.
+build={
+	cd gnupg-2.3.4
+	./configure --prefix=/usr            \
+            --localstatedir=/var     \
+            --sysconfdir=/etc        \
+            --docdir=/usr/share/doc/gnupg-2.3.4
+	
+	make -j$(nproc)
+	
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	install -v -m755 -d $PKG_INSTALL_DIR/usr/share/doc/gnupg-2.3.4/html            &&
+	install -v -m644    doc/gnupg_nochunks.html \
+                    $PKG_INSTALL_DIR/usr/share/doc/gnupg-2.3.4/html/gnupg.html &&
+	install -v -m644    doc/*.texi doc/gnupg.txt \
+                    $PKG_INSTALL_DIR/usr/share/doc/gnupg-2.3.4 &&
+	install -v -m644    doc/gnupg.html/* \
+                    $PKG_INSTALL_DIR/usr/share/doc/gnupg-2.3.4/html
+
+}
