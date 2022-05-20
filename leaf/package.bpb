@@ -4,6 +4,7 @@ source=https://github.com/AcaciaLinux/leaf/archive/refs/tags/0.1.0.zip
 dependencies=[libarchive][curl]
 description=Leaf is the package manager for AcaciaLinux
 build={
+	unzip 0.1.0.zip
 	cd leaf-0.1.0
 	mkdir build &&
 	cd build
