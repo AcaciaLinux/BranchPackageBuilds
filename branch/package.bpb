@@ -1,0 +1,15 @@
+name=branch
+version=0.1
+source=
+dependencies=[python3]
+builddeps=
+description=The AcaciaLinux packaging utility
+build={
+	git clone https://github.com/AcaciaLinux/branch.git
+
+	cd branch
+
+	make DESTDIR=$PKG_INSTALL_DIR install-pkg
+	
+	echo "Done!"
+}
