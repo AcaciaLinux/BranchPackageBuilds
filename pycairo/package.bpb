@@ -3,4 +3,15 @@ version=1.21.0
 source=https://github.com/pygobject/pycairo/releases/download/v1.21.0/pycairo-1.21.0.tar.gz
 dependencies=[cairo]
 description= PyCairo provides Python bindings to Cairo. 
-build={}
+build={
+	cd pycairo-1.21.0	
+
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr --buildtype=release .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+}

@@ -1,0 +1,17 @@
+name=libgudev
+version=237
+source=https://download.gnome.org/sources/libgudev/237/libgudev-237.tar.xz
+dependencies=[glib]
+builddeps=
+description=The libgudev packages contains GObject bindings for libudev
+build={
+
+	cd libgudev-237
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr --buildtype=release .. &&
+	ninja
+	
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

@@ -1,0 +1,31 @@
+name=networkmanager
+version=1.38.0
+source=https://download.gnome.org/sources/NetworkManager/1.38/NetworkManager-1.38.0.tar.xz
+dependencies=[jansson][libndp][curl][dhcp][gobject-introspection][iptables][newt][nss][polkit][pygobject][systemd][upower][vala][wpa_supplicant]
+builddeps=
+description=NetworkManager makes networking simple and straightforward
+build={
+	cd NetworkManager-1.38.0
+	grep -rl '^#!.*python$' | xargs sed -i '1s/python/&3/'
+	
+	mkdir build &&
+	cd    build    &&
+
+	CXXFLAGS+="-O2 -fPIC"            \
+	meson --prefix=/usr              \
+	      --buildtype=release        \
+	      -Dlibaudit=no              \
+	      -Dlibpsl=false             \
+	      -Dnmtui=true               \
+	      -Dovs=false                \
+	      -Dppp=false                \
+	      -Dselinux=false            \
+	      -Dqt=false                 \
+  		-Dsession_tracking=systemd \
+	      -Dmodem_manager=false      \
+     		 .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+	mv -v $PKG_INSTALL_DIR/usr/share/doc/NetworkManager{,-1.38.0}
+}

@@ -1,10 +1,10 @@
 name=leaf
-version=0.1.1
-source=https://github.com/AcaciaLinux/leaf/archive/refs/tags/0.1.0.zip
+version=0.1.2
+source=
 dependencies=[libarchive][curl][libxml2]
 description=Leaf is the package manager for AcaciaLinux
 build={
-	git clone --recurse-submodules --branch=0.1.1 https://github.com/AcaciaLinux/leaf
+	git clone --recurse-submodules --branch=0.1.2 https://github.com/AcaciaLinux/leaf
 	cd leaf
 	mkdir build &&
 	cd build
