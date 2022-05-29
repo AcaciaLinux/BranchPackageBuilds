@@ -1,0 +1,5 @@
+name=systemd
+version=250
+description=The systemd init and service handling system.
+dependencies=[linux-pam][polkit][iptables][p11-kit]
+pkgrel=0
