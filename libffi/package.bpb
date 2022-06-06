@@ -16,12 +16,11 @@ build={
     	-e 's/^Cflags: -I${includedir}/Cflags:/' \
     	-i libffi.pc.in        &&
 
-	./configure --prefix=/usr --disable-static &&
+	./configure --prefix=/usr --disable-static --with-gcc-arch=x86-64 &&
 	make -j$(nproc)
 
 	make -j1 DESTDIR=$PKG_INSTALL_DIR install
 
 	echo "Removing conflicting file pkgconfig..."
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/pkgconfig
 	rm -rfv $PKG_INSTALL_DIR/usr/share/info/dir
 }

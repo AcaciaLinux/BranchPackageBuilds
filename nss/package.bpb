@@ -4,10 +4,10 @@ source=https://archive.mozilla.org/pub/security/nss/releases/NSS_3_78_RTM/src/ns
 dependencies=[nspr][sqlite][p11-kit]
 description=The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications.
 build={
-	wget  https://www.linuxfromscratch.org/patches/blfs/svn/nss-3.78-standalone-1.patch
+	wget https://www.linuxfromscratch.org/patches/blfs/svn/nss-3.79-standalone-1.patch
 	
 	cd nss-3.78
-	patch -Np1 -i ../nss-3.78-standalone-1.patch &&
+	patch -Np1 -i ../nss-3.79-standalone-1.patch &&
 
 	cd nss &&
 
@@ -33,9 +33,6 @@ build={
 	mkdir -v $PKG_INSTALL_DIR/usr/bin
 	install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $PKG_INSTALL_DIR/usr/bin
 
-	mkdir -v $PKG_INSTALL_DIR/usr/lib
+	mkdir -pv $PKG_INSTALL_DIR/usr/lib/pkgconfig
 	install -v -m644 Linux*/lib/pkgconfig/nss.pc  $PKG_INSTALL_DIR/usr/lib/pkgconfig
-
-	echo "Removing conflicting files..."
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/pkgconfig
 }
