@@ -1,0 +1,12 @@
+name=xorg-vmware
+version=13.3.0
+source=https://www.x.org/pub/individual/driver/xf86-video-vmware-13.3.0.tar.bz2
+dependencies=[xorg-server]
+builddeps=
+description=The Xorg VMware Driver package contains the X.Org Video Driver for VMware SVGA virtual video cards.
+build={
+	cd xf86-video-vmware-13.3.0
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

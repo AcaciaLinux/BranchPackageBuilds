@@ -1,0 +1,13 @@
+name=xorg-libinput
+version=1.2.1
+source=https://www.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
+dependencies=[libinput][xorg-server]
+builddeps=
+description=The X.Org libinput driver is a thing wrapper around libinput
+build={
+	cd xf86-input-libinput-1.2.1
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

@@ -1,0 +1,12 @@
+name=xorg-xinit
+version=1.4.1
+source= https://www.x.org/pub/individual/app/xinit-1.4.1.tar.bz2
+dependencies=[x11-libs][twm][xclock][xterm]
+builddeps=
+description=The xiit package contains a usable script to start the xserver.
+build={
+	cd xinit-1.4.1
+	./configure $XORG_CONFIG --with-xinitdir=/etc/X11/app-defaults &&
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

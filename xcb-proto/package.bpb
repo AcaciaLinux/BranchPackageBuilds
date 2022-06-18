@@ -1,0 +1,11 @@
+name=xcb-proto
+version=1.14.1
+source=https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.14.1.tar.xz
+dependencies=
+builddeps=[python3][x11-build-environment]
+description=The xcb-proto package provides the XML-XCB protocol descriptions that libxcb uses to generate the majority of its code and API. 
+build={
+	cd xcb-proto-1.14.1
+	PYTHON=python3 ./configure $XORG_CONFIG
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

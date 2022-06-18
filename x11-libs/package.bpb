@@ -1,0 +1,45 @@
+name=x11-libs
+version=202206
+source=
+dependencies=[fontconfig][libxcb]
+builddeps=[wget][x11-build-environment]
+description=This package contains most x11-libraries
+build={
+	set +e
+	mkdir lib &&
+	cd lib &&
+	grep -v '^#' ../../lib-7.md5 | awk '{print $2}' | wget -i- -c \
+    		-B https://www.x.org/pub/individual/lib/ &&
+
+	for package in $(grep -v '^#' ../../lib-7.md5 | awk '{print $2}')
+	do
+  		packagedir=${package%.tar.?z*}
+  		tar -xf $package
+  		pushd $packagedir
+  		docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+  		case $packagedir in
+  			libICE* )
+  			    ./configure $XORG_CONFIG $docdir ICE_LIBS=-lpthread
+    			;;
+
+			libXfont2-[0-9]* )
+      			    ./configure $XORG_CONFIG $docdir --disable-devel-docs
+    			;;
+
+    			libXt-[0-9]* )
+      				./configure $XORG_CONFIG $docdir \
+     			             --with-appdefaultdir=/etc/X11/app-defaults
+    			;;
+
+    			* )
+      				./configure $XORG_CONFIG $docdir
+    			;;
+  		esac
+  	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+  	make install
+	popd
+  	rm -rf $packagedir
+	done
+	set -e	
+}

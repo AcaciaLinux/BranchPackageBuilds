@@ -1,0 +1,17 @@
+name=grub
+version=2.06
+source=https://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
+dependencies=
+builddeps=
+description= The GRUB package contains the GRand Unified Bootloader. 
+build={
+	cd grub-2.06
+	./configure --prefix=/usr          \
+            --sysconfdir=/etc      \
+            --disable-efiemu       \
+            --disable-werror
+
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

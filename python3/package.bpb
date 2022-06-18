@@ -1,0 +1,18 @@
+name=python3
+version=3.10.5
+source= https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
+dependencies=[libffi]
+builddeps=
+description=The Python 3 package contains the Python development environment. 
+build={
+	cd Python-3.10.5
+	CXX="/usr/bin/g++"               \
+./configure --prefix=/usr        \
+            --enable-shared      \
+            --with-system-expat  \
+            --with-system-ffi    \
+            --enable-optimizations &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

@@ -1,20 +1,12 @@
 name=libffi
-version=3.2.1
-source=
+version=3.4.2
+source=https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
 dependencies=
 builddeps=
 description=The libffi library provides a portable, high level programming interface to various calling conventions.
 build={
-	wget ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
-	tar xpf libffi-3.2.1.tar.gz
-	cd libffi-3.2.1
-
-	sed -e '/^includesdir/ s/$(libdir).*$/$(includedir)/' \
-    	-i include/Makefile.in &&
-
-	sed -e '/^includedir/ s/=.*$/=@includedir@/' \
-    	-e 's/^Cflags: -I${includedir}/Cflags:/' \
-    	-i libffi.pc.in        &&
+	
+	cd libffi-3.4.2
 
 	./configure --prefix=/usr --disable-static --with-gcc-arch=x86-64 &&
 	make -j$(nproc)

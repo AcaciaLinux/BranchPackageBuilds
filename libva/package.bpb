@@ -1,0 +1,14 @@
+name=libva
+version=2.13.0
+source=https://github.com/intel/libva/releases/download/2.13.0/libva-2.13.0.tar.bz2
+dependencies=[libdrm][mesa]
+builddeps=
+description= The libva package contains a library which provides access to hardware accelerated video processing, using hardware to accelerate video processing in order to offload the central processing unit (CPU) to decode and encode compressed digital video. 
+build={
+	cd libva-2.13.0
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+	
+	make DESTDIR=$PKG_INSTALL_DIR install
+	
+}

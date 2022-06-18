@@ -1,0 +1,14 @@
+name=xorg-fbdev
+version=0.5.0
+source=https://www.x.org/pub/individual/driver/xf86-video-fbdev-0.5.0.tar.bz2
+dependencies=[xorg-server]
+builddeps=
+description=The Xorg Fbdev Driver package contains the X.Org Video driver for framebuffer devices, which is often used as a fallback driver.
+build={
+	cd xf86-video-fbdev-0.5.0
+
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}
