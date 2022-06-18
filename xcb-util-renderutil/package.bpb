@@ -1,0 +1,13 @@
+name=xcb-util-renderutil
+version=0.3.9
+source=https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
+dependencies=[libxcb]
+builddeps=
+description=The xcb-util-renderutil package provides additional extensions to the XCB library. 
+build={
+	cd xcb-util-renderutil-0.3.9
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

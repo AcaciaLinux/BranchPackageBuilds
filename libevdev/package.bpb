@@ -1,0 +1,14 @@
+name=libevdev
+version=1.12.0
+source=https://www.freedesktop.org/software/libevdev/libevdev-1.12.0.tar.xz
+dependencies=
+builddeps=
+description=The libevdev package contains common functions for Xorg input drivers
+build={
+	cd libevdev-1.12.0
+	
+	./configure $XORG_CONFIG &&
+	make -j$(nproc)
+	
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

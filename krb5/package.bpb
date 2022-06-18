@@ -1,0 +1,68 @@
+name=krb5
+version=1.19.2
+source=https://kerberos.org/dist/krb5/1.19/krb5-1.19.2.tar.gz
+dependencies=[bind-utilities][gnupg]
+builddeps=
+description=MIT Kerberos V5 is a free implementation of Kerberos 5.
+build={
+	cd krb5-1.19.2
+
+	sed -i '210a if (sprinc == NULL) {\
+       status = "NULL_SERVER";\
+       errcode = KRB5KDC_ERR_S_PRINCIPAL_UNKNOWN;\
+       goto cleanup;\
+       }' src/kdc/do_tgs_req.c
+
+	patch -Np1 -i ../../mitkrb-1.19.2-openssl3_fixes-1.patch
+
+	cd src &&
+
+	sed -i -e 's@\^u}@^u cols 300}@' tests/dejagnu/config/default.exp     &&
+	sed -i -e '/eq 0/{N;s/12 //}'    plugins/kdb/db2/libdb2/test/run.test &&
+	sed -i '/t_iprop.py/d'           tests/Makefile.in                    &&
+
+	autoreconf -fiv &&
+
+	./configure --prefix=/usr            \
+            --sysconfdir=/etc        \
+            --localstatedir=/var/lib \
+            --runstatedir=/run       \
+            --with-system-et         \
+            --with-system-ss         \
+            --with-system-verto=no   \
+            --enable-dns-for-realm &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	
+install -v -dm755 $PKG_INSTALL_DIR/usr/share/doc/krb5-1.19.2 &&
+cp -vfr ../doc/*  $PKG_INSTALL_DIR/usr/share/doc/krb5-1.19.2
+
+cat > $PKG_INSTALL_DIR/etc/krb5.conf.example << "EOF"
+# Begin /etc/krb5.conf
+
+[libdefaults]
+    default_realm = <EXAMPLE.ORG>
+    encrypt = true
+
+[realms]
+    <EXAMPLE.ORG> = {
+        kdc = <belgarath.example.org>
+        admin_server = <belgarath.example.org>
+        dict_file = /usr/share/dict/words
+    }
+
+[domain_realm]
+    .<example.org> = <EXAMPLE.ORG>
+
+[logging]
+    kdc = SYSLOG:INFO:AUTH
+    admin_server = SYSLOG:INFO:AUTH
+    default = SYSLOG:DEBUG:DAEMON
+
+# End /etc/krb5.conf
+EOF
+
+
+}

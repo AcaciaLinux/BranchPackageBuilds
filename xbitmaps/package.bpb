@@ -1,0 +1,12 @@
+name=xbitmaps
+version=1.1.2
+source=https://www.x.org/pub/individual/data/xbitmaps-1.1.2.tar.bz2
+dependencies=[util-macros]
+builddeps=
+description=The xbitmaps package contains bitmap images used by multiple applications built in Xorg chapter. 
+build={
+	cd xbitmaps-1.1.2	
+
+	./configure $XORG_CONFIG
+	make DESTDIR=$PKG_INSTALL_DIR install
+}
