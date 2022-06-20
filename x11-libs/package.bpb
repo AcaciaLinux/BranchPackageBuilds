@@ -42,4 +42,8 @@ build={
   	rm -rf $packagedir
 	done
 	set -e	
+
+	echo "Removing conflicting files..."
+	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/XKBgeom.h
+	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/vldXvMC.h
 }

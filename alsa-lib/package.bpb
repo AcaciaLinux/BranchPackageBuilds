@@ -1,0 +1,24 @@
+name=alsa-lib
+version=1.2.7.1
+source=https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.7.1.tar.bz2
+dependencies=[python2]
+builddeps=
+description=The ALSA Library package contains the ALSA library used by programs (including ALSA Utilities) requiring access to the ALSA sound interface.
+build={
+
+
+cd alsa-lib-1.2.7.1
+./configure &&
+make -j$(nproc)
+make DESTDIR=$PKG_INSTALL_DIR install
+install -v -d -m755 $PKG_INSTALL_DIR/usr/share/doc/alsa-lib-1.2.7.1/html/search &&
+install -v -m644 doc/doxygen/html/*.* \
+                $PKG_INSTALL_DIR/usr/share/doc/alsa-lib-1.2.7.1/html &&
+install -v -m644 doc/doxygen/html/search/* \
+                $PKG_INSTALL_DIR/usr/share/doc/alsa-lib-1.2.7.1/html/search
+
+
+
+
+
+}

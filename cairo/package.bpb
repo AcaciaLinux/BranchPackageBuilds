@@ -1,8 +1,8 @@
 name=cairo
 version=1.17.6
 source=https://download.gnome.org/sources/cairo/1.17/cairo-1.17.6.tar.xz
-dependencies=[libpng][pixman]
-builddeps=
+dependencies=[libpng][pixman][mesa][libdrm]
+builddeps=[fontconfig][glib][x11-libs]
 description=Cairo is a 2D graphics library
 build={
 	cd cairo-1.17.6

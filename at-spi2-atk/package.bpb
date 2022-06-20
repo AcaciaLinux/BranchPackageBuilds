@@ -1,0 +1,19 @@
+name=at-spi2-atk
+version=2.38.0
+source=https://download.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
+dependencies=[at-spi2-core][atk]
+builddeps=
+description= The At-Spi2 Atk package contains a library that bridges ATK to At-Spi2 D-Bus service. 
+build={
+	cd at-spi2-atk-2.38.0
+
+	mkdir build &&
+	cd build &&
+
+	meson --prefix=/usr --buildtype=release .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	glib-compile-schemas $PKG_INSTALL_DIR/usr/share/glib-2.0/schemas
+}

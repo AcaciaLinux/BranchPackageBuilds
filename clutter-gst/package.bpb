@@ -1,0 +1,7 @@
+name=clutter-gst
+version=3.0.27
+source=https://download.gnome.org/sources/clutter-gst/3.0/clutter-gst-3.0.27.tar.xz
+dependencies=[clutter][gst-plugins-base][libgudev][gobject-introspection][gst-plugins-bad]
+builddeps=
+description= The Clutter Gst package contains an integration library for using GStreamer with Clutter. Its purpose is to implement the ClutterMedia interface using GStreamer. 
+build={}

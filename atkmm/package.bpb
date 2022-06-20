@@ -1,0 +1,19 @@
+name=atkmm
+version=2.28.2
+source=https://download.gnome.org/sources/atkmm/2.28/atkmm-2.28.2.tar.xz
+dependencies=[atk][glibmm]
+builddeps=
+description= Atkmm is the official C++ interface for the ATK accessibility toolkit library. 
+build={
+	cd atkmm-2.28.2
+
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr --buildtype=release .. &&
+	ninja
+	
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+	
+
+}

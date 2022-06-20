@@ -1,0 +1,17 @@
+name=pango
+version=1.50.7
+source=https://download.gnome.org/sources/pango/1.50/pango-1.50.7.tar.xz
+dependencies=[fontconfig][fribidi][glib]
+builddeps=[cairo][gobject-introspection][x11-libs]
+description=Pango is a library for laying out and rendering text, with an emphasis on internationalization. 
+build={
+	cd pango-1.50.7
+
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr --buildtype=release --wrap-mode=nofallback .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

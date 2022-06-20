@@ -1,7 +1,7 @@
 name=atk
 version=2.38.0
 source=https://download.gnome.org/sources/atk/2.38/atk-2.38.0.tar.xz
-dependencies=[glib]
+dependencies=[glib][gobject-introspection]
 description=ATK provides the set of accessibility interfaces that are implemented by other toolkits and applications.
 build={
 	cd atk-2.38.0

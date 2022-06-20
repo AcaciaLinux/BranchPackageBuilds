@@ -21,4 +21,7 @@ build={
 
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/applications &&
 	cp -v *.desktop $PKG_INSTALL_DIR/usr/share/applications/	
+
+	echo "Removing conflicting files..."
+	rm -rvf $PKG_INSTALL_DIR/usr/share/terminfo/
 }
