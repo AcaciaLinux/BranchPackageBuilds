@@ -1,4 +1,10 @@
-#%PAM-1.0
-auth		sufficient	pam_rootok.so
-account		required	pam_permit.so
-password	include		system-auth
+# Begin /etc/pam.d/chgpasswd
+
+# always allow root
+auth      sufficient  pam_rootok.so
+
+# include system auth and account settings
+auth      include     system-auth
+account   include     system-account
+
+# End /etc/pam.d/chgpasswd

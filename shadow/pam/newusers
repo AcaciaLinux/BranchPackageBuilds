@@ -1,6 +1,11 @@
-#%PAM-1.0
-auth		sufficient	pam_rootok.so
-auth		required	pam_unix.so
-account		required	pam_unix.so
-session		required	pam_unix.so
-password 	required 	pam_unix.so sha512 shadow
+# Begin /etc/pam.d/newusers
+
+# always allow root
+auth      sufficient  pam_rootok.so
+
+# include system auth and account settings
+auth      include     system-auth
+account   include     system-account
+password  include     system-password
+
+# End /etc/pam.d/newusers
