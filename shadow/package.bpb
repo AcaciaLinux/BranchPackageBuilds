@@ -51,5 +51,7 @@ build={
 	
 	install -vdm755 $PKG_INSTALL_DIR/etc/pam.d/
 	cp ../../pam/* $PKG_INSTALL_DIR/etc/pam.d/
-
+	
+	touch $PKG_INSTALL_DIR/etc/shadow
+	chmod 0640 $PKG_INSTALL_DIR/etc/shadow
 }
