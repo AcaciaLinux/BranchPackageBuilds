@@ -21,4 +21,7 @@ build={
 	cat >> $PKG_INSTALL_DIR/etc/sysconfig/createfiles << "EOF"
 /tmp/.X11-unix dir 1777 root root
 EOF
+
+	# remove conflicting file..
+	rm $PKG_INSTALL_DIR/usr/lib/xorg/protocol.txt
 }

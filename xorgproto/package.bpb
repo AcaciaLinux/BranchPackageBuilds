@@ -14,4 +14,8 @@ build={
 
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 	mv -v $PKG_INSTALL_DIR/$XORG_PREFIX/share/doc/xorgproto{,-2021.5}
+
+	# remove conflicting files
+	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/ldXvMC.h
+	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/XKBgeom.h
 }
