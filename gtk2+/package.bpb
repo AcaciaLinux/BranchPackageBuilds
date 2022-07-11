@@ -1,0 +1,21 @@
+name=gtk2+
+version=2.24.33
+description=The GTK+ 2 package contains libraries used for creating graphical user interfaces for applications. 
+source=https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.33.tar.xz
+dependencies=[atk][gdk-pixbuf][pango][hicolor-icon-theme]
+builddeps=
+real_version=0
+build={
+	cd gtk+-2.24.33
+	sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
+    		-i docs/{faq,tutorial}/Makefile.in      &&
+
+	./configure --prefix=/usr --sysconfdir=/etc &&
+
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	# Remove conflicting files
+	rm $PKG_INSTALL_DIR/usr/bin/gtk-update-icon-cache
+}

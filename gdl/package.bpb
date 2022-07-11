@@ -1,0 +1,15 @@
+name=gdl
+version=3.40.0
+description= The GDL package provides a library that is useful for docking objects in GTK+ applications. 
+source=https://download.gnome.org/sources/gdl/3.40/gdl-3.40.0.tar.xz
+dependencies=[gtk+]
+builddeps=
+real_version=0
+build={
+
+	cd gdl-3.40.0
+	./configure --prefix=/usr --disable-static &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

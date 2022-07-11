@@ -1,0 +1,22 @@
+name=gst-plugins-base
+version=1.20.0
+description=The GStreamer Base Plug-ins is a well-groomed and well-maintained collection of GStreamer plug-ins and elements
+source=https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.20.0.tar.xz
+dependencies=[gstreamer][alsa-lib][graphene][gtk+][gobject-introspection][iso-codecs][libgudev][libjpeg-turbo][libogg][libpng][libtheora][libvorbis][mesa][pango][Wayland-protocols][x11-libs]
+builddeps=
+real_version=0
+build={
+	cd gst-plugins-base-1.20.0
+
+	mkdir build &&
+	cd    build &&
+
+	meson  --prefix=/usr       \
+       --buildtype=release \
+       -Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/svn/ \
+       -Dpackage-name="GStreamer 1.20.0 BLFS"    \
+       --wrap-mode=nodownload &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

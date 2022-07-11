@@ -1,0 +1,16 @@
+name=libtheora
+version=1.1.1
+description=libtheora is a reference implementation of the Theora video compression format being developed by the Xiph.Org Foundation. 
+source=https://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.xz
+dependencies=[libvorbis]
+builddeps=
+real_version=0
+build={
+	cd libtheora-1.1.1
+
+	sed -i 's/png_\(sizeof\)/\1/g' examples/png2theora.c &&
+	./configure --prefix=/usr --disable-static &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

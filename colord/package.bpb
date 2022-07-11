@@ -1,0 +1,30 @@
+name=colord
+version=1.4.6
+description=Colord is a system service that makes it easy to manage, install, and generate color profiles.
+source=https://www.freedesktop.org/software/colord/releases/colord-1.4.6.tar.xz
+dependencies=[dbus][glib][little-cms][polkit][sqlite][gobject-introspection][libgudev][vala][libgusb]
+builddeps=
+real_version=0
+build={
+	cd colord-1.4.6
+
+	mv po/fur.po po/ur.po &&
+	sed -i 's/fur/ur/' po/LINGUAS
+
+	mkdir build &&
+	cd build &&
+
+	meson --prefix=/usr            \
+      		--buildtype=release      \
+      		-Ddaemon_user=colord     \
+      		-Dvapi=true              \
+      		-Dsystemd=true           \
+      		-Dlibcolordcompat=true   \
+      		-Dargyllcms_sensor=false \
+      		-Dbash_completion=false  \
+      		-Ddocs=false             \
+      		-Dman=false ..           &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

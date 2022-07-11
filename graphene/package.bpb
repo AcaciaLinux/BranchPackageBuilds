@@ -1,0 +1,18 @@
+name=graphene
+version=1.10.6
+description=The Graphene package provides a thin layer of types for graphics libraries
+source=https://github.com/ebassi/graphene/releases/download/1.10.6/graphene-1.10.6.tar.xz
+dependencies=[glib][gobject-introspection]
+builddeps=
+real_version=0
+build={
+	cd graphene-1.10.6
+
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr --buildtype=release .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

@@ -1,0 +1,13 @@
+name=libgsf
+version=1.14.49
+description=The libgsf package contains a library used for providing an extensible input/output abstraction layer for structured file formats. 
+source= https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.49.tar.xz
+dependencies=[glib][libxml2][gdk-pixbuf][gobject-introspection]
+builddeps=
+real_version=0
+build={
+	cd libgsf-1.14.49
+	./configure --prefix=/usr --disable-static &&
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

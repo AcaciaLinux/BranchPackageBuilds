@@ -1,0 +1,18 @@
+name=gdk-pixbuf-xlib
+version=2.40.2
+description=The gdk-pixbuf-xlib package provides a deprecated Xlib interface to gdk-pixbuf, which is needed for some applications which have not been ported to use the new interfaces yet. 
+source=https://download.gnome.org/sources/gdk-pixbuf-xlib/2.40/gdk-pixbuf-xlib-2.40.2.tar.xz
+dependencies=[gdk-pixbuf][x11-libs]
+builddeps=
+real_version=0
+build={
+	cd gdk-pixbuf-xlib-2.40.2
+
+	mkdir build &&
+	cd    build &&
+
+	meson --prefix=/usr .. &&
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+}

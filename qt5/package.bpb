@@ -1,0 +1,111 @@
+name=qt5
+version=5.15.5
+description=Qt5 is a cross-platform application framework that is widely used for developing application software with a graphical user interface
+source=https://download.qt.io/archive/qt/5.15/5.15.5/single/qt-everywhere-opensource-src-5.15.5.tar.xz
+dependencies=[x11-libs][alsa-lib][make-ca][glib][gst-plugins-base][harfbuzz][icu][jasper][libjpeg-turbo][libmng][libpng][libtiff][libwebp][libxkbcommon][mesa][mtdev][pcre2][sqlite][wayland][xcb-util-image][xcb-util-keysyms][xcb-util-renderutil][xcb-util-wm]
+builddeps=
+real_version=0
+build={
+	cd qt-everywhere-src-5.15.5
+	export QT5PREFIX=$PKG_INSTALL_DIR/usr/
+
+	./configure -prefix $QT5PREFIX                        \
+            -sysconfdir /etc/xdg                      \
+            -confirm-license                          \
+            -opensource                               \
+            -dbus-linked                              \
+            -openssl-linked                           \
+            -system-harfbuzz                          \
+            -system-sqlite                            \
+            -nomake examples                          \
+            -no-rpath                                 \
+            -journald                                 \
+            -skip qtwebengine                         \
+            -archdatadir    $PKG_INSTALL_DIR/usr/lib/qt5                \
+            -bindir         $PKG_INSTALL_DIR/usr/bin                    \
+            -plugindir      $PKG_INSTALL_DIR/usr/lib/qt5/plugins        \
+            -importdir      $PKG_INSTALL_DIR/usr/lib/qt5/imports        \
+            -headerdir      $PKG_INSTALL_DIR/usr/include/qt5            \
+            -datadir        $PKG_INSTALL_DIR/usr/share/qt5              \
+            -docdir         $PKG_INSTALL_DIR/usr/share/doc/qt5          \
+            -translationdir $PKG_INSTALL_DIR/usr/share/qt5/translations \
+            -examplesdir    $PKG_INSTALL_DIR/usr/share/doc/qt5/examples
+
+	make -j$(nproc)
+	
+	make install
+
+	unset QT5PREFIX	
+
+	find $PKG_INSTALL_DIR/usr/ -name \*.prl \
+   		-exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+	install -v -dm755 $PKG_INSTALL_DIR/usr/share/pixmaps/                  &&
+
+install -v -Dm644 qttools/src/assistant/assistant/images/assistant-128.png \
+                  $PKG_INSTALL_DIR/usr/share/pixmaps/assistant-qt5.png &&
+
+install -v -Dm644 qttools/src/designer/src/designer/images/designer.png \
+                  $PKG_INSTALL_DIR/usr/share/pixmaps/designer-qt5.png  &&
+
+install -v -Dm644 qttools/src/linguist/linguist/images/icons/linguist-128-32.png \
+                  $PKG_INSTALL_DIR/usr/share/pixmaps/linguist-qt5.png  &&
+
+install -v -Dm644 qttools/src/qdbus/qdbusviewer/images/qdbusviewer-128.png \
+                  $PKG_INSTALL_DIR/usr/share/pixmaps/qdbusviewer-qt5.png &&
+
+install -dm755 $PKG_INSTALL_DIR/usr/share/applications &&
+
+cat > $PKG_INSTALL_DIR/usr/share/applications/assistant-qt5.desktop << EOF
+[Desktop Entry]
+Name=Qt5 Assistant
+Comment=Shows Qt5 documentation and examples
+Exec=$QT5BINDIR/assistant
+Icon=assistant-qt5.png
+Terminal=false
+Encoding=UTF-8
+Type=Application
+Categories=Qt;Development;Documentation;
+EOF
+
+cat > $PKG_INSTALL_DIR/usr/share/applications/designer-qt5.desktop << EOF
+[Desktop Entry]
+Name=Qt5 Designer
+GenericName=Interface Designer
+Comment=Design GUIs for Qt5 applications
+Exec=$QT5BINDIR/designer
+Icon=designer-qt5.png
+MimeType=application/x-designer;
+Terminal=false
+Encoding=UTF-8
+Type=Application
+Categories=Qt;Development;
+EOF
+
+cat > $PKG_INSTALL_DIR/usr/share/applications/linguist-qt5.desktop << EOF
+[Desktop Entry]
+Name=Qt5 Linguist
+Comment=Add translations to Qt5 applications
+Exec=$QT5BINDIR/linguist
+Icon=linguist-qt5.png
+MimeType=text/vnd.trolltech.linguist;application/x-linguist;
+Terminal=false
+Encoding=UTF-8
+Type=Application
+Categories=Qt;Development;
+EOF
+
+cat > $PKG_INSTALL_DIR/usr/share/applications/qdbusviewer-qt5.desktop << EOF
+[Desktop Entry]
+Name=Qt5 QDbusViewer
+GenericName=D-Bus Debugger
+Comment=Debug D-Bus applications
+Exec=$QT5BINDIR/qdbusviewer
+Icon=qdbusviewer-qt5.png
+Terminal=false
+Encoding=UTF-8
+Type=Application
+Categories=Qt;Development;Debugger;
+EOF
+
+}

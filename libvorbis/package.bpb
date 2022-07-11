@@ -1,0 +1,15 @@
+name=libvorbis
+version=1.3.7
+description=The libvorbis package contains a general purpose audio and music encoding format.
+source=https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz
+dependencies=[libogg]
+builddeps=
+real_version=0
+build={
+	cd libvorbis-1.3.7
+	./configure --prefix=/usr --disable-static &&
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	install -v -m644 doc/Vorbis* $PKG_INSTALL_DIR/usr/share/doc/libvorbis-1.3.7
+}
