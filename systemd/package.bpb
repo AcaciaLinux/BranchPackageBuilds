@@ -1,72 +1,59 @@
 name=systemd
 version=250
+real_version=0
 source=https://github.com/systemd/systemd/archive/v250/systemd-250.tar.gz
 dependencies=[linux-pam][polkit][iptables][p11-kit]
 builddeps=
 description=The systemd init and service handling system.
 build={
 	python3 -m pip install jinja2
-
 	wget https://www.linuxfromscratch.org/patches/blfs/11.1/systemd-250-upstream_fixes-1.patch
-
 	cd systemd-250
 	patch -Np1 -i ../systemd-250-upstream_fixes-1.patch
 	#patch -Np1 -i ../systemd-250-kernel_5.17_fixes-1.patch
-
 	sed -i -e 's/GROUP="render"/GROUP="video"/' \
-       -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
-	
+	       -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr                 \
-      --buildtype=release           \
-      -Dblkid=true                  \
-      -Ddefault-dnssec=no           \
-      -Dfirstboot=false             \
-      -Dinstall-tests=false         \
-      -Dldconfig=false              \
-      -Dman=false                    \
-      -Dsysusers=false              \
-      -Drpmmacrosdir=no             \
-      -Db_lto=false                 \
-      -Dhomed=false                 \
-      -Duserdb=false                \
-      -Dmode=release                \
-      -Dpamconfdir=/etc/pam.d       \
-      -Ddocdir=/usr/share/doc/systemd-250 \
-      ..                            &&
-
+	      --buildtype=release           \
+	      -Dblkid=true                  \
+	      -Ddefault-dnssec=no           \
+	      -Dfirstboot=false             \
+	      -Dinstall-tests=false         \
+	      -Dldconfig=false              \
+	      -Dman=false                    \
+	      -Dsysusers=false              \
+	      -Drpmmacrosdir=no             \
+	      -Db_lto=false                 \
+	      -Dhomed=false                 \
+	      -Duserdb=false                \
+	      -Dmode=release                \
+	      -Dpamconfdir=/etc/pam.d       \
+	      -Ddocdir=/usr/share/doc/systemd-250 \
+	      ..                            &&
 	ninja
 	DESTDIR=$PKG_INSTALL_DIR ninja install
-
-mkdir -vp /etc/pam.d/
-grep 'pam_systemd' $PKG_INSTALL_DIR/etc/pam.d/system-session ||
-cat >> /etc/pam.d/system-session << "EOF"
-# Begin Systemd addition
-
-session  required    pam_loginuid.so
-session  optional    pam_systemd.so
-
-# End Systemd addition
-EOF
-
-cat > $PKG_INSTALL_DIR/etc/pam.d/systemd-user << "EOF"
-# Begin /etc/pam.d/systemd-user
-
-account  required    pam_access.so
-account  include     system-account
-
-session  required    pam_env.so
-session  required    pam_limits.so
-session  required    pam_unix.so
-session  required    pam_loginuid.so
-session  optional    pam_keyinit.so force revoke
-session  optional    pam_systemd.so
-
-auth     required    pam_deny.so
-password required    pam_deny.so
-
-# End /etc/pam.d/systemd-user
-EOF
+	mkdir -vp /etc/pam.d/
+	grep 'pam_systemd' $PKG_INSTALL_DIR/etc/pam.d/system-session ||
+	cat >> /etc/pam.d/system-session << "EOF"
+	# Begin Systemd addition
+	session  required    pam_loginuid.so
+	session  optional    pam_systemd.so
+	# End Systemd addition
+	EOF
+	cat > $PKG_INSTALL_DIR/etc/pam.d/systemd-user << "EOF"
+	# Begin /etc/pam.d/systemd-user
+	account  required    pam_access.so
+	account  include     system-account
+	session  required    pam_env.so
+	session  required    pam_limits.so
+	session  required    pam_unix.so
+	session  required    pam_loginuid.so
+	session  optional    pam_keyinit.so force revoke
+	session  optional    pam_systemd.so
+	auth     required    pam_deny.so
+	password required    pam_deny.so
+	# End /etc/pam.d/systemd-user
+	EOF
 }

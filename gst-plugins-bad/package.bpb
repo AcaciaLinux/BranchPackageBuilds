@@ -1,22 +1,19 @@
 name=gst-plugins-bad
 version=1.20.3
-description=The GStreamer Good Plug-ins is a set of plug-ins considered by the GStreamer developers to have good quality code, correct functionality, and the preferred license
+real_version=0
 source=https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.20.3.tar.xz
 dependencies=[gst-plugins-base][cairo][flac][gdk-pixbuf][lame][libsoup][libvpx][mpg123][nasm]
 builddeps=
-real_version=0
+description=The GStreamer Good Plug-ins is a set of plug-ins considered by the GStreamer developers to have good quality code, correct functionality, and the preferred license
 build={
 	cd gst-plugins-bad-1.20.3
-
 	mkdir build &&
-cd    build &&
-
-meson  --prefix=/usr       \
-       --buildtype=release \
-       -Dgpl=enabled \
+	cd    build &&
+	meson  --prefix=/usr       \
+	       --buildtype=release \
+	       -Dgpl=enabled \
 	-Dpackage-origin=https://AcaciaLinux.org/ \
-       -Dpackage-name="GStreamer 1.20.3 AcaciaLinux" &&
-ninja
-
-DESTDIR=$PKG_INSTALL_DIR ninja install
+	       -Dpackage-name="GStreamer 1.20.3 AcaciaLinux" &&
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

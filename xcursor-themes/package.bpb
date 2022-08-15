@@ -1,5 +1,6 @@
 name=xcursor-themes
 version=1.0.6
+real_version=0
 source=
 dependencies=[x11-apps]
 builddeps=
@@ -7,10 +8,8 @@ description= The xcursor-themes package contains the redglass and whiteglass ani
 build={
 	wget https://www.x.org/pub/individual/data/xcursor-themes-1.0.6.tar.bz2
 	tar xf xcursor-themes-1.0.6.tar.bz2
-
 	cd xcursor-themes-1.0.6
 	./configure $XORG_CONFIG &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

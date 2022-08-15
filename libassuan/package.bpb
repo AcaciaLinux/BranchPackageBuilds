@@ -1,26 +1,23 @@
 name=libassuan
 version=2.5.5
+real_version=0
 source=https://www.gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.5.tar.bz2
 dependencies=[libgpg-error]
+builddeps=
 description=The libassuan package contains an inter process communication library used by some of the other GnuPG related packages.
 build={
 	cd libassuan-2.5.5
 	./configure --prefix=/usr
 	make -j$(nproc)
-
 	make -C doc html
 	makeinfo --html --no-split -o doc/assuan_nochunks.html doc/assuan.texi
 	makeinfo --plaintext       -o doc/assuan.txt           doc/assuan.texi
-
 	make DESTDIR=$PKG_INSTALL_DIR install
-	
 	install -v -dm755   /usr/share/doc/libassuan-2.5.5/html
 	install -v -m644 doc/assuan.html/* \
-                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5/html
-	
+	                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5/html
 	install -v -m644 doc/assuan_nochunks.html \
-                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5
-
+	                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5
 	install -v -m644 doc/assuan.{txt,texi} \
-                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5
+	                    $PKG_INSTALL_DIR/usr/share/doc/libassuan-2.5.5
 }

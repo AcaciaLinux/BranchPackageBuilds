@@ -1,17 +1,15 @@
 name=fribidi
 version=1.0.11
+real_version=0
 source=https://github.com/fribidi/fribidi/releases/download/v1.0.11/fribidi-1.0.11.tar.xz
 dependencies=
 builddeps=
 description=The FriBidi package is an implementation of the Unicode Bidirectional Algorithm (BIDI). 
 build={
 	cd fribidi-1.0.11
-	
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr --buildtype=release .. &&
 	ninja
-
-	DESTDIR=$PKG_INSTALL_DIR ninja install	
+	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

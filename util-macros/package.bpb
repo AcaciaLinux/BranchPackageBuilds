@@ -1,5 +1,6 @@
 name=util-macros
 version=1.19.3
+real_version=0
 source=https://www.x.org/pub/individual/util/util-macros-1.19.3.tar.bz2
 dependencies=
 builddeps=[x11-build-environment]
@@ -7,6 +8,5 @@ description=The util-macros package contains the m4 macros used by all of the Xo
 build={
 	cd util-macros-1.19.3
 	./configure $XORG_CONFIG
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

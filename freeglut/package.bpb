@@ -1,22 +1,19 @@
 name=freeglut
 version=3.2.2
-description=Freeglut is intended to be a 100% compatible, completely opensourced clone of the GLUT library. 
+real_version=0
 source=https://downloads.sourceforge.net/freeglut/freeglut-3.2.2.tar.gz
 dependencies=[mesa]
 builddeps=[cmake][glu]
-real_version=0
+description=Freeglut is intended to be a 100% compatible, completely opensourced clone of the GLUT library. 
 build={
-	cd freeglut-3.2.2	
-
+	cd freeglut-3.2.2
 	mkdir build &&
 	cd    build &&
-
 	cmake -DCMAKE_INSTALL_PREFIX=/usr       \
-      		-DCMAKE_BUILD_TYPE=Release        \
-      		-DFREEGLUT_BUILD_DEMOS=OFF        \
-      		-DFREEGLUT_BUILD_STATIC_LIBS=OFF  \
-      		-Wno-dev .. &&
-
+	      -DCMAKE_BUILD_TYPE=Release        \
+	      -DFREEGLUT_BUILD_DEMOS=OFF        \
+	      -DFREEGLUT_BUILD_STATIC_LIBS=OFF  \
+	      -Wno-dev .. &&
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

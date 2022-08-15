@@ -1,15 +1,13 @@
 name=iso-codecs
 version=4.10.0
-description=The ISO Codes package contains a list of country, language and currency names and it is used as a central database for accessing this data. 
+real_version=0
 source=http://ftp.debian.org/debian/pool/main/i/iso-codes/iso-codes_4.10.0.orig.tar.xz
 dependencies=
 builddeps=
-real_version=0
+description=The ISO Codes package contains a list of country, language and currency names and it is used as a central database for accessing this data. 
 build={
 	cd iso-codes-4.10.0
-
 	./configure --prefix=/usr &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

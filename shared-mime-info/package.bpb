@@ -1,15 +1,15 @@
 name=shared-mime-info
 version=2.2
+real_version=0
 source=https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/2.2/shared-mime-info-2.2.tar.gz
 dependencies=[glib][libxml2]
+builddeps=
 description=The Shared Mime Info package contains a MIME database.
 build={
-	cd shared-mime-info-2.2	
+	cd shared-mime-info-2.2
 	mkdir build
 	cd    build
-
 	meson --prefix=/usr --buildtype=release -Dupdate-mimedb=true ..
 	ninja
-
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

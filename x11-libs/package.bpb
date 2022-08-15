@@ -1,5 +1,6 @@
 name=x11-libs
 version=202206
+real_version=0
 source=
 dependencies=[fontconfig][libxcb]
 builddeps=[wget][x11-build-environment]
@@ -9,40 +10,35 @@ build={
 	mkdir lib &&
 	cd lib &&
 	grep -v '^#' ../../lib-7.md5 | awk '{print $2}' | wget -i- -c \
-    		-B https://www.x.org/pub/individual/lib/ &&
-
+	    -B https://www.x.org/pub/individual/lib/ &&
 	for package in $(grep -v '^#' ../../lib-7.md5 | awk '{print $2}')
 	do
-  		packagedir=${package%.tar.?z*}
-  		tar -xf $package
-  		pushd $packagedir
-  		docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
-  		case $packagedir in
-  			libICE* )
-  			    ./configure $XORG_CONFIG $docdir ICE_LIBS=-lpthread
-    			;;
-
-			libXfont2-[0-9]* )
-      			    ./configure $XORG_CONFIG $docdir --disable-devel-docs
-    			;;
-
-    			libXt-[0-9]* )
-      				./configure $XORG_CONFIG $docdir \
-     			             --with-appdefaultdir=/etc/X11/app-defaults
-    			;;
-
-    			* )
-      				./configure $XORG_CONFIG $docdir
-    			;;
-  		esac
-  	make -j$(nproc)
+	  packagedir=${package%.tar.?z*}
+	  tar -xf $package
+	  pushd $packagedir
+	  docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+	  case $packagedir in
+	  libICE* )
+	      ./configure $XORG_CONFIG $docdir ICE_LIBS=-lpthread
+	    ;;
+	libXfont2-[0-9]* )
+	          ./configure $XORG_CONFIG $docdir --disable-devel-docs
+	    ;;
+	    libXt-[0-9]* )
+	      ./configure $XORG_CONFIG $docdir \
+	                  --with-appdefaultdir=/etc/X11/app-defaults
+	    ;;
+	    * )
+	      ./configure $XORG_CONFIG $docdir
+	    ;;
+	  esac
+	  make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
-  	make install
+	  make install
 	popd
-  	rm -rf $packagedir
+	  rm -rf $packagedir
 	done
-	set -e	
-
+	set -e
 	echo "Removing conflicting files..."
 	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/XKBgeom.h
 	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/vldXvMC.h

@@ -1,20 +1,17 @@
 name=gtk+
 version=3.24.34
-description=The GTK+ 3 package contains libraries used for creating graphical user interfaces for applications. 
+real_version=0
 source=https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.34.tar.xz
 dependencies=[graphite2][at-spi2-atk][gdk-pixbuf][libepoxy][pango][adwaita-icon-theme][iso-codecs][libxkbcommon][sassc][wayland][Wayland-protocols]
 builddeps=
-real_version=0
+description=The GTK+ 3 package contains libraries used for creating graphical user interfaces for applications. 
 build={
 	cd gtk+-3.24.34
-
 	./configure --prefix=/usr              \
-            --sysconfdir=/etc          \
-            --enable-broadway-backend  \
-            --enable-x11-backend       \
-            --enable-wayland-backend   &&
+	            --sysconfdir=/etc          \
+	            --enable-broadway-backend  \
+	            --enable-x11-backend       \
+	            --enable-wayland-backend   &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
-	
 }

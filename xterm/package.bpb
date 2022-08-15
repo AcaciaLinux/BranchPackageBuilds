@@ -1,27 +1,22 @@
 name=xterm
 version=370
+real_version=0
 source= https://invisible-mirror.net/archives/xterm/xterm-370.tgz
 dependencies=[x11-apps][xorg-fonts]
 builddeps=
 description=xterm is a terminal emulator for the X Window System
 build={
 	cd xterm-370
-
 	sed -i '/v0/{n;s/new:/new:kb=^?:/}' termcap &&
 	printf '\tkbs=\\177,\n' >> terminfo &&
-
 	TERMINFO=/usr/share/terminfo \
 	./configure $XORG_CONFIG     \
-    		--with-app-defaults=/etc/X11/app-defaults &&
-
+	    --with-app-defaults=/etc/X11/app-defaults &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install    &&
 	make DESTDIR=$PKG_INSTALL_DIR install-ti &&
-
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/applications &&
-	cp -v *.desktop $PKG_INSTALL_DIR/usr/share/applications/	
-
+	cp -v *.desktop $PKG_INSTALL_DIR/usr/share/applications/
 	echo "Removing conflicting files..."
 	rm -rvf $PKG_INSTALL_DIR/usr/share/terminfo/
 }

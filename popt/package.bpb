@@ -1,14 +1,13 @@
 name=popt
 version=1.18
+real_version=0
 source=http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
 dependencies=
+builddeps=
 description=The popt package contains the popt libraries which are used by some programs to parse command-line options. 
 build={
 	cd popt-1.18
-
 	./configure --prefix=/usr --disable-static &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
-
 }

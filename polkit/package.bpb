@@ -1,31 +1,27 @@
 name=polkit
 version=0.120
+real_version=0
 source=https://gitlab.freedesktop.org/polkit/polkit/-/archive/0.120/polkit-0.120.tar.gz
 dependencies=[glib][js][gobject-introspection][libxslt][linux-pam]
+builddeps=
 description=Polkit is a toolkit for defining and handling authorizations.
 build={
 	wget https://www.linuxfromscratch.org/patches/blfs/svn/polkit-0.120-security_fixes-1.patch
 	wget https://www.linuxfromscratch.org/patches/blfs/svn/polkit-0.120-js91-1.patch
-
 	cd polkit-0.120
-
 	sed '/0,/s/^/#/' -i meson_post_install.py &&
 	sed '/policy,/d' -i actions/meson.build \
-                 -i src/examples/meson.build
-
+	                 -i src/examples/meson.build
 	patch -Np1 -i ../polkit-0.120-security_fixes-1.patch
 	patch -Np1 -i ../polkit-0.120-js91-1.patch
-	
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr                       \
-     	 --buildtype=release                 \
-      	 -Dman=false                          \
-      	 -Dsession_tracking=libsystemd-login \
-      	 -Dtests=false                        \
-      	..                                  &&
+	      --buildtype=release                 \
+	       -Dman=false                          \
+	       -Dsession_tracking=libsystemd-login \
+	       -Dtests=false                        \
+	      ..                                  &&
 	ninja
-	
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

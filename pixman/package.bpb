@@ -1,15 +1,15 @@
 name=pixman
 version=0.40.0
+real_version=0
 source=https://www.cairographics.org/releases/pixman-0.40.0.tar.gz
 dependencies=[libpng]
+builddeps=
 description=The Pixman package contains a library that provides low-level pixel manipulation features such as image compositing and trapezoid rasterization. 
 build={
 	cd pixman-0.40.0
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr --buildtype=release &&
 	ninja
-
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

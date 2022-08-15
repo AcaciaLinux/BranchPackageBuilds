@@ -1,5 +1,6 @@
 name=harfbuzz
 version=3.4.0
+real_version=0
 source=https://github.com/harfbuzz/harfbuzz/releases/download/3.4.0/harfbuzz-3.4.0.tar.xz
 dependencies=[gobject-introspection][glib][icu][freetype]
 builddeps=[graphite2]
@@ -8,10 +9,9 @@ build={
 	cd harfbuzz-3.4.0
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr        \
-      		--buildtype=release  \
-      		-Dgraphite2=enabled  &&
+	      --buildtype=release  \
+	      -Dgraphite2=enabled  &&
 	ninja
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

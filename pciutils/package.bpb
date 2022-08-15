@@ -1,22 +1,18 @@
 name=pciutils
 version=3.8.0
+real_version=0
 source=https://www.kernel.org/pub/software/utils/pciutils/pciutils-3.8.0.tar.xz
 dependencies=[curl]
 builddeps=
 description= The PCI Utils package contains a set of programs for listing PCI devices, inspecting their status and setting their configuration registers. 
 build={
 	cd pciutils-3.8.0
-
-
 	make PREFIX=/usr                \
-     		SHAREDIR=/usr/share/hwdata \
-     		SHARED=yes -j$(nproc)
-
+	     SHAREDIR=/usr/share/hwdata \
+	     SHARED=yes -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR PREFIX=/usr                \
-     		SHAREDIR=/usr/share/hwdata \
-     		SHARED=yes                 \
-     		install install-lib        &&
-
+	     SHAREDIR=/usr/share/hwdata \
+	     SHARED=yes                 \
+	     install install-lib        &&
 	chmod -v 755 $PKG_INSTALL_DIR/usr/lib/libpci.so
-
 }

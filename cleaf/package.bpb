@@ -1,5 +1,6 @@
 name=cleaf
 version=0.0.1
+real_version=0
 source=
 dependencies=[leaf]
 builddeps=[leaf]
@@ -7,12 +8,9 @@ description=The leaf C library and headers
 build={
 	git clone --recursive https://github.com/AcaciaLinux/cleaf
 	cd cleaf
-
 	mkdir build
 	cd build
-	
 	cmake ..
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

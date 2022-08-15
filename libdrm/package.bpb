@@ -1,5 +1,6 @@
 name=libdrm
 version=2.4.110
+real_version=0
 source=https://dri.freedesktop.org/libdrm/libdrm-2.4.110.tar.xz
 dependencies=[x11-libs]
 builddeps=
@@ -8,11 +9,10 @@ build={
 	cd libdrm-2.4.110
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=$XORG_PREFIX \
-      		--buildtype=release   \
-      		-Dudev=true           \
-      		-Dvalgrind=false      &&
+	      --buildtype=release   \
+	      -Dudev=true           \
+	      -Dvalgrind=false      &&
 	ninja
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

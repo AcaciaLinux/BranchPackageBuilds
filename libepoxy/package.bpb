@@ -1,5 +1,6 @@
 name=libepoxy
 version=1.5.9
+real_version=0
 source=https://github.com/anholt/libepoxy/releases/download/1.5.9/libepoxy-1.5.9.tar.xz
 dependencies=[mesa]
 builddeps=
@@ -8,10 +9,7 @@ build={
 	cd libepoxy-1.5.9
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr --buildtype=release .. &&
 	ninja
-	
 	DESTDIR=$PKG_INSTALL_DIR ninja install
-
 }

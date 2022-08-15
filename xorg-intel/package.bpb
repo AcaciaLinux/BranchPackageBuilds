@@ -1,5 +1,6 @@
 name=xorg-intel
 version=20210222
+real_version=0
 source=https://anduin.linuxfromscratch.org/BLFS/xf86-video-intel/xf86-video-intel-20210222.tar.xz
 dependencies=[xcb-util][xorg-server]
 builddeps=
@@ -7,16 +8,12 @@ description=The Xorg Intel driver package contains the X.Org video driver for in
 build={
 	cd xf86-video-intel-20210222
 	./autogen.sh $XORG_CONFIG     \
-            --enable-kms-only \
-            --enable-uxa      \
-            --mandir=/usr/share/man &&
+	            --enable-kms-only \
+	            --enable-uxa      \
+	            --mandir=/usr/share/man &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install &&
-
 	mv -v $PKG_INSTALL_DIR/usr/share/man/man4/intel-virtual-output.4 \
 	      $PKG_INSTALL_DIR/usr/share/man/man1/intel-virtual-output.1 &&
-
-sed -i '/\.TH/s/4/1/' $PKG_INSTALL_DIR/usr/share/man/man1/intel-virtual-output.1
-
+	sed -i '/\.TH/s/4/1/' $PKG_INSTALL_DIR/usr/share/man/man1/intel-virtual-output.1
 }

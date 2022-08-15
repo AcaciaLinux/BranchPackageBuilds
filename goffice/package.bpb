@@ -1,15 +1,13 @@
 name=goffice
 version=0.10.52
-description=The GOffice package contains a library of GLib/GTK document centric objects and utilities.
+real_version=0
 source=https://download.gnome.org/sources/goffice/0.10/goffice-0.10.52.tar.xz
 dependencies=[gtk+][libgsf][librsvg][libxslt][which][gobject-introspection]
 builddeps=
-real_version=0
+description=The GOffice package contains a library of GLib/GTK document centric objects and utilities.
 build={
 	cd goffice-0.10.52
-	
 	./configure --prefix=/usr &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

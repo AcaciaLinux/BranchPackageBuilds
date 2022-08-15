@@ -1,24 +1,21 @@
 name=colord-gtk
 version=0.3.0
-description= The Colord GTK package contains GTK+ bindings for Colord. 
+real_version=0
 source=https://www.freedesktop.org/software/colord/releases/colord-gtk-0.3.0.tar.xz
 dependencies=[dbus][glib][polkit][sqlite][little-cms][gtk2+][gtk+][gtk4]
 builddeps=
-real_version=0
+description= The Colord GTK package contains GTK+ bindings for Colord. 
 build={
 	cd colord-gtk-0.3.0
-	
 	mkdir build &&
-cd    build &&
-
-meson --prefix=/usr       \
-      --buildtype=release \
-      -Dgtk2=true         \
-      -Dgtk4=true         \
-      -Dvapi=true         \
-      -Ddocs=false        \
-      -Dman=false ..      &&
-ninja
-
-DESTDIR=$PKG_INSTALL_DIR ninja install
+	cd    build &&
+	meson --prefix=/usr       \
+	      --buildtype=release \
+	      -Dgtk2=true         \
+	      -Dgtk4=true         \
+	      -Dvapi=true         \
+	      -Ddocs=false        \
+	      -Dman=false ..      &&
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

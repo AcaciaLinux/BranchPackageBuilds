@@ -1,17 +1,17 @@
 name=gnutls
 version=3.7.4
+real_version=0
 source= https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-3.7.4.tar.xz
 dependencies=[nettle][make-ca][libunistring][libtasn1][p11-kit]
+builddeps=
 description=The GnuTLS package contains libraries and userspace tools which provide a secure layer over a reliable transport layer.
 build={
 	cd gnutls-3.7.4
 	./configure --prefix=/usr \
-            --docdir=/usr/share/doc/gnutls-3.7.4 \
-            --disable-guile \
-            --disable-rpath \
-            --with-default-trust-store-pkcs11="pkcs11:" &&
-	
+	            --docdir=/usr/share/doc/gnutls-3.7.4 \
+	            --disable-guile \
+	            --disable-rpath \
+	            --with-default-trust-store-pkcs11="pkcs11:" &&
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR -j1 install
-
 }

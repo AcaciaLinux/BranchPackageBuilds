@@ -1,7 +1,9 @@
 name=certificate-ca
 version=1.0
+real_version=0
 source=https://github.com/lfs-book/make-ca/releases/download/v1.10/make-ca-1.10.tar.xz
 dependencies=
+builddeps=
 description=Contains the certificate ca
 build={
 	/usr/sbin/make-ca -g -D $PKG_INSTALL_DIR

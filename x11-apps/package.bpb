@@ -1,5 +1,6 @@
 name=x11-apps
 version=202206
+real_version=0
 source=
 dependencies=[libpng][mesa][xbitmaps][xcb-util][linux-pam]
 builddeps=
@@ -8,9 +9,8 @@ build={
 	mkdir app &&
 	cd app &&
 	grep -v '^#' ../../app-7.md5 | awk '{print $2}' | wget -i- -c \
-    		-B https://www.x.org/pub/individual/app/ &&
+	    -B https://www.x.org/pub/individual/app/ &&
 	md5sum -c ../../app-7.md5
-	
 	for package in $(grep -v '^#' ../../app-7.md5 | awk '{print $2}')
 	do
 	  packagedir=${package%.tar.?z*}
@@ -21,7 +21,6 @@ build={
 	         sed -i -e "/D_XOPEN/s/5/6/" configure
 	       ;;
 	     esac
-
 	     ./configure $XORG_CONFIG
 	     make -j$(nproc)
 	     make install

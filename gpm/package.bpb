@@ -1,32 +1,26 @@
 name=gpm
 version=1.20.7
+real_version=0
 source=https://anduin.linuxfromscratch.org/BLFS/gpm/gpm-1.20.7.tar.bz2
 dependencies=
+builddeps=
 description=The GPM (General Purpose Mouse daemon) package contains a mouse server for the console and xterm.
 build={
 	wget https://www.linuxfromscratch.org/patches/blfs/svn/gpm-1.20.7-consolidated-1.patch
-	
 	cd gpm-1.20.7
 	patch -Np1 -i ../gpm-1.20.7-consolidated-1.patch &&
 	./autogen.sh                                     &&
 	./configure --prefix=/usr --sysconfdir=/etc      &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install                                          &&
-
 	install-info --dir-file=/usr/share/info/dir           \
-             $PKG_INSTALL_DIR/usr/share/info/gpm.info                 &&
-
+	             $PKG_INSTALL_DIR/usr/share/info/gpm.info                 &&
 	rm -fv $PKG_INSTALL_DIR/usr/lib/libgpm.a                              &&
 	ln -sfv libgpm.so.2.1.0 $PKG_INSTALL_DIR/usr/lib/libgpm.so            &&
 	install -v -m644 conf/gpm-root.conf /etc              &&
-
 	install -v -m755 -d $PKG_INSTALL_DIR/usr/share/doc/gpm-1.20.7/support &&
-	
 	install -v -m644    doc/support/*                     \
-                    $PKG_INSTALL_DIR/usr/share/doc/gpm-1.20.7/support &&
-	
+	                    $PKG_INSTALL_DIR/usr/share/doc/gpm-1.20.7/support &&
 	install -v -m644    doc/{FAQ,HACK_GPM,README*}        \
-                    $PKG_INSTALL_DIR/usr/share/doc/gpm-1.20.7
-
+	                    $PKG_INSTALL_DIR/usr/share/doc/gpm-1.20.7
 }

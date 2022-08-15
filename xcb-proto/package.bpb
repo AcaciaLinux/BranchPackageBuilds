@@ -1,5 +1,6 @@
 name=xcb-proto
 version=1.14.1
+real_version=0
 source=https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.14.1.tar.xz
 dependencies=
 builddeps=[python3][x11-build-environment]

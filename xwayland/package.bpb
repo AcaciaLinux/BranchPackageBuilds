@@ -1,5 +1,6 @@
 name=xwayland
 version=22.1.0
+real_version=0
 source=https://www.x.org/pub/individual/xserver/xwayland-22.1.0.tar.xz
 dependencies=[libxcvt][pixman][Wayland-protocols][xorg-fonts][libepoxy][libtirpc][mesa]
 builddeps=
@@ -7,21 +8,18 @@ description=The Xwayland package is an Xorg server running on top of the wayland
 build={
 	cd xwayland-22.1.0
 	sed -i '/install_man/,$d' meson.build &&
-
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=$XORG_PREFIX         \
-      	-Dxvfb=false                  \
-      	-Dxkb_output_dir=/var/lib/xkb \
-      	..                            &&
-	ninja	
+	      -Dxvfb=false                  \
+	      -Dxkb_output_dir=/var/lib/xkb \
+	      ..                            &&
+	ninja
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 	mkdir -pv $PKG_INSTALL_DIR/etc/X11/xorg.conf.d &&
 	cat >> $PKG_INSTALL_DIR/etc/sysconfig/createfiles << "EOF"
-/tmp/.X11-unix dir 1777 root root
-EOF
-
+	/tmp/.X11-unix dir 1777 root root
+	EOF
 	# remove conflicting file..
 	rm $PKG_INSTALL_DIR/usr/lib/xorg/protocol.txt
 }

@@ -1,5 +1,6 @@
 name=libinput
 version=1.19.3
+real_version=0
 source=https://www.freedesktop.org/software/libinput/libinput-1.19.3.tar.xz
 dependencies=[libevdev][mtdev]
 builddeps=
@@ -8,15 +9,12 @@ build={
 	cd libinput-1.19.3
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=$XORG_PREFIX \
-      --buildtype=release   \
-      -Ddebug-gui=false     \
-      -Dtests=false         \
-      -Dlibwacom=false      \
-      ..                    &&
+	      --buildtype=release   \
+	      -Ddebug-gui=false     \
+	      -Dtests=false         \
+	      -Dlibwacom=false      \
+	      ..                    &&
 	ninja
-
 	DESTDIR=$PKG_INSTALL_DIR ninja install
-
 }

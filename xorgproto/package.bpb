@@ -1,5 +1,6 @@
 name=xorgproto
 version=2021.5
+real_version=0
 source=https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2021.5.tar.bz2
 dependencies=[util-macros]
 builddeps=[x11-build-environment]
@@ -8,13 +9,10 @@ build={
 	cd xorgproto-2021.5
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=$XORG_PREFIX -Dlegacy=true .. &&
 	ninja
-
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 	mv -v $PKG_INSTALL_DIR/$XORG_PREFIX/share/doc/xorgproto{,-2021.5}
-
 	# remove conflicting files
 	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/vldXvMC.h
 	rm $PKG_INSTALL_DIR/usr/include/X11/extensions/XKBgeom.h

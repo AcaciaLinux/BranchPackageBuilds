@@ -1,23 +1,20 @@
 name=libsoup
 version=2.74.2
-description=The libsoup is a HTTP client/server library for GNOME
+real_version=0
 source=https://download.gnome.org/sources/libsoup/2.74/libsoup-2.74.2.tar.xz
 dependencies=[glib-networking][libpsl][libxml2][sqlite][gobject-introspection][vala]
 builddeps=
-real_version=0
+description=The libsoup is a HTTP client/server library for GNOME
 build={
 	cd libsoup-2.74.2
-
 	mkdir build &&
 	cd    build &&
-
 	meson --prefix=/usr       \
-      		--buildtype=release \
-      		-Dvapi=enabled      \
-      		-Dgssapi=disabled   \
-      		-Dsysprof=disabled  \
-      		..                  &&
-	
+	      --buildtype=release \
+	      -Dvapi=enabled      \
+	      -Dgssapi=disabled   \
+	      -Dsysprof=disabled  \
+	      ..                  &&
 	ninja
 	ninja DESTDIR=$PKG_INSTALL_DIR install
 }

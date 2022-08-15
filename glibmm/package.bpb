@@ -1,5 +1,6 @@
 name=glibmm
 version=2.66.2
+real_version=0
 source=
 dependencies=[glib][libsigc++]
 builddeps=[gnutls]
@@ -7,14 +8,10 @@ description= The GLibmm package is a set of C++ bindings for GLib.
 build={
 	wget https://download.gnome.org/sources/glibmm/2.66/glibmm-2.66.2.tar.xz
 	tar xf glibmm-2.66.2.tar.xz
-
-	
 	cd glibmm-2.66.2
 	mkdir bld &&
 	cd    bld &&
-
 	meson --prefix=/usr --buildtype=release .. &&
 	ninja
-
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 }

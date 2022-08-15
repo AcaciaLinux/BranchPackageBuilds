@@ -1,26 +1,24 @@
 name=js
 version=91.8.0
+real_version=0
 source=https://archive.mozilla.org/pub/firefox/releases/91.8.0esr/source/firefox-91.8.0esr.source.tar.xz
 dependencies=[icu][rustc][which]
+builddeps=
 description=JS (also referred as SpiderMonkey) is Mozilla's JavaScript and WebAssembly Engine, written in C++ and Rust.
 build={
 	export PATH=$PATH:/opt/rustc/bin
 	cd firefox-91.8.0
-
 	mkdir obj &&
 	cd    obj &&
-
 	CC=gcc CXX=g++ \
 	sh ../js/src/configure.in --prefix=/usr            \
-                          --with-intl-api          \
-                          --with-system-zlib       \
-                          --with-system-icu        \
-                          --disable-jemalloc       \
-                          --disable-debug-symbols  \
-                          --enable-readline        &&
+	                          --with-intl-api          \
+	                          --with-system-zlib       \
+	                          --with-system-icu        \
+	                          --disable-jemalloc       \
+	                          --disable-debug-symbols  \
+	                          --enable-readline        &&
 	make -j$(nproc)
-	
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 	rm -v $PKG_INSTALL_DIR/usr/lib/libjs_static.ajs
 	sed -i '/@NSPR_CFLAGS@/d' $PKG_INSTALL_DIR/usr/bin/js91-config

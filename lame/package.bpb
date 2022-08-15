@@ -1,15 +1,13 @@
 name=lame
 version=3.100
-description=The LAME package contains an MP3 encoder and an MP3 frame analyzer
+real_version=0
 source=https://downloads.sourceforge.net/lame/lame-3.100.tar.gz
 dependencies=
 builddeps=
-real_version=0
+description=The LAME package contains an MP3 encoder and an MP3 frame analyzer
 build={
 	cd lame-3.100
-
 	./configure --prefix=/usr --enable-mp3rtp --disable-static &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR pkghtmldir=/usr/share/doc/lame-3.100 install
 }

@@ -1,14 +1,13 @@
 name=libxau
 version=1.0.9
+real_version=0
 source=https://www.x.org/pub/individual/lib/libXau-1.0.9.tar.bz2
 dependencies=[xorgproto]
 builddeps=[x11-build-environment]
 description=The libXau package contains a library implementing the X11 Authorization Protocol.
 build={
 	cd libXau-1.0.9
-
 	./configure $XORG_CONFIG &&
 	make -j$(nrpoc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

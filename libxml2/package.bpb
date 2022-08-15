@@ -1,16 +1,17 @@
 name=libxml2
 version=2.9.13
+real_version=0
 source=https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz
 dependencies=
+builddeps=
 description=The libxml2 package contains libraries and utilities used for parsing XML files.
 build={
 	cd libxml2-2.9.13
 	./configure --prefix=/usr    \
-            --disable-static \
-            --with-history   \
-            --with-python=/usr/bin/python3 \
-            --docdir=/usr/share/doc/libxml2-2.9.13 &&
-	
+	            --disable-static \
+	            --with-history   \
+	            --with-python=/usr/bin/python3 \
+	            --docdir=/usr/share/doc/libxml2-2.9.13 &&
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

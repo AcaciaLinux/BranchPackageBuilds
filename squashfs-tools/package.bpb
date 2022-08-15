@@ -1,5 +1,6 @@
 name=squashfs-tools
 version=4.5.1
+real_version=0
 source=https://github.com/plougher/squashfs-tools/archive/refs/tags/4.5.1.zip
 dependencies=
 builddeps=[make][gcc]
@@ -8,9 +9,6 @@ build={
 	unzip 4.5.1.zip
 	cd squashfs-tools-4.5.1
 	cd squashfs-tools
-	
 	make -j$(nproc)
-	
 	make INSTALL_PREFIX=$PKG_INSTALL_DIR/usr/local install
-	
 }

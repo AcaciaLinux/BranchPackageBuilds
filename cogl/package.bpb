@@ -1,5 +1,6 @@
 name=cogl
 version=1.22.8
+real_version=0
 source=https://download.gnome.org/sources/cogl/1.22/cogl-1.22.8.tar.xz
 dependencies=[cairo][gdk-pixbuf][glu][mesa][pango][wayland][gobject-introspection]
 builddeps=
@@ -7,12 +8,10 @@ description= Cogl is a modern 3D graphics API with associated utility APIs desig
 build={
 	cd cogl-1.22.8
 	./configure --prefix=/usr  \
-            --enable-gles1 \
-            --enable-gles2 \
-            --enable-{kms,wayland,xlib}-egl-platform \
-            --enable-wayland-egl-server              &&
+	            --enable-gles1 \
+	            --enable-gles2 \
+	            --enable-{kms,wayland,xlib}-egl-platform \
+	            --enable-wayland-egl-server              &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
-
 }

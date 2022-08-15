@@ -1,14 +1,12 @@
 name=hicolor-icon-theme
 version=0.17
-description= The hicolor-icon-theme package contains a default fallback theme for implementations of the icon theme specification. 
+real_version=0
 source=https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz
 dependencies=
 builddeps=
-real_version=0
+description= The hicolor-icon-theme package contains a default fallback theme for implementations of the icon theme specification. 
 build={
 	cd hicolor-icon-theme-0.17
-
 	./configure --prefix=/usr
 	make DESTDIR=$PKG_INSTALL_DIR install
-
 }

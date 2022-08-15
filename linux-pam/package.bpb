@@ -1,25 +1,23 @@
 name=linux-pam
 version=1.5.2
+real_version=0
 source=https://github.com/linux-pam/linux-pam/releases/download/v1.5.2/Linux-PAM-1.5.2.tar.xz
 dependencies=
+builddeps=
 description=The Linux PAM package contains Pluggable Authentication Modules used to enable the local system administrator to choose how applications authenticate users. 
 build={
 	cd Linux-PAM-1.5.2
-
 	./configure --prefix=/usr                        \
-            --sbindir=/usr/sbin                  \
-            --sysconfdir=/etc                    \
-            --libdir=/usr/lib                    \
-            --enable-securedir=/usr/lib/security \
-            --docdir=/usr/share/doc/Linux-PAM-1.5.2 &&
+	            --sbindir=/usr/sbin                  \
+	            --sysconfdir=/etc                    \
+	            --libdir=/usr/lib                    \
+	            --enable-securedir=/usr/lib/security \
+	            --docdir=/usr/share/doc/Linux-PAM-1.5.2 &&
 	make -j$(nproc)
-
 	mkdir $PKG_INSTALL_DIR/etc
 	install -v -m755 -d $PKG_INSTALL_DIR/etc/pam.d &&
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 	chmod -v 4755 $PKG_INSTALL_DIR/usr/sbin/unix_chkpwd
-
 	install -vdm755 $PKG_INSTALL_DIR/etc/pam.d &&
 	cp ../../pam/* $PKG_INSTALL_DIR/etc/pam.d/
 }

@@ -1,5 +1,6 @@
 name=x11-build-environment
 version=1.0
+real_version=0
 source=
 dependencies=
 builddeps=
@@ -7,9 +8,9 @@ description=This package installs the required profile for building acacia-x11 p
 build={
 	mkdir -p $PKG_INSTALL_DIR/etc/profile.d/
 	cat > $PKG_INSTALL_DIR/etc/profile.d/xorg.sh << EOF
-XORG_PREFIX="$XORG_PREFIX"
-XORG_CONFIG="--prefix=\$XORG_PREFIX --sysconfdir=/etc --localstatedir=/var --disable-static"
-export XORG_PREFIX XORG_CONFIG
-EOF
-chmod 644 $PKG_INSTALL_DIR/etc/profile.d/xorg.sh
+	XORG_PREFIX="$XORG_PREFIX"
+	XORG_CONFIG="--prefix=\$XORG_PREFIX --sysconfdir=/etc --localstatedir=/var --disable-static"
+	export XORG_PREFIX XORG_CONFIG
+	EOF
+	chmod 644 $PKG_INSTALL_DIR/etc/profile.d/xorg.sh
 }

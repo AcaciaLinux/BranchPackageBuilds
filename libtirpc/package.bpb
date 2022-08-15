@@ -1,5 +1,6 @@
 name=libtirpc
 version=1.3.2
+real_version=0
 source=https://downloads.sourceforge.net/libtirpc/libtirpc-1.3.2.tar.bz2
 dependencies=[krb5]
 builddeps=
@@ -7,9 +8,9 @@ description=The libtirpc package contains libraries that support programs that u
 build={
 	cd libtirpc-1.3.2
 	./configure --prefix=/usr                                   \
-            --sysconfdir=/etc                               \
-            --disable-static                                \
-            --disable-gssapi                                &&
-make -j $(nproc)
-make DESTDIR=$PKG_INSTALL_DIR install
+	            --sysconfdir=/etc                               \
+	            --disable-static                                \
+	            --disable-gssapi                                &&
+	make -j $(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
 }

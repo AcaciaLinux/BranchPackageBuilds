@@ -1,22 +1,18 @@
 name=libvpx
 version=1.11.0
-description=This package, from the WebM project, provides the reference implementations of the VP8 Codec, used in most current html5 video, and of the next-generation VP9 Codec
+real_version=0
 source=https://github.com/webmproject/libvpx/archive/v1.11.0/libvpx-1.11.0.tar.gz
 dependencies=[nasm]
 builddeps=
-real_version=0
+description=This package, from the WebM project, provides the reference implementations of the VP8 Codec, used in most current html5 video, and of the next-generation VP9 Codec
 build={
 	cd libvpx-1.11.0
-
 	sed -i 's/cp -p/cp/' build/make/Makefile &&
-
 	mkdir libvpx-build            &&
 	cd    libvpx-build            &&
-
 	../configure --prefix=/usr    \
-             --enable-shared  \
-             --disable-static &&
+	             --enable-shared  \
+	             --disable-static &&
 	make -j$(nproc)
-
 	make DESTDIR=$PKG_INSTALL_DIR install
 }

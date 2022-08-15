@@ -1,24 +1,21 @@
 name=zsh
 version=5.8.1
+real_version=0
 source=https://www.zsh.org/pub/zsh-5.8.1.tar.xz
 dependencies=
+builddeps=
 description=The zsh package contains a command interpreter (shell) usable as an interactive login shell and as a shell script command processor.
 build={
 	cd zsh-5.8.1
 	./configure --prefix=/usr         \
-            --sysconfdir=/etc/zsh \
-            --enable-etcdir=/etc/zsh
-	
+	            --sysconfdir=/etc/zsh \
+	            --enable-etcdir=/etc/zsh
 	make -j$(nproc)
-
-
 	makeinfo  Doc/zsh.texi --plaintext -o Doc/zsh.txt     &&
 	makeinfo  Doc/zsh.texi --html      -o Doc/html        &&
 	makeinfo  Doc/zsh.texi --html --no-split --no-headers -o Doc/zsh.html
-
 	make DESTDIR=$PKG_INSTALL_DIR -j1 install
 	make DESTDIR=$PKG_INSTALL_DIR infodir=/usr/share/info install.info &&
-
 	install -v -m755 -d                 $PKG_INSTALL_DIR/usr/share/doc/zsh-5.8.1/html
 	install -v -m644 Doc/html/*         $PKG_INSTALL_DIR/usr/share/doc/zsh-5.8.1/html
 	install -v -m644 Doc/zsh.{html,txt} $PKG_INSTALL_DIR/usr/share/doc/zsh-5.8.1

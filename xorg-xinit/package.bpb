@@ -1,5 +1,6 @@
 name=xorg-xinit
 version=1.4.1
+real_version=0
 source= https://www.x.org/pub/individual/app/xinit-1.4.1.tar.bz2
 dependencies=[x11-libs][twm][xclock][xterm]
 builddeps=
