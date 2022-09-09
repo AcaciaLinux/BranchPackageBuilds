@@ -7,5 +7,5 @@ builddeps=
 description=The crosstools package contains a cross compiler toolchain.
 build={
 	rm acacia-glibc236.tar.xz
-	cp -rf ./* $DESTDIR
+	cp -rf ./* $PKG_INSTALL_DIR
 }
