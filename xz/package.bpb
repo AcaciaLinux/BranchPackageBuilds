@@ -1,0 +1,20 @@
+name=xz
+version=5.2.6
+real_version=0
+source=https://tukaani.org/xz/xz-5.2.6.tar.xz
+dependencies=
+builddeps=
+description= The Xz package contains programs for compressing and decompressing files. It provides capabilities for the lzma and the newer xz compression formats. Compressing text files with xz yields a better compression percentage than with the traditional gzip or bzip2 commands. 
+build={
+	./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/xz-5.2.6
+	
+	make -j$(nproc)
+
+	make check
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+}

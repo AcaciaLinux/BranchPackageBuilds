@@ -1,0 +1,13 @@
+name=file
+version=5.42
+real_version=0
+source=https://astron.com/pub/file/file-5.42.tar.gz
+dependencies=[glibc][bzip2][xz][zlib]
+builddeps=
+description= The File package contains a utility for determining the type of a given file or files. 
+build={
+	./configure --prefix=/usr
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+}
