@@ -6,6 +6,7 @@ dependencies=
 builddeps=
 description=The Man-pages package contains over 2.200 man pages
 build={
+	cd man-pages-5.13
 	make prefix=/usr DESTDIR=$PKG_INSTALL_DIR install
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
