@@ -13,5 +13,5 @@ build={
 	make check
 	make DESTDIR=$PKG_INSTALL_DIR install
 	ln -sv flex $PKG_INSTALL_DIR/usr/bin/lex
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

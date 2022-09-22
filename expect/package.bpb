@@ -16,5 +16,5 @@ build={
 	make test
 	make DESTDIR=$PKG_INSTALL_DIR install
 	ln -svf expect5.45.4/libexpect5.45.4.so $PKG_INSTALL_DIR/usr/lib
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

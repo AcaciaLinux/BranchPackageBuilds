@@ -7,5 +7,5 @@ builddeps=
 description=The Man-pages package contains over 2.200 man pages
 build={
 	make prefix=/usr DESTDIR=$PKG_INSTALL_DIR install
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

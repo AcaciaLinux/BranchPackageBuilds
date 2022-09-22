@@ -37,5 +37,5 @@ build={
 	ln -sfv tclsh8.6 $PKG_INSTALL_DIR/usr/bin/tclsh
 	mv $PKG_INSTALL_DIR/usr/share/man/man3/{Thread,Tcl_Thread}.3
 
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

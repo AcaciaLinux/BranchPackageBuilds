@@ -16,5 +16,5 @@ build={
 
 	rm -fv $PKG_INSTALL_DIR/usr/lib/libz.a
 
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

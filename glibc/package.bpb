@@ -92,5 +92,5 @@ build={
 	EOF
 	mkdir -pv $PKG_INSTALL_DIR/etc/ld.so.conf.d
 
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
