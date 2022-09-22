@@ -6,6 +6,7 @@ dependencies=[expect]
 builddeps=
 description=The DejaGnu package contains a framework for running test suites on GNU tools.
 build={
+	cd dejagnu-1.6.3
 	mkdir -v build
 	cd       build
 

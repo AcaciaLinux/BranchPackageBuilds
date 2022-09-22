@@ -6,6 +6,7 @@ dependencies=[m4]
 builddeps=
 description= The Flex package contains a utility for generating programs that recognize patterns in text. 
 build={
+	cd flex-2.6.4
 	./configure --prefix=/usr \
             --docdir=/usr/share/doc/flex-2.6.4 \
             --disable-static

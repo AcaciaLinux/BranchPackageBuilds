@@ -6,8 +6,9 @@ dependencies=
 builddeps=
 description=The Glibc package contains the main C library. This library provides the basic routines for allocating memory, searching directories, opening and closing files, reading and writing files, string handling, pattern matching, arithmetic, and so on. 
 build={
-	wget https://www.linuxfromscratch.org/patches/lfs/11.2-rc1/glibc-2.36-fhs-1.patch
-	patch -Np1 -i glibc-2.36-fhs-1.patch
+	cd glibc-2.36
+	# wget https://www.linuxfromscratch.org/patches/lfs/11.2-rc1/glibc-2.36-fhs-1.patch
+	# patch -Np1 -i glibc-2.36-fhs-1.patch
 	
 	mkdir -v build
 	cd build
@@ -21,8 +22,9 @@ build={
              --with-headers=/usr/include              \
              libc_cv_slibdir=/usr/lib
 	
-	make -j$(nproc)
-	make check
+	#TODO: Threads!
+	make -j8
+	make check || true
 
 	touch $PKG_INSTALL_DIR/etc/ld.so.conf
 	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile

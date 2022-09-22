@@ -6,6 +6,7 @@ dependencies=[bzip2][xz][zlib]
 builddeps=
 description= The File package contains a utility for determining the type of a given file or files. 
 build={
+	cd file-5.42
 	./configure --prefix=/usr
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install

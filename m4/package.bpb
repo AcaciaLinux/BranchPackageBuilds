@@ -6,6 +6,7 @@ dependencies=
 builddeps=
 description=The M4 package contains a macro processor.
 build={
+	cd m4-1.4.19
 	./configure --prefix=/usr
 	make -j$(nproc)
 	make check

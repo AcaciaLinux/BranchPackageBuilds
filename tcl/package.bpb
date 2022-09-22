@@ -6,6 +6,7 @@ dependencies=[zlib]
 builddeps=
 description=The Tcl package contains the Tool Command Language, a robust general-purpose scripting language. The Expect package is written in the Tcl language. 
 build={
+	cd tcl8.6.12
 	SRCDIR=$(pwd)
 	cd unix
 	./configure --prefix=/usr           \
@@ -35,6 +36,10 @@ build={
 
 	chmod -v u+w $PKG_INSTALL_DIR/usr/lib/libtcl8.6.so
 	ln -sfv tclsh8.6 $PKG_INSTALL_DIR/usr/bin/tclsh
+
+	make DESTDIR=$PKG_INSTALL_DIR install-private-headers
+	ln -sfv tclsh8.6 $PKG_INSTALL_DIR/usr/bin/tclsh
+
 	mv $PKG_INSTALL_DIR/usr/share/man/man3/{Thread,Tcl_Thread}.3
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir

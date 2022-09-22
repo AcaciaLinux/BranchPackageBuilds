@@ -6,6 +6,7 @@ dependencies=[ncurses]
 builddeps=
 description=The Readline package is a set of libraries that offers command-line editing and history capabilities. 
 build={
+	cd readline-8.1.2
 	sed -i '/MV.*old/d' Makefile.in
 	sed -i '/{OLDSUFF}/c:' support/shlib-install
 
@@ -16,6 +17,7 @@ build={
 
 	make -j$(nproc) SHLIB_LIBS="-lncursesw"
 	make DESTDIR=$PKG_INSTALL_DIR SHLIB_LIBS="-lncursesw" install
-	install -v -m644 doc/*.{ps,pdf,html,dvi} $PKG_INSTALL_DIR/usr/share/doc/readline-8.
+	mkdir -pv $PKG_INSTALL_DIR/usr/share/doc/
+	install -v -m644 doc/*.{ps,pdf,html,dvi} $PKG_INSTALL_DIR/usr/share/doc/readline-8.1.2
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

@@ -6,6 +6,7 @@ dependencies=[tcl]
 builddeps=
 description=The Expect package contains tools for automating, via scripted dialogues.
 build={
+	cd expect5.45.4
 	./configure --prefix=/usr           \
             --with-tcl=/usr/lib     \
             --enable-shared         \

@@ -6,6 +6,7 @@ dependencies=[readline]
 builddeps=
 description=The Bc package contains an arbitrary precision numeric processing language. 
 build={
+	cd bc-6.0.1
 	CC=gcc ./configure --prefix=/usr -G -O3 -r
 	make -j$(nproc)
 	make test

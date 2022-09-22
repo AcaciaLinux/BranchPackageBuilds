@@ -1,13 +1,15 @@
 name=zstd
 version=1.5.2
 real_version=0
-source=
+source=https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz
 dependencies=[xz][zlib]
 builddeps=
 description=Zstandard is a real-time compression algorithm, providing high compression ratios. It offers a very wide range of compression / speed trade-offs, while being backed by a very fast decoder. 
 build={
-	wget https://www.linuxfromscratch.org/patches/lfs/11.2-rc1/zstd-1.5.2-upstream_fixes-1.patch
-	patch -Np1 -i zstd-1.5.2-upstream_fixes-1.patch
+	cd zstd-1.5.2
+	#TODO: Patch!
+	#wget https://www.linuxfromscratch.org/patches/lfs/11.2-rc1/zstd-1.5.2-upstream_fixes-1.patch
+	#patch -Np1 -i zstd-1.5.2-upstream_fixes-1.patch
 
 	make prefix=/usr -j$(nproc)
 	make prefix=/usr DESTDIR=$PKG_INSTALL_DIR install
