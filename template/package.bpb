@@ -8,5 +8,5 @@ description=
 build={
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
-	rm -v $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
