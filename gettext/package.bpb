@@ -1,0 +1,19 @@
+name=gettext
+version=0.21
+real_version=0
+source=https://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz
+dependencies=[acl]
+builddeps=
+description=The Gettext package contains utilities for internationalization and localization.
+build={
+	cd gettext-0.21
+
+	./configure --prefix=/usr    \
+				--disable-static \
+				--docdir=/usr/share/doc/gettext-0.21
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	chmod -v 0755 $PKG_INSTALL_DIR/usr/lib/preloadable_libintl.so
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}
