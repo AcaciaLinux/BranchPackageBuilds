@@ -1,0 +1,24 @@
+name=mpc
+version=1.2.1
+real_version=0
+source=https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz
+dependencies=[mpfr][gmp]
+builddeps=
+description=The MPC package contains a library for the arithmetic of complex numbers with arbitrarily high precision and correct rounding of the result.
+build={
+	cd mpc-1.2.1
+
+	./configure --prefix=/usr    \
+				--disable-static \
+				--docdir=/usr/share/doc/mpc-1.2.1
+	
+	make -j$(nproc)
+	make -j$(nproc) html
+
+	make check
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	make DESTDIR=$PKG_INSTALL_DIR install-html
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -24,7 +24,10 @@ build={
                     --with-system-zlib
 
     make -j$(nproc) tooldir=/usr
-    make -k check
+
+    #TODO:
+    #make -k check
+    
     make tooldir=/usr DESTDIR=$PKG_INSTALL_DIR install
     rm -fv $PKG_INSTALL_DIR/usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes}.a
     rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
