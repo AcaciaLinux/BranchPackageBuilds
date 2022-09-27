@@ -2,19 +2,15 @@ name=base
 version=0.1
 real_version=0
 source=
+extra_sources=
 dependencies=
 builddeps=
 description=
 build={
 	mkdir -pv $PKG_INSTALL_DIR/{etc,var,srv,tmp,mnt} $PKG_INSTALL_DIR/usr/{bin,lib,sbin}
-
 	mkdir -pv $PKG_INSTALL_DIR/{dev,proc,sys,run}
-
 	for i in bin lib sbin; do
-		ln -sv usr/$i $PKG_INSTALL_DIR/$i
+	ln -sv usr/$i $PKG_INSTALL_DIR/$i
 	done
-
-	case $(uname -m) in
-		x86_64) mkdir -pv $PKG_INSTALL_DIR/lib64 ;;
-	esac
+	ln -sv /usr/lib $PKG_INSTALL_DIR/lib64
 }
