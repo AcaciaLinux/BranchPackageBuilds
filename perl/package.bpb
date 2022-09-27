@@ -2,7 +2,7 @@ name=perl
 version=5.36.0
 real_version=0
 source=https://www.cpan.org/src/5.0/perl-5.36.0.tar.xz
-dependencies=[gdbm][]
+dependencies=[gdbm]
 builddeps=
 description=The Perl package contains the Practical Extraction and Report Language.
 build={
@@ -12,6 +12,7 @@ build={
 	export BUILD_ZLIB=False
 	export BUILD_BZIP2=0
 
+    set +e
 	sh Configure -des                                         \
              -Dprefix=/usr                                \
              -Dvendorprefix=/usr                          \
@@ -25,10 +26,11 @@ build={
              -Dman3dir=/usr/share/man/man3                \
              -Dpager="/usr/bin/less -isR"                 \
              -Duseshrplib                                 \
-             -Dusethreads
+             -Dusethreads || true
 
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
-	unset BUILD_ZLIB BUILD_BZIP2
+    unset BUILD_ZLIB BUILD_BZIP2
+    set -e
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

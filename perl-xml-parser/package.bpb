@@ -3,10 +3,10 @@ version=2.46
 real_version=0
 source=https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz
 dependencies=[perl][expat]
-builddeps=
+builddeps=[perl][expat]
 description=The XML::Parser module is a Perl interface to James Clark's XML parser, Expat.
 build={
-	cd xml-parser
+	cd XML-Parser-2.46
 
 	perl Makefile.PL
 

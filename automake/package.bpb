@@ -3,7 +3,7 @@ version=1.16.5
 real_version=0
 source=https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.xz
 dependencies=[perl]
-builddeps=[autoconf]
+builddeps=[autoconf][perl]
 description=The Automake package contains programs for generating Makefiles for use with Autoconf.
 build={
 	cd automake-1.16.5
