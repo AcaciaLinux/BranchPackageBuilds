@@ -2,16 +2,17 @@ name=attr
 version=2.5.1
 real_version=0
 source=https://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.gz
-dependencies=
-builddeps=
+dependencies=[glibc]
+builddeps=[glibc][gettext]
+crossdeps=[glibc]
 description=The attr package contains utilities to administer the extended attributes on filesystem objects.
 build={
-    cd attr-2.5.1
+    cd $PKG_NAME-$PKG_VERSION
 
     ./configure --prefix=/usr     \
                 --disable-static  \
                 --sysconfdir=/etc \
-                --docdir=/usr/share/doc/attr-2.5.1
+                --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
 
     make -j$(nproc)
 

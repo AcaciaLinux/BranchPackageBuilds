@@ -2,11 +2,11 @@ name=shadow
 version=4.11.1
 real_version=0
 source=https://github.com/shadow-maint/shadow/releases/download/v4.11.1/shadow-4.11.1.tar.xz
-dependencies=[linux-pam]
-builddeps=
+dependencies=[acl][linux-pam]
+builddeps=[acl][linux-pam]
 description= The Shadow package contains programs for handling passwords in a secure way. 
 build={
-	cd shadow-4.11.1
+	cd $PKG_NAME-$PKG_VERSION
 	sed -i 's/groups$(EXEEXT) //' src/Makefile.in          &&
 	find man -name Makefile.in -exec sed -i 's/groups\.1 / /'   {} \; &&
 	find man -name Makefile.in -exec sed -i 's/getspnam\.3 / /' {} \; &&
@@ -42,7 +42,6 @@ build={
 	    sed -i "s/^${FUNCTION}/# &/" $PKG_INSTALL_DIR/etc/login.defs
 	done
 	install -vdm755 $PKG_INSTALL_DIR/etc/pam.d/
-	cp ../../pam/* $PKG_INSTALL_DIR/etc/pam.d/
 	touch $PKG_INSTALL_DIR/etc/shadow
 	chmod 0640 $PKG_INSTALL_DIR/etc/shadow
 }

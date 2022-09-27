@@ -6,7 +6,7 @@ dependencies=
 builddeps=
 description=The Iana-Etc package provides data for network services and protocols.
 build={
-	cd iana-etc-20220812
+	cd $PKG_NAME-$PKG_VERSION
 	mkdir -pv $PKG_INSTALL_DIR/etc
 	cp services protocols $PKG_INSTALL_DIR/etc
 }

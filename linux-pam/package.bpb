@@ -7,13 +7,13 @@ dependencies=
 builddeps=
 description=The Linux PAM package contains Pluggable Authentication Modules used to enable the local system administrator to choose how applications authenticate users. 
 build={
-	cd Linux-PAM-1.5.2
+	cd Linux-PAM-$PKG_VERSION
 	./configure --prefix=/usr                        \
 	            --sbindir=/usr/sbin                  \
 	            --sysconfdir=/etc                    \
 	            --libdir=/usr/lib                    \
 	            --enable-securedir=/usr/lib/security \
-	            --docdir=/usr/share/doc/Linux-PAM-1.5.2 &&
+	            --docdir=/usr/share/doc/Linux-PAM-$PKG_VERSION &&
 	make -j$(nproc)
 	mkdir $PKG_INSTALL_DIR/etc
 	install -v -m755 -d $PKG_INSTALL_DIR/etc/pam.d &&

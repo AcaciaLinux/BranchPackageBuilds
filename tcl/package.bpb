@@ -3,10 +3,10 @@ version=8.6.12
 real_version=0
 source=https://downloads.sourceforge.net/tcl/tcl8.6.12-src.tar.gz
 dependencies=[zlib]
-builddeps=
+builddeps=[zlib]
 description=The Tcl package contains the Tool Command Language, a robust general-purpose scripting language. The Expect package is written in the Tcl language. 
 build={
-	cd tcl8.6.12
+	cd $PKG_NAME$PKG_VERSION
 	SRCDIR=$(pwd)
 	cd unix
 	./configure --prefix=/usr           \

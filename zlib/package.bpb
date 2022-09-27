@@ -2,11 +2,11 @@ name=zlib
 version=1.2.12
 real_version=0
 source=https://zlib.net/zlib-1.2.12.tar.xz
-dependencies=
-builddeps=
+dependencies=[glibc]
+builddeps=[glibc]
 description= The Zlib package contains compression and decompression routines used by some programs. 
 build={
-	cd zlib-1.2.12
+	cd $PKG_NAME-$PKG_VERSION
 	./configure --prefix=/usr
 
 	make -j$(nproc)
