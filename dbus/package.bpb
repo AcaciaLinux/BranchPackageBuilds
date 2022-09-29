@@ -1,24 +1,28 @@
 name=dbus
-version=1.12.20
+version=1.14.0
 real_version=0
-source=https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
-dependencies=[systemd]
-builddeps=[git]
+source=https://dbus.freedesktop.org/releases/dbus/dbus-1.14.0.tar.xz
+dependencies=[expat][systemd]
+builddeps=[expat][python3][systemd][pkg-config]
 description=D-Bus is a message bus system, a simple way for applications to talk to one another.
 build={
-	cd dbus-1.12.20
+	cd $PKG_NAME-$PKG_VERSION
+
 	./configure --prefix=/usr                        \
-	            --sysconfdir=/etc                    \
-	            --localstatedir=/var                 \
-	            --disable-static                     \
-	            --disable-doxygen-docs               \
-	            --disable-xml-docs                   \
-	            --docdir=/usr/share/doc/dbus-1.12.20 \
-	            --with-console-auth-dir=/run/console \
-	            --with-system-pid-file=/run/dbus/pid \
-	            --with-system-socket=/run/dbus/system_bus_socket
-	make -j $(nproc)
-	make -j1 DESTDIR=$PKG_INSTALL_DIR install
-	rm -rv $PKG_INSTALL_DIR/var/run
-	ln -sfv /etc/machine_id $PKG_INSTALL_DIR/var/lib/dbus
+				--sysconfdir=/etc                    \
+				--localstatedir=/var                 \
+				--runstatedir=/run                   \
+				--disable-static                     \
+				--disable-doxygen-docs               \
+				--disable-xml-docs                   \
+				--docdir=/usr/share/doc/dbus-1.14.0 \
+				--with-system-socket=/run/dbus/system_bus_socket
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	mkdir -pv $PKG_INSTALL_DIR/var/lib/
+	ln -sfv /etc/machine-id $PKG_INSTALL_DIR/var/lib/dbus
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

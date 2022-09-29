@@ -66,8 +66,7 @@ libpipeline
 make
 texinfo
 vim
-markupsafe
-jinja2
+util-linux
 systemd
 dbus
 man-db
