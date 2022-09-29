@@ -59,7 +59,6 @@ coreutils
 check
 findutils
 groff
-grub
 gzip
 iproute2
 kbd
