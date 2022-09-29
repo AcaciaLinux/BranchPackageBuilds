@@ -3,7 +3,7 @@ version=3.8
 real_version=0
 source=https://ftp.gnu.org/gnu/diffutils/diffutils-3.8.tar.xz
 dependencies=[glibc]
-builddeps=
+builddeps=[glibc]
 description=The Diffutils package contains programs that show the differences between files or directories.
 build={
 	cd $PKG_NAME-$PKG_VERSION

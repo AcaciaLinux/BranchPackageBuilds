@@ -6,7 +6,7 @@ dependencies=[perl][expat]
 builddeps=[perl][expat]
 description=The XML::Parser module is a Perl interface to James Clark's XML parser, Expat.
 build={
-	cd XML-Parser-2.46
+	cd XML-Parser-$PKG_VERSION
 
 	perl Makefile.PL
 

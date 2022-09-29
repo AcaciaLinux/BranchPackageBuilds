@@ -2,12 +2,12 @@ name=perl
 version=5.36.0
 real_version=0
 source=https://www.cpan.org/src/5.0/perl-5.36.0.tar.xz
-dependencies=[gdbm]
-builddeps=
+dependencies=[gdbm][glibc]
+builddeps=[gdbm][glibc]
 description=The Perl package contains the Practical Extraction and Report Language.
 build={
 	#TODO: libcrypt, procps-ng deps?
-	cd perl-5.36.0
+	cd $PKG_NAME-$PKG_VERSION
 
 	export BUILD_ZLIB=False
 	export BUILD_BZIP2=0

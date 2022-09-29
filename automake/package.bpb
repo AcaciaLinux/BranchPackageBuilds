@@ -6,9 +6,9 @@ dependencies=[perl]
 builddeps=[autoconf][perl]
 description=The Automake package contains programs for generating Makefiles for use with Autoconf.
 build={
-	cd automake-1.16.5
+	cd $PKG_NAME-$PKG_VERSION
 	
-	./configure --prefix=/usr --docdir=/usr/share/doc/automake-1.16.5
+	./configure --prefix=/usr --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
 	
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install

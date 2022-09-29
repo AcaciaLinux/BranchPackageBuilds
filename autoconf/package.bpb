@@ -7,8 +7,7 @@ builddeps=[m4][perl][gawk][diffutils]
 crossdeps=[m4][perl]
 description=The Autoconf package contains programs for producing shell scripts that can automatically configure source code.
 build={
-	#TODO: diffutils, gawk deps?
-	cd autoconf-2.71
+	cd $PKG_NAME-$PKG_VERSION
 
 	./configure --prefix=/usr
 	
