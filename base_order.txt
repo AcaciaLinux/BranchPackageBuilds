@@ -49,7 +49,7 @@ diffutils
 autoconf
 automake
 openssl
-kmod !!!
+kmod
 elfutils
 libffi
 python3
@@ -71,5 +71,4 @@ systemd
 dbus
 man-db
 procps-ng
-util-linux
 e2fsprogs
