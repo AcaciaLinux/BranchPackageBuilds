@@ -2,14 +2,14 @@ name=bash
 version=5.1.16
 real_version=0
 source=https://ftp.gnu.org/gnu/bash/bash-5.1.16.tar.gz
-dependencies=[readline][ncurses]
-builddeps=
+dependencies=[glibc][readline][ncurses]
+builddeps=[glibc][readline][ncurses]
 description=The Bash package contains the Bourne-Again SHell.
 build={
-	cd bash-5.1.16
+	cd $PKG_NAME-$PKG_VERSION
 
 	./configure --prefix=/usr                      \
-				--docdir=/usr/share/doc/bash-5.1.16 \
+				--docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION \
 				--without-bash-malloc              \
 				--with-installed-readline
 

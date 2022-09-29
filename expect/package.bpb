@@ -6,7 +6,7 @@ dependencies=[tcl]
 builddeps=[tcl]
 description=The Expect package contains tools for automating, via scripted dialogues.
 build={
-	cd $PKG_NAME-$PKG_VERSION
+	cd $PKG_NAME$PKG_VERSION
 	./configure --prefix=/usr           \
             --with-tcl=/usr/lib     \
             --enable-shared         \

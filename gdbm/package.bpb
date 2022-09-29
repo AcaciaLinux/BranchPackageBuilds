@@ -2,11 +2,11 @@ name=gdbm
 version=1.23
 real_version=0
 source=https://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
-dependencies=[readline]
-builddeps=
+dependencies=[glibc][readline]
+builddeps=[glibc][readline][readline]
 description=The GDBM package contains the GNU Database Manager.
 build={
-	cd gdbm-1.23
+	cd $PKG_NAME-$PKG_VERSION
 
 	./configure --prefix=/usr    \
 				--disable-static \

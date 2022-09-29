@@ -2,12 +2,12 @@ name=less
 version=590
 real_version=0
 source=https://www.greenwoodsoftware.com/less/less-590.tar.gz
-dependencies=[ncurses]
-builddeps=
+dependencies=[glibc][ncurses]
+builddeps=[glibc][ncurses]
 description=The Less package contains a text file viewer.
 build={
 	#TODO: pcre2 dependency?
-	cd less-590
+	cd $PKG_NAME-$PKG_VERSION
 
 	./configure --prefix=/usr --sysconfdir=/etc
 	

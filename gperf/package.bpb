@@ -2,14 +2,14 @@ name=gperf
 version=3.1
 real_version=0
 source=https://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz
-dependencies=
-builddeps=
+dependencies=[gcc-libs][texinfo]
+builddeps=[gcc-libs][texinfo]
+crossdeps=[gcc-libs]
 description=Gperf generates a perfect hash function from a key set.
 build={
-	#TODO: texinfo dependency?
-	cd gperf-3.1
+	cd $PKG_NAME-$PKG_VERSION
 
-	./configure --prefix=/usr --docdir=/usr/share/doc/gperf-3.1
+	./configure --prefix=/usr --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
 
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install

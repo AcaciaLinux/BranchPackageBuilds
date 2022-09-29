@@ -2,12 +2,11 @@ name=inetutils
 version=2.3
 real_version=0
 source=https://ftp.gnu.org/gnu/inetutils/inetutils-2.3.tar.xz
-dependencies=[libcap][ncurses][readline]
-builddeps=
+dependencies=[libcap][ncurses][linux-pam][readline]
+builddeps=[libcap][ncurses][linux-pam][readline]
 description=The Inetutils package contains programs for basic networking.
 build={
-	#TODO: libxcrypt, pam dependency
-	cd inetutils-2.3
+	cd $PKG_NAME-$PKG_VERSION
 
 	./configure --prefix=/usr        \
 				--bindir=/usr/bin    \
