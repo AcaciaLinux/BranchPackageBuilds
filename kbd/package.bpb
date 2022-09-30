@@ -3,8 +3,8 @@ version=2.5.1
 real_version=0
 source=https://www.kernel.org/pub/linux/utils/kbd/kbd-2.5.1.tar.xz
 extra_sources=[https://www.linuxfromscratch.org/patches/lfs/11.2/kbd-2.5.1-backspace-1.patch]
-dependencies=[glibc][linux-pam]
-builddeps=[glibc][linux-pam][patch][autoconf]
+dependencies=[glibc][linux-pam][gzip]
+builddeps=[glibc][linux-pam][patch][autoconf][gzip]
 description=
 build={
 	cd $PKG_NAME-$PKG_VERSION
