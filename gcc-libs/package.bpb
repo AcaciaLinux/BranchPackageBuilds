@@ -3,7 +3,7 @@ version=12.2.0
 real_version=0
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 dependencies=[glibc]
-builddeps=[glibc][binutils][doxygen][gcc-ada][gcc-d][git][lib32-gcc-libs][lib32-glibc][libisl][libmpc][libxcrypt][python][zstd]
+builddeps=[glibc][binutils][mpc][python3][zstd]
 crossdeps=[glibc]
 description=This is the standard C++ library.
 build={
@@ -18,8 +18,7 @@ build={
 		--prefix=/usr                   \
 		--disable-multilib              \
 		--disable-nls                   \
-		--disable-libstdcxx-pch         \
-		--with-gxx-include-dir=/tools/$(uname -m)-acacia-linux-gnu/include/c++/$PKG_VERSION
+		--disable-libstdcxx-pch
 
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
