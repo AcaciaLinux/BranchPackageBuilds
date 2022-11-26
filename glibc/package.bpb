@@ -3,9 +3,9 @@ version=2.36
 real_version=1
 source=https://ftp.gnu.org/gnu/glibc/glibc-2.36.tar.xz
 extra_sources=[https://www.linuxfromscratch.org/patches/lfs/development/glibc-2.36-fhs-1.patch][https://www.iana.org/time-zones/repository/releases/tzdata2022c.tar.gz]
-dependencies=[base][linux-api-headers]
+dependencies=[linux-api-headers]
 builddeps=[linux-api-headers][python3][patch]
-crossdeps=[linux-api-headers][patch]
+crossdeps=[linux-api-headers]
 description=The Glibc package contains the main C library. This library provides the basic routines for allocating memory, searching directories, opening and closing files, reading and writing files, string handling, pattern matching, arithmetic, and so on. 
 build={
 		mkdir -p $PKG_INSTALL_DIR/etc/
