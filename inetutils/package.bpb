@@ -21,6 +21,7 @@ build={
 	
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
+	mkdir -pv $PKG_INSTALL_DIR/usr/sbin/ifconfig
 	mv -v $PKG_INSTALL_DIR/usr/{,s}bin/ifconfig
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
