@@ -1,6 +1,6 @@
 name=bash
 version=5.1.16
-real_version=0
+real_version=2
 source=https://ftp.gnu.org/gnu/bash/bash-5.1.16.tar.gz
 extra_sources=
 dependencies=[glibc][readline][ncurses]
@@ -17,6 +17,5 @@ build={
 	make DESTDIR=$PKG_INSTALL_DIR install
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 
-	mkdir -pv $PKG_INSTALL_DIR/bin
-	ln -sv /usr/bin/bash $PKG_INSTALL_DIR/bin/sh
+	ln -sv /usr/bin/bash $PKG_INSTALL_DIR/usr/bin/sh
 }
