@@ -2,9 +2,9 @@ name=gperf
 version=3.1
 real_version=0
 source=https://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz
-dependencies=[gcc-libs][texinfo]
-builddeps=[gcc-libs][texinfo]
-crossdeps=[gcc-libs]
+dependencies=[libstdcpp][texinfo]
+builddeps=[libstdcpp][texinfo]
+crossdeps=[libstdcpp]
 description=Gperf generates a perfect hash function from a key set.
 build={
 	cd $PKG_NAME-$PKG_VERSION

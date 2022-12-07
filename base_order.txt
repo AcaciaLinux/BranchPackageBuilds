@@ -5,7 +5,7 @@ glibc
 zlib
 bzip2
 xz
-gcc-libs
+libstdcpp
 attr
 patch
 zstd

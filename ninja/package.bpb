@@ -2,9 +2,9 @@ name=ninja
 version=1.11.0
 real_version=0
 source=https://github.com/ninja-build/ninja/archive/v1.11.0/ninja-1.11.0.tar.gz
-dependencies=[gcc-libs]
-builddeps=[gcc-libs][python3]
-crossdeps=[gcc-libs][python3]
+dependencies=[libstdcpp]
+builddeps=[libstdcpp][python3]
+crossdeps=[libstdcpp][python3]
 description=Ninja is a small build system with a focus on speed.
 build={
 	cd $PKG_NAME-$PKG_VERSION
