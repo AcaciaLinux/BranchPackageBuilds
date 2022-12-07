@@ -1,10 +1,10 @@
 name=gcc
 version=12.2.0
-real_version=3
+real_version=4
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
 dependencies=[binutils][mpc][zstd][expect]
-builddeps=[binutils][mpc][zstd][python3][expect]
+builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils]
 crossdeps=[binutils][mpc][zstd][expect]
 description=The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 build={
@@ -22,8 +22,6 @@ build={
 
 	TGT=$(uname -m)-acacia-linux-gnu
 	echo "GCC TGT: $TGT"
-
-	#--program-prefix=$(uname -m)-acacia-linux-gnu- \
 
 	../configure --prefix=/usr                         \
 		LD=ld                                          \
@@ -47,17 +45,17 @@ build={
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib
 	mv -v $PKG_INSTALL_DIR/usr/lib/*gdb.py $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib || true
 
-	#echo "Removing libstdc++ libraries to remove conflicts..."
-	#rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/__init__.py
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.a
-	#rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/__init__.py
-	#rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/printers.py
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++fs.a
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6.0.30
-	#rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/xmethods.py
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6
-	#rm -rfv $PKG_INSTALL_DIR/usr/lib/libsupc++.a
+	echo "Removing libstdc++ libraries to remove conflicts..."
+	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/__init__.py
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.a
+	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/__init__.py
+	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/printers.py
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++fs.a
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6.0.30
+	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/xmethods.py
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libsupc++.a
 
-	#rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
