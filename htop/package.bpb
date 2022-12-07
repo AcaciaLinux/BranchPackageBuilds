@@ -1,14 +1,16 @@
 name=htop
-version=3.2.0
+version=3.2.1
 real_version=0
-source=https://github.com/htop-dev/htop/releases/download/3.2.0/htop-3.2.0.tar.xz
+source=https://github.com/htop-dev/htop/releases/download/3.2.1/htop-3.2.1.tar.xz
+extra_sources=
 dependencies=[libcap][ncurses][libnl]
-builddeps=[git]
+builddeps=[libcap][ncurses][libnl][autoconf][automake][perl][m4][grep][sed][gettext][linux-api-headers]
+crossdeps=
 description=The htop interactive process viewer
 build={
-	cd htop-3.2.0
-	./autogen.sh
-	./configure --prefix=$PKG_INSTALL_DIR/usr/
-	make -j$(nproc)
-	make -j1 install
+		cd $PKG_NAME-$PKG_VERSION
+		./autogen.sh
+		./configure
+		make -j$(nproc)
+		make DESTDIR=$PKG_INSTALL_DIR install
 }
