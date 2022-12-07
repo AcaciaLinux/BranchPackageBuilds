@@ -1,43 +1,60 @@
 name=systemd
-version=250
+version=251
 real_version=0
-source=https://github.com/systemd/systemd/archive/v250/systemd-250.tar.gz
-dependencies=[linux-pam][polkit][iptables][p11-kit]
-builddeps=
-description=The systemd init and service handling system.
+source=https://github.com/systemd/systemd/archive/v251/systemd-251.tar.gz
+extra_sources=[https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-2.1.1.tar.gz][https://files.pythonhosted.org/packages/source/J/Jinja2/Jinja2-3.1.2.tar.gz][https://www.linuxfromscratch.org/patches/lfs/11.2/systemd-251-glibc_2.36_fix-1.patch]
+dependencies=[acl][kbd][kmod][libcap][libelf][openssl][linux-pam][util-linux][xz]
+builddeps=[acl][kbd][kmod][libcap][libelf][linux-pam][util-linux][xz][gperf][intltool][linux-api-headers][meson][shadow][python3][tar][gzip][patch][pkg-config]
+crossdeps=[acl][kbd][kmod][libcap][libelf][linux-pam][util-linux][xz][gperf][intltool][linux-api-headers][meson][shadow][python3][tar][gzip][patch][pkg-config]
+description= The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 build={
-	python3 -m pip install jinja2
-	wget https://www.linuxfromscratch.org/patches/blfs/11.1/systemd-250-upstream_fixes-1.patch
-	cd systemd-250
-	patch -Np1 -i ../systemd-250-upstream_fixes-1.patch
-	#patch -Np1 -i ../systemd-250-kernel_5.17_fixes-1.patch
+	cd $PKG_NAME-$PKG_VERSION
+	tar xpf ../MarkupSafe-2.1.1.tar.gz
+	cd MarkupSafe-2.1.1
+	python3 setup.py build
+	python3 setup.py install --optimize=1
+	rm -rf MarkupSafe-2.1.1
+	cd ..
+	tar xpf ../Jinja2-3.1.2.tar.gz
+	cd Jinja2-3.1.2
+	python3 setup.py install --optimize=1
+	rm -rf Jinja2-3.1.2
+	cd ..
+	patch -Np1 -i ../systemd-251-glibc_2.36_fix-1.patch
 	sed -i -e 's/GROUP="render"/GROUP="video"/' \
 	       -e 's/GROUP="sgx", //' rules.d/50-udev-default.rules.in
-	mkdir build &&
-	cd    build &&
-	meson --prefix=/usr                 \
-	      --buildtype=release           \
-	      -Dblkid=true                  \
-	      -Ddefault-dnssec=no           \
-	      -Dfirstboot=false             \
-	      -Dinstall-tests=false         \
-	      -Dldconfig=false              \
-	      -Dman=false                    \
-	      -Dsysusers=false              \
-	      -Drpmmacrosdir=no             \
-	      -Db_lto=false                 \
-	      -Dhomed=false                 \
-	      -Duserdb=false                \
-	      -Dmode=release                \
-	      -Dpamconfdir=/etc/pam.d       \
-	      -Ddocdir=/usr/share/doc/systemd-250 \
-	      ..                            &&
-	ninja
+	mkdir -p build
+	cd       build
+	meson --prefix=/usr                   \
+	--buildtype=release           \
+	-Ddefault-dnssec=no           \
+	-Dfirstboot=false             \
+	-Dinstall-tests=false         \
+	-Dldconfig=false              \
+	-Dsysusers=false              \
+	-Drpmmacrosdir=no             \
+	-Dhomed=false                 \
+	-Duserdb=false                \
+	-Dman=false                   \
+	-Dmode=release                \
+	-Dpamconfdir=no               \
+	-Ddocdir=/usr/share/doc/systemd-251 \
+	..
+	ninja -j$(nproc)
 	DESTDIR=$PKG_INSTALL_DIR ninja install
-	mkdir -vp /etc/pam.d/
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+	cat > $PKG_INSTALL_DIR/../postinstall.sh << "EOF"
+	#/bin/sh
+	chroot $ROOTDIR systemd-machine-id-setup
+	chroot $ROOTDIR systemctl preset-all
+	chroot $ROOTDIR systemctl disable systemd-sysupdate
+	EOF
+	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
+	mkdir -pv $PKG_INSTALL_DIR/etc/pam.d
 	grep 'pam_systemd' $PKG_INSTALL_DIR/etc/pam.d/system-session ||
-	cat >> /etc/pam.d/system-session << "EOF"
+	cat >> $PKG_INSTALL_DIR/etc/pam.d/system-session << "EOF"
 	# Begin Systemd addition
+	session   required    pam_unix.so
 	session  required    pam_loginuid.so
 	session  optional    pam_systemd.so
 	# End Systemd addition

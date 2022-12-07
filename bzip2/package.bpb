@@ -2,11 +2,11 @@ name=bzip2
 version=1.0.8
 real_version=0
 source=https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
-dependencies=
-builddeps=
+dependencies=[glibc]
+builddeps=[glibc]
 description=The Bzip2 package contains programs for compressing and decompressing files. 
 build={
-	cd bzip2-1.0.8
+	cd $PKG_NAME-$PKG_VERSION
 	sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
 	sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
 	make -f Makefile-libbz2_so

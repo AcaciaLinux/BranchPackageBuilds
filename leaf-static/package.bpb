@@ -1,0 +1,22 @@
+name=leaf-static
+version=0.2.0
+real_version=0
+source=
+dependencies=
+builddeps=[git][cmake]
+crossdeps=[git]
+description=Leaf is the package manager for AcaciaLinux
+build={
+	git clone --recurse-submodules --branch=$PKG_VERSION https://github.com/AcaciaLinux/leaf
+	cd leaf
+
+	cd Log
+	./prepare_tests.sh
+	cd ..
+	
+	mkdir build
+	cd build
+	cmake -DCMAKE_BUILD_TYPE=Release -DLEAF_STATIC=On ..
+	make -j $(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}
