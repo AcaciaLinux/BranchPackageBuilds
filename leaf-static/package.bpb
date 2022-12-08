@@ -4,7 +4,6 @@ real_version=0
 source=
 dependencies=
 builddeps=[git][cmake]
-crossdeps=[git]
 description=Leaf is the package manager for AcaciaLinux
 build={
 	git clone --recurse-submodules --branch=$PKG_VERSION https://github.com/AcaciaLinux/leaf

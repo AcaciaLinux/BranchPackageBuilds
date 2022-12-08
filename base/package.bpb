@@ -5,7 +5,6 @@ source=
 extra_sources=
 dependencies=
 builddeps=
-crossdeps=
 description=
 build={
 	mkdir -pv $PKG_INSTALL_DIR/{etc,var,srv,tmp,mnt} $PKG_INSTALL_DIR/usr/{bin,lib,sbin}

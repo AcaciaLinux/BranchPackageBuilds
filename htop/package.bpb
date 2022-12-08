@@ -5,7 +5,6 @@ source=https://github.com/htop-dev/htop/releases/download/3.2.1/htop-3.2.1.tar.x
 extra_sources=
 dependencies=[libcap][ncurses][libnl]
 builddeps=[libcap][ncurses][libnl][autoconf][automake][perl][m4][grep][sed][gettext][linux-api-headers]
-crossdeps=
 description=The htop interactive process viewer
 build={
 		cd $PKG_NAME-$PKG_VERSION
