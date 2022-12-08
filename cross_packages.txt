@@ -49,3 +49,4 @@ gcc
 libtool
 groff
 which
+base
