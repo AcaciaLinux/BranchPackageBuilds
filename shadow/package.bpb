@@ -5,7 +5,6 @@ source=https://github.com/shadow-maint/shadow/releases/download/4.12.3/shadow-4.
 extra_sources=
 dependencies=[linux-pam]
 builddeps=[linux-pam]
-crossdeps=
 description=The Shadow package contains programs for handling passwords in a secure way.
 build={
 	cd $PKG_NAME-$PKG_VERSION

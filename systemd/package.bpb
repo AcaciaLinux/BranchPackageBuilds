@@ -5,7 +5,6 @@ source=https://github.com/systemd/systemd/archive/v251/systemd-251.tar.gz
 extra_sources=[https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-2.1.1.tar.gz][https://files.pythonhosted.org/packages/source/J/Jinja2/Jinja2-3.1.2.tar.gz][https://www.linuxfromscratch.org/patches/lfs/11.2/systemd-251-glibc_2.36_fix-1.patch]
 dependencies=[acl][kbd][kmod][libcap][libelf][openssl][linux-pam][util-linux][xz]
 builddeps=[acl][kbd][kmod][libcap][libelf][linux-pam][util-linux][xz][gperf][intltool][linux-api-headers][meson][shadow][python3][tar][gzip][patch][pkg-config]
-crossdeps=[acl][kbd][kmod][libcap][libelf][linux-pam][util-linux][xz][gperf][intltool][linux-api-headers][meson][shadow][python3][tar][gzip][patch][pkg-config]
 description= The systemd package contains programs for controlling the startup, running, and shutdown of the system.
 build={
 	cd $PKG_NAME-$PKG_VERSION
