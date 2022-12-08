@@ -5,7 +5,6 @@ source=https://ftp.gnu.org/gnu/bash/bash-5.1.16.tar.gz
 extra_sources=
 dependencies=[glibc][readline][ncurses]
 builddeps=[glibc][readline][ncurses]
-crossdeps=
 description=The Bash package contains the Bourne-Again SHell.
 build={
 	cd $PKG_NAME-$PKG_VERSION

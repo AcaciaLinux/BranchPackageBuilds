@@ -5,7 +5,7 @@ source=https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.19.2.tar.xz
 extra_sources=
 dependencies=
 builddeps=[findutils]
-crossdeps=
+crossdeps=[crosstools]
 description=
 build={
 	cd linux-5.19.2

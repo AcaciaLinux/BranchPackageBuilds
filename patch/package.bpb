@@ -5,7 +5,6 @@ source=https://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz
 extra_sources=
 dependencies=[attr][glibc]
 builddeps=[attr][glibc]
-crossdeps=
 description=The Patch package contains a program for modifying or creating files by applying a patch file typically created by the diff program.
 build={
 			cd $PKG_NAME-$PKG_VERSION
