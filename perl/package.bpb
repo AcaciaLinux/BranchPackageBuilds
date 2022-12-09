@@ -1,6 +1,6 @@
 name=perl
 version=5.36.0
-real_version=1
+real_version=0
 source=https://www.cpan.org/src/5.0/perl-5.36.0.tar.xz
 dependencies=[gdbm][glibc][zlib][bzip2]
 builddeps=[gdbm][glibc][zlib][bzip2]
