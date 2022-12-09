@@ -56,7 +56,6 @@ build={
 	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/xmethods.py
 	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6
 	rm -rfv $PKG_INSTALL_DIR/usr/lib/libsupc++.a
-	rm -rfv $PKG_INSTALL_DIR/usr/include/c++
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
