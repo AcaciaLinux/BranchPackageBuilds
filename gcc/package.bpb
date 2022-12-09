@@ -1,6 +1,6 @@
 name=gcc
 version=12.2.0
-real_version=4
+real_version=5
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
 dependencies=[binutils][mpc][zstd]
@@ -35,6 +35,7 @@ build={
 	make -j$(nproc)
 
 	make DESTDIR=$PKG_INSTALL_DIR install
+	ln -sv gcc $PKG_INSTALL_DIR/usr/bin/cc
 
 	ln -svr $PKG_INSTALL_DIR/usr/bin/cpp $PKG_INSTALL_DIR/usr/lib
 	mkdir -pv $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
