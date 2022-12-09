@@ -52,9 +52,8 @@ build={
 	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/__init__.py
 	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/printers.py
 	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++fs.a
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6.0.30
 	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/xmethods.py
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.6
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.*
 	rm -rfv $PKG_INSTALL_DIR/usr/lib/libsupc++.a
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
