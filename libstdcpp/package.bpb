@@ -23,5 +23,6 @@ build={
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
 	rm -v $PKG_INSTALL_DIR/usr/lib/lib{stdc++,stdc++fs,supc++}.la
+	rm -rfv $PKG_INSTALL_DIR/usr/include/c++
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
