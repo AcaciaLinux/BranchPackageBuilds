@@ -3,7 +3,7 @@ version=2.65
 real_version=0
 source=https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.65.tar.xz
 dependencies=[glibc][linux-pam]
-builddeps=[glibc][linux-pam]
+builddeps=[glibc][linux-pam][findutils]
 description=The Libcap package implements the user-space interfaces to the POSIX 1003.1e capabilities available in Linux kernels.
 build={
 	cd $PKG_NAME-$PKG_VERSION
