@@ -12,6 +12,7 @@ acl
 gettext
 gmp
 linux-pam
+findutils
 libcap
 zlib
 gdbm
@@ -28,7 +29,6 @@ automake
 coreutils
 xz
 file
-findutils
 less
 gzip
 texinfo
