@@ -14,7 +14,6 @@ build={
 
 	../libstdc++-v3/configure           \
 		--host=$(uname -m)-acacia-linux-gnu \
-		--build=$(../config.guess)      \
 		--prefix=/usr                   \
 		--disable-multilib              \
 		--disable-nls                   \
@@ -23,6 +22,12 @@ build={
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
 	rm -v $PKG_INSTALL_DIR/usr/lib/lib{stdc++,stdc++fs,supc++}.la
+
+	echo "Removing useless c++ headers..."
 	rm -rfv $PKG_INSTALL_DIR/usr/include/c++
+
+	echo "Removing useless static libraries..."
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/*.a
+
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
