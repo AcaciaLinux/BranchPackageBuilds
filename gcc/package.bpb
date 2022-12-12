@@ -46,15 +46,14 @@ build={
 	mv -v $PKG_INSTALL_DIR/usr/lib/*gdb.py $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib || true
 
 	echo "Removing libstdc++ libraries to remove conflicts..."
-	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/__init__.py
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.a
-	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/__init__.py
-	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/printers.py
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++fs.a
-	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION/python/libstdcxx/v6/xmethods.py
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so.*
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libsupc++.a
+
+	echo "Removing libstdc++.so..."
+	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so*
+
+	echo "Removing /usr/share/$PKG_NAME-$PKG_VERSION..."
+	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION
+
+	echo "Done!"
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
