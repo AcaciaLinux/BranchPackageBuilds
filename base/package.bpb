@@ -34,7 +34,7 @@ build={
 	EOF
 
 	cat > $PKG_INSTALL_DIR/etc/hosts << EOF
-	127.0.0.1  localhost $(hostname)
+	127.0.0.1  localhost
 	::1        localhost
 	EOF
 
