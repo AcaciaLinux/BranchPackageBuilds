@@ -65,4 +65,6 @@ build={
 	session     required        pam_deny.so
 	# End /etc/pam.d/other
 	EOF
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
