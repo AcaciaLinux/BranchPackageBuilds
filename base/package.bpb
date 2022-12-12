@@ -92,4 +92,5 @@ build={
 	nogroup:x:65534:
 	EOF
 
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
