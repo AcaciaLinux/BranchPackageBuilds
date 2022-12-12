@@ -1,6 +1,6 @@
 name=ncurses
 version=6.3
-real_version=0
+real_version=1
 source=https://invisible-mirror.net/archives/ncurses/ncurses-6.3.tar.gz
 dependencies=[libstdcpp][glibc]
 builddeps=[libstdcpp][glibc]

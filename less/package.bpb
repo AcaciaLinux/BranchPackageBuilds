@@ -1,6 +1,6 @@
 name=less
 version=590
-real_version=0
+real_version=1
 source=https://www.greenwoodsoftware.com/less/less-590.tar.gz
 dependencies=[glibc][ncurses]
 builddeps=[glibc][ncurses]
