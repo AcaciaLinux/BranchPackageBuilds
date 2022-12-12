@@ -20,4 +20,6 @@ build={
 	  ln -sfv bzip2 $i
 	done
 	rm -fv /usr/lib/libbz2.a
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
