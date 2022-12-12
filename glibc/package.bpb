@@ -98,4 +98,6 @@ build={
 		/usr/local/lib
 		/opt/lib
 		EOF
+
+		rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
