@@ -1,6 +1,6 @@
 name=libffi
 version=3.4.2
-real_version=0
+real_version=1
 source=https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
 dependencies=[glibc]
 builddeps=[glibc]
