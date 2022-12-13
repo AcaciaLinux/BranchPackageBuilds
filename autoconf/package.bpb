@@ -1,6 +1,6 @@
 name=autoconf
 version=2.71
-real_version=1
+real_version=0
 source=https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.xz
 dependencies=[m4][perl][gawk][diffutils]
 builddeps=[m4][perl][gawk][diffutils]

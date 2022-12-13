@@ -1,6 +1,6 @@
 name=tcl
 version=8.6.12
-real_version=1
+real_version=0
 source=https://downloads.sourceforge.net/tcl/tcl8.6.12-src.tar.gz
 dependencies=[zlib]
 builddeps=[zlib]

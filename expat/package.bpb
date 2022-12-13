@@ -1,6 +1,6 @@
 name=expat
 version=2.5.0
-real_version=1
+real_version=0
 source=https://prdownloads.sourceforge.net/expat/expat-2.5.0.tar.xz
 dependencies=[glibc]
 builddeps=[glibc]

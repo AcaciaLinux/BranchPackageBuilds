@@ -1,6 +1,6 @@
 name=zlib
 version=1.2.13
-real_version=1
+real_version=0
 source=https://zlib.net/zlib-1.2.13.tar.xz
 dependencies=[glibc]
 builddeps=[glibc]

@@ -1,6 +1,6 @@
 name=gzip
 version=1.12
-real_version=1
+real_version=0
 source=https://ftp.gnu.org/gnu/gzip/gzip-1.12.tar.xz
 dependencies=[glibc][less]
 builddeps=[glibc][less]

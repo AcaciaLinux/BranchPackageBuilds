@@ -1,6 +1,6 @@
 name=make
 version=4.3
-real_version=1
+real_version=0
 source=https://ftp.gnu.org/gnu/make/make-4.3.tar.gz
 dependencies=[glibc]
 builddeps=[glibc]

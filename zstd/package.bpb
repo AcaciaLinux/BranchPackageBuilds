@@ -1,6 +1,6 @@
 name=zstd
 version=1.5.2
-real_version=1
+real_version=0
 source=https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz
 extra_sources=[https://www.linuxfromscratch.org/patches/lfs/11.2-rc1/zstd-1.5.2-upstream_fixes-1.patch]
 dependencies=[libstdcpp][glibc][xz][zlib]

@@ -1,6 +1,6 @@
 name=linux-api-headers
 version=5.19.2
-real_version=1
+real_version=0
 source=https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.19.2.tar.xz
 extra_sources=
 dependencies=
