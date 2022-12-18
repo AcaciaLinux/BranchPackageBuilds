@@ -1,6 +1,6 @@
 name=libcap
 version=2.65
-real_version=1
+real_version=2
 source=https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.65.tar.xz
 dependencies=[glibc][linux-pam]
 builddeps=[glibc][linux-pam][findutils]

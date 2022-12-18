@@ -1,6 +1,6 @@
 name=expect
 version=5.45.4
-real_version=1
+real_version=2
 source=https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz
 dependencies=[tcl]
 builddeps=[tcl]

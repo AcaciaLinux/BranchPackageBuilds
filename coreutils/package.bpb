@@ -1,6 +1,6 @@
 name=coreutils
 version=9.1
-real_version=1
+real_version=2
 source=https://ftp.gnu.org/gnu/coreutils/coreutils-9.1.tar.xz
 extra_sources=[https://www.linuxfromscratch.org/patches/lfs/11.2/coreutils-9.1-i18n-1.patch]
 dependencies=[acl][attr][glibc][gmp][libcap][openssl]

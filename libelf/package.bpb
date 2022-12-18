@@ -1,6 +1,6 @@
 name=libelf
 version=0.187
-real_version=1
+real_version=2
 source=https://sourceware.org/ftp/elfutils/0.187/elfutils-0.187.tar.bz2
 dependencies=[libstdcpp][bzip2][xz][zlib][zstd]
 builddeps=[libstdcpp][bzip2][xz][zlib][zstd]

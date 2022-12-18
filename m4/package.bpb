@@ -1,6 +1,6 @@
 name=m4
 version=1.4.19
-real_version=1
+real_version=2
 source=https://ftp.gnu.org/gnu/m4/m4-1.4.19.tar.xz
 dependencies=[glibc]
 builddeps=[glibc]

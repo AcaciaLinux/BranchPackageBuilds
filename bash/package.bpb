@@ -1,6 +1,6 @@
 name=bash
 version=5.1.16
-real_version=1
+real_version=2
 source=https://ftp.gnu.org/gnu/bash/bash-5.1.16.tar.gz
 extra_sources=
 dependencies=[glibc][readline][ncurses]

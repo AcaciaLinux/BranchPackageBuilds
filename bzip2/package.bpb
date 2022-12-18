@@ -1,6 +1,6 @@
 name=bzip2
 version=1.0.8
-real_version=1
+real_version=2
 source=https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 dependencies=[glibc]
 builddeps=[glibc]
