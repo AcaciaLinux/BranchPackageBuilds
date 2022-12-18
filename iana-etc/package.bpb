@@ -9,4 +9,5 @@ build={
 	cd $PKG_NAME-$PKG_VERSION
 	mkdir -pv $PKG_INSTALL_DIR/etc
 	cp services protocols $PKG_INSTALL_DIR/etc
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
