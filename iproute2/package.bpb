@@ -3,7 +3,7 @@ version=5.19.0
 real_version=0
 source=https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.19.0.tar.xz
 dependencies=[glibc][libelf]
-builddeps=[glibc][libelf][flex]
+builddeps=[glibc][libelf][flex][bison][findutils]
 description=
 build={
 	cd $PKG_NAME-$PKG_VERSION
