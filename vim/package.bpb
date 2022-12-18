@@ -3,7 +3,7 @@ version=9.0.0228
 real_version=0
 source=https://anduin.linuxfromscratch.org/LFS/vim-9.0.0228.tar.gz
 dependencies=[acl][glibc][perl][zlib]
-builddeps=[acl][glibc][perl][zlib][gawk][python3][tcl]
+builddeps=[acl][glibc][perl][zlib][gawk][python3][tcl][findutils]
 description=
 build={
 	cd $PKG_NAME-$PKG_VERSION
