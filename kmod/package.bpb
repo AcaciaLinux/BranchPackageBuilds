@@ -3,7 +3,7 @@ version=30
 real_version=0
 source=https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-30.tar.xz
 dependencies=[glibc][openssl][xz][zlib][zstd]
-builddeps=[glibc][pkg-config][openssl][xz][zlib][zstd]
+builddeps=[glibc][pkg-config][openssl][xz][zlib][zstd][findutils]
 description=The Kmod package contains libraries and utilities for loading kernel modules.
 build={
 	cd $PKG_NAME-$PKG_VERSION
