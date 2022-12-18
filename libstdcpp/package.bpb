@@ -24,7 +24,7 @@ build={
 	rm -v $PKG_INSTALL_DIR/usr/lib/lib{stdc++,stdc++fs,supc++}.la
 
 	echo "Removing useless c++ headers..."
-	rm -rfv $PKG_INSTALL_DIR/usr/include/c++
+	rm -rf $PKG_INSTALL_DIR/usr/include/c++
 
 	echo "Removing useless static libraries..."
 	rm -rfv $PKG_INSTALL_DIR/usr/lib/*.a
