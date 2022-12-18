@@ -6,7 +6,7 @@ dependencies=
 builddeps=
 description=The libxml2 package contains libraries and utilities used for parsing XML files.
 build={
-	cd libxml2-2.9.13
+	cd $PKG_NAME-$PKG_VERSION
 	./configure --prefix=/usr    \
 	            --disable-static \
 	            --with-history   \
@@ -14,4 +14,5 @@ build={
 	            --docdir=/usr/share/doc/libxml2-2.9.13 &&
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
