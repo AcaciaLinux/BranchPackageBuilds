@@ -10,4 +10,5 @@ build={
 	./configure --prefix=/usr --disable-static
 	make -j$(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR -j1 install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
