@@ -2,8 +2,8 @@ name=p11-kit
 version=0.24.1
 real_version=0
 source=https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
-dependencies=[libtasn1]
-builddeps=
+dependencies=[libtasn1][systemd][coreutils]
+builddeps=[ninja][libffi][libtasn1][meson][systemd][python3]
 description= The p11-kit package provides a way to load and enumerate PKCS
 build={
 	cd p11-kit-0.24.1
@@ -23,4 +23,5 @@ build={
 	DESTDIR=$PKG_INSTALL_DIR ninja install
 	ln -sfv $PKG_INSTALL_DIR/usr/libexec/p11-kit/trust-extract-compat \
 	        $PKG_INSTALL_DIR/usr/bin/update-ca-certificates
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
