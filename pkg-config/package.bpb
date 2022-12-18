@@ -3,7 +3,7 @@ version=0.29.2
 real_version=0
 source=https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 dependencies=[glibc]
-builddeps=[glibc]
+builddeps=[glibc][findutils]
 description=The pkg-config package contains a tool for passing the include path and/or library paths to build tools during the configure and make phases of package installations.
 build={
 	cd $PKG_NAME-$PKG_VERSION
