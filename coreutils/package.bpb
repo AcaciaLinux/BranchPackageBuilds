@@ -20,6 +20,7 @@ build={
 	make DESTDIR=$PKG_INSTALL_DIR install
 
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/man/man8
+	mkdir -pv $PKG_INSTALL_DIR/usr/sbin
 	mv -v $PKG_INSTALL_DIR/usr/bin/chroot $PKG_INSTALL_DIR/usr/sbin
 	mv -v $PKG_INSTALL_DIR/usr/share/man/man1/chroot.1 $PKG_INSTALL_DIR/usr/share/man/man8/chroot.8
 	sed -i 's/"1"/"8"/' $PKG_INSTALL_DIR/usr/share/man/man8/chroot.8
