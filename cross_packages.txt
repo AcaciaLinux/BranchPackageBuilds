@@ -3,6 +3,9 @@ glibc
 m4
 bison
 zstd
+gmp
+mpfr
+mpc
 libstdcpp
 ncurses
 readline
@@ -10,7 +13,6 @@ bash
 attr
 acl
 gettext
-gmp
 linux-pam
 findutils
 libcap
@@ -20,8 +22,6 @@ bzip2
 perl
 openssl
 patch
-mpfr
-mpc
 gawk
 diffutils
 autoconf
