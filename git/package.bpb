@@ -2,8 +2,8 @@ name=git
 version=2.35.3
 real_version=0
 source=https://www.kernel.org/pub/software/scm/git/git-2.35.3.tar.xz
-dependencies=[curl][gnupg][OpenSSH]
-builddeps=
+dependencies=[curl][gnupg][openssh]
+builddeps=[curl][gnupg][openssh]
 description=Git is a free and open source, distributed version control system designed to handle everything from small to very large projects with speed and efficiency. 
 build={
 	cd git-2.35.3
