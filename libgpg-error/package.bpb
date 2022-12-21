@@ -1,7 +1,7 @@
 name=libgpg-error
 version=1.45
 real_version=0
-source= https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.45.tar.bz2
+source=https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.45.tar.bz2
 dependencies=
 builddeps=
 description=The libgpg-error package contains a library that defines common error values for all GnuPG components. 
