@@ -1,5 +1,6 @@
 linux-api-headers
 glibc
+zlib
 m4
 bison
 zstd
@@ -16,7 +17,6 @@ gettext
 linux-pam
 findutils
 libcap
-zlib
 gdbm
 bzip2
 perl
