@@ -7,7 +7,6 @@ zstd
 gmp
 mpfr
 mpc
-libstdcpp
 ncurses
 readline
 bash
@@ -45,6 +44,7 @@ binutils
 expat
 libffi
 python3
+libstdcpp
 gcc
 libtool
 groff
