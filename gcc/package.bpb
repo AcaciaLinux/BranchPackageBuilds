@@ -3,8 +3,8 @@ version=12.2.0
 real_version=3
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
-dependencies=[binutils][mpc][zstd]
-builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils]
+dependencies=[binutils][mpc][zstd][libstdcpp]
+builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep][libstdcpp]
 description=The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 build={
 	cd $PKG_NAME-$PKG_VERSION
@@ -35,23 +35,25 @@ build={
 	make -j$(nproc)
 
 	make DESTDIR=$PKG_INSTALL_DIR install
+
 	ln -sv gcc $PKG_INSTALL_DIR/usr/bin/cc
 
 	ln -svr $PKG_INSTALL_DIR/usr/bin/cpp $PKG_INSTALL_DIR/usr/lib
 	mkdir -pv $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
-	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$PKG_VERSION/liblto_plugin.so \
-	        $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
+	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$PKG_VERSION/liblto_plugin.so $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
 	
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib
 	mv -v $PKG_INSTALL_DIR/usr/lib/*gdb.py $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib || true
 
-	echo "Removing libstdc++ libraries to remove conflicts..."
+	echo "Installing libstdc++ libraries to remove conflicts..."
 
-	echo "Removing libstdc++.so..."
-	rm -rfv $PKG_INSTALL_DIR/usr/lib/libstdc++.so*
+	mkdir -pv installForRemoval
+	make DESTDIR=installForRemoval install-shared
+	cd installForRemoval
 
-	echo "Removing /usr/share/$PKG_NAME-$PKG_VERSION..."
-	rm -rfv $PKG_INSTALL_DIR/usr/share/$PKG_NAME-$PKG_VERSION
+	echo "Removing..."
+	find . -type f -exec rm -rfv $PKG_INSTALL_DIR/{} \;
+	cd ..
 
 	echo "Done!"
 
