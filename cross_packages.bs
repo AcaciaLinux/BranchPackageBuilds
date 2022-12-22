@@ -6,8 +6,8 @@ mpc
 zlib
 libstdcpp
 gcc
-m4;bison;ncurses;attr;findutils;bzip2;gawk;diffutils;xz;make;tcl;expat;libffi;which
-zstd;readline;acl;libcap;patch;file;less;expect
+m4;ncurses;attr;findutils;bzip2;gawk;diffutils;xz;make;tcl;expat;libffi;which
+zstd;bison;readline;acl;libcap;patch;file;less;expect
 bash;gettext;gdbm;gzip;tar;libelf;bc;dejagnu
 perl;sed;binutils;libtool
 openssl;autoconf;texinfo;groff
