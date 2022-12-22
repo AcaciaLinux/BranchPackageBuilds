@@ -33,7 +33,8 @@ build={
 
 	make -j$(nproc)
 
-	make -C ../libgcc DESTDIR=$PKG_INSTALL_DIR install-shared
+	make -C $(realpath $TGT/libgcc/) DESTDIR=$PKG_INSTALL_DIR install-shared
+	make -C $(realpath $TGT/libstdc++-v3/) DESTDIR=$PKG_INSTALL_DIR install
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
