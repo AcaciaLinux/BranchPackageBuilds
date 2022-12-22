@@ -5,6 +5,7 @@ source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
 dependencies=[binutils][mpc][zstd][libstdcpp]
 builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep][libstdcpp]
+crossdeps=[glibc][mpc][zlib][libstdcpp]
 description=The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 build={
 	cd $PKG_NAME-$PKG_VERSION
