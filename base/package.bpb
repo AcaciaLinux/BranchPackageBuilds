@@ -1,6 +1,6 @@
 name=base
 version=0.1
-real_version=2
+real_version=0
 source=
 extra_sources=
 dependencies=
