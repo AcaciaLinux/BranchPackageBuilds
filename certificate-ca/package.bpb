@@ -6,5 +6,11 @@ dependencies=
 builddeps=[make-ca]
 description=Contains the certificate ca
 build={
-	/usr/sbin/make-ca -C certdata.txt -D $PKG_INSTALL_DIR
+	mkdir -pv $PKG_INSTALL_DIR/etc/ssl
+	mkdir -pv $PKG_INSTALL_DIR/etc/pki
+
+	/usr/sbin/make-ca -C certdata.txt
+
+	cp -rfv /etc/ssl/* $PKG_INSTALL_DIR/etc/ssl/
+	cp -rfv /etc/pki/* $PKG_INSTALL_DIR/etc/pki/
 }
