@@ -1,10 +1,11 @@
 name=gcc
 version=12.2.0
-real_version=3
+real_version=0
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
 dependencies=[binutils][mpc][zstd][libstdcpp]
 builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep][libstdcpp]
+crossdeps=[glibc][mpc][zlib][libstdcpp]
 description=The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 build={
 	cd $PKG_NAME-$PKG_VERSION
@@ -48,11 +49,12 @@ build={
 	echo "Installing libstdc++ libraries to remove conflicts..."
 
 	mkdir -pv installForRemoval
-	make DESTDIR=installForRemoval install-shared
+	make -C $(realpath $TGT/libgcc/) DESTDIR=$(realpath installForRemoval) install-shared
+	make -C $(realpath $TGT/libstdc++-v3/) DESTDIR=$(realpath installForRemoval) install
 	cd installForRemoval
 
 	echo "Removing..."
-	find . -type f -exec rm -rfv $PKG_INSTALL_DIR/{} \;
+	find . ! -type d -exec rm -fv $PKG_INSTALL_DIR/{} \;
 	cd ..
 
 	echo "Done!"

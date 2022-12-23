@@ -1,9 +1,10 @@
 name=libstdcpp
 version=12.2.0
-real_version=4
+real_version=0
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
-dependencies=[binutils][mpc][zstd]
+dependencies=
 builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep]
+crossdeps=[glibc][mpc][zlib]
 description=This is the standard C++ library.
 build={
 	cd gcc-$PKG_VERSION
@@ -33,7 +34,8 @@ build={
 
 	make -j$(nproc)
 
-	make -C ../libgcc DESTDIR=$PKG_INSTALL_DIR install-shared
+	make -C $(realpath $TGT/libgcc/) DESTDIR=$PKG_INSTALL_DIR install-shared
+	make -C $(realpath $TGT/libstdc++-v3/) DESTDIR=$PKG_INSTALL_DIR install
 
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

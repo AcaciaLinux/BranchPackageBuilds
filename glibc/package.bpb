@@ -1,6 +1,6 @@
 name=glibc
 version=2.36
-real_version=2
+real_version=0
 source=https://ftp.gnu.org/gnu/glibc/glibc-2.36.tar.xz
 extra_sources=[https://www.linuxfromscratch.org/patches/lfs/development/glibc-2.36-fhs-1.patch][https://www.iana.org/time-zones/repository/releases/tzdata2022c.tar.gz]
 dependencies=[linux-api-headers]

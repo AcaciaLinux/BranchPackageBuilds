@@ -1,9 +1,10 @@
 name=ncurses
 version=6.3
-real_version=2
+real_version=0
 source=https://invisible-mirror.net/archives/ncurses/ncurses-6.3.tar.gz
 dependencies=[libstdcpp][glibc]
 builddeps=[libstdcpp][glibc]
+crossdeps=[glibc]
 description=The Ncurses package contains libraries for terminal-independent handling of character screens.
 build={
 	cd $PKG_NAME-$PKG_VERSION

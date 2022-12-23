@@ -1,0 +1,27 @@
+libarchive;libtasn1;libxml2;libuv;openssh
+p11-kit;nghttp2
+make-ca
+certificate-ca
+curl
+cmake
+
+
+nettle
+libunistring
+
+gnutls
+
+libassuan
+libgcrypt
+libgpg-error
+libksba
+npth
+pinentry
+sqlite
+libldap
+libusb-compat
+pcsclite
+
+gnupg - not checked!
+git
+leaf

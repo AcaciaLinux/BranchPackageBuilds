@@ -1,8 +1,8 @@
 name=gmp
 version=6.2.1
-real_version=2
+real_version=0
 source=https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz
-dependencies=[libstdcpp]
+dependencies=[glibc]
 builddeps=[libstdcpp]
 crossdeps=[glibc]
 description=The GMP package contains math libraries.
