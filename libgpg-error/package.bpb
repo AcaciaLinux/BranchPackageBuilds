@@ -6,9 +6,13 @@ dependencies=
 builddeps=
 description=The libgpg-error package contains a library that defines common error values for all GnuPG components. 
 build={
-	cd libgpg-error-1.45
+	cd $PKG_NAME-$PKG_VERSION
+
 	./configure --prefix=/usr
+
 	make -j$(nproc)
+
 	make DESTDIR=$PKG_INSTALL_DIR -j1 install
-	install -v -m644 -D README $PKG_INSTALL_DIR/usr/share/doc/libgpg-error-1.45/README
+
+	install -v -m644 -D README $PKG_INSTALL_DIR/usr/share/doc/$PKG_NAME-$PKG_VERSION/README
 }
