@@ -1,0 +1,5 @@
+flex;shadow;pkg-config;psmisc;gperf;inetutils;perl-xml-parser;check;kbd;libpipeline
+intltool;kmod;ninja;iproute2;util-linux
+meson
+systemd
+dbus;procps-ng;e2fsprogs
