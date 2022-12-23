@@ -6,8 +6,11 @@ dependencies=
 builddeps=[libgpg-error]
 description=The libassuan package contains an inter process communication library used by some of the other GnuPG related packages.
 build={
-	cd libassuan-2.5.5
+	cd $PKG_NAME-$PKG_VERSION
+
 	./configure --prefix=/usr
+
 	make -j$(nproc)
+	
 	make DESTDIR=$PKG_INSTALL_DIR install
 }
