@@ -122,8 +122,8 @@ build={
 
 	cat > $PKG_INSTALL_DIR/../postinstall.sh << "EOF"
 	#/bin/sh
-	chroot $ROOTDIR pwconv
-	chroot $ROOTDIR grpconv
+	/sbin/chroot $ROOTDIR /usr/sbin/pwconv
+	/sbin/chroot $ROOTDIR /usr/sbin/grpconv
 	EOF
 	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
 }
