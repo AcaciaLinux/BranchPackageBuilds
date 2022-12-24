@@ -15,4 +15,6 @@ build={
 	make DESTDIR=$PKG_INSTALL_DIR -j1 install
 
 	install -v -m644 -D README $PKG_INSTALL_DIR/usr/share/doc/$PKG_NAME-$PKG_VERSION/README
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
