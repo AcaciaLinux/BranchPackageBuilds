@@ -1,6 +1,6 @@
 name=shadow
 version=4.12.3
-real_version=0
+real_version=1
 source=https://github.com/shadow-maint/shadow/releases/download/4.12.3/shadow-4.12.3.tar.xz
 extra_sources=
 dependencies=[linux-pam]
