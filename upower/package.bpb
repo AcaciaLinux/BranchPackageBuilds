@@ -1,21 +1,24 @@
 name=upower
-version=0.99.18
+version=1.90.0
 real_version=0
-source=https://gitlab.freedesktop.org/upower/upower/-/archive/v0.99.18/upower-v0.99.18.tar.bz2
-dependencies=[libgudev][libusb][polkit]
-builddeps=[gobject-introspection]
+source=https://gitlab.freedesktop.org/upower/upower/-/archive/v1.90.0/upower-v1.90.0.tar.bz2
+dependencies=[libgudev][libusb][polkit][gobject-introspection]
+builddeps=[libgudev][libusb][polkit][gobject-introspection][meson][pkg-config]
 description=The UPower package provides an interface for enumerating power devices
 build={
-	python3 -m pip install packaging dbus-python python-dbusmock
-	cd upower-v0.99.18
-	mkdir build                         &&
-	cd    build                         &&
+	cd $PKG_NAME-v$PKG_VERSION
+
+	mkdir build
+	cd    build
+
 	meson --prefix=/usr       \
 	      --buildtype=release \
 	      -Dgtk-doc=false     \
 	      -Dman=false         \
-	      ..                            &&
+	      ..
 	ninja
-	cat /BranchPackageBuilds/upower/build/upower-v0.99.18/build/meson-logs/meson-log.txt
+
 	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
