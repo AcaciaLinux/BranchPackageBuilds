@@ -1,10 +1,10 @@
 name=gcc
 version=12.2.0
-real_version=0
+real_version=1
 source=https://ftp.gnu.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
 extra_sources=
 dependencies=[binutils][mpc][zstd][libstdcpp]
-builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep][libstdcpp]
+builddeps=[binutils][mpc][zstd][python3][expect][tar][diffutils][shadow][grep][libstdcpp][findutils]
 crossdeps=[glibc][mpc][zlib][libstdcpp]
 description=The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 build={
@@ -42,7 +42,8 @@ build={
 	ln -svr $PKG_INSTALL_DIR/usr/bin/cpp $PKG_INSTALL_DIR/usr/lib
 	mkdir -pv $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
 	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/$PKG_VERSION/liblto_plugin.so $PKG_INSTALL_DIR/usr/lib/bfd-plugins/
-	
+	cp -v libiberty/libiberty.a $PKG_INSTALL_DIR/usr/lib/
+
 	mkdir -pv $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib
 	mv -v $PKG_INSTALL_DIR/usr/lib/*gdb.py $PKG_INSTALL_DIR/usr/share/gdb/auto-load/usr/lib || true
 
