@@ -1,8 +1,8 @@
 name=bash-profile
 version=1.0
 real_version=0
-source=
-extra_sources=[https://acacialinux.org/pkgbuilds/bash-profile/bash_completion.sh][https://acacialinux.org/pkgbuilds/bash-profile/dircolors.sh][https://acacialinux.org/pkgbuilds/bash-profile/extrapaths.sh][https://acacialinux.org/pkgbuilds/bash-profile/i18n.sh][https://acacialinux.org/pkgbuilds/bash-profile/profile][https://acacialinux.org/pkgbuilds/bash-profile/readline.sh][https://acacialinux.org/pkgbuilds/bash-profile/umask.sh]
+source=https://acacialinux.org/pkgbuilds/bash-profile/profile
+extra_sources=[https://acacialinux.org/pkgbuilds/bash-profile/bash_completion.sh][https://acacialinux.org/pkgbuilds/bash-profile/dircolors.sh][https://acacialinux.org/pkgbuilds/bash-profile/extrapaths.sh][https://acacialinux.org/pkgbuilds/bash-profile/i18n.sh][https://acacialinux.org/pkgbuilds/bash-profile/readline.sh][https://acacialinux.org/pkgbuilds/bash-profile/umask.sh]
 dependencies=
 builddeps=[coreutils]
 description=This package contains a basic bash profile configuration
