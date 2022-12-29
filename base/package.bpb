@@ -1,19 +1,20 @@
 name=base
 version=0.1
-real_version=0
+real_version=1
 source=
 extra_sources=
 dependencies=
 builddeps=[coreutils]
+crossdeps=
 description=
 build={
 	mkdir -pv $PKG_INSTALL_DIR/{etc,var,srv,tmp,mnt} $PKG_INSTALL_DIR/usr/{bin,lib,sbin}
-	mkdir -pv $PKG_INSTALL_DIR/{dev,proc,sys,run,root}
+	mkdir -pv $PKG_INSTALL_DIR/{dev,proc,sys,run,root,home,opt}
+	ln -sv /run $PKG_INSTALL_DIR/var/run
 	for i in bin lib sbin; do
 	ln -sv usr/$i $PKG_INSTALL_DIR/$i
 	done
 	ln -sv /usr/lib $PKG_INSTALL_DIR/lib64
-
 	cat > $PKG_INSTALL_DIR/etc/os-release << "EOF"
 	NAME="AcaciaLinux"
 	VERSION="rolling"
@@ -21,23 +22,19 @@ build={
 	PRETTY_NAME="AcaciaLinux"
 	VERSION_CODENAME="rolling"
 	EOF
-
 	cat > $PKG_INSTALL_DIR/etc/acacia-release << "EOF"
 	AcaciaLinux
 	EOF
-
 	cat > $PKG_INSTALL_DIR/etc/lsb-release << "EOF"
 	DISTRIB_ID="AcaciaLinux"
 	DISTRIB_RELEASE="rolling"
 	DISTRIB_CODENAME="fall"
 	DISTRIB_DESCRIPTION="AcaciaLinux"
 	EOF
-
 	cat > $PKG_INSTALL_DIR/etc/hosts << EOF
 	127.0.0.1  localhost
 	::1        localhost
 	EOF
-
 	cat > $PKG_INSTALL_DIR/etc/passwd << "EOF"
 	root:x:0:0:root:/root:/bin/bash
 	bin:x:1:1:bin:/dev/null:/usr/bin/false
@@ -54,7 +51,6 @@ build={
 	systemd-oom:x:81:81:systemd Out Of Memory Daemon:/:/usr/bin/false
 	nobody:x:65534:65534:Unprivileged User:/dev/null:/usr/bin/false
 	EOF
-
 	cat > $PKG_INSTALL_DIR/etc/group << "EOF"
 	root:x:0:
 	bin:x:1:daemon
@@ -91,6 +87,5 @@ build={
 	users:x:999:
 	nogroup:x:65534:
 	EOF
-
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }
