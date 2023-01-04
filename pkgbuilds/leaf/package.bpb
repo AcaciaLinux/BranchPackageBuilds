@@ -1,15 +1,19 @@
 name=leaf
-version=0.1.2
-real_version=0
+version=0.2.3
+real_version=1
 source=
 dependencies=[libarchive][curl][libxml2]
-builddeps=
+builddeps=[libarchive][curl][libxml2][git][certificate-ca][cmake]
 description=Leaf is the package manager for AcaciaLinux
 build={
-	git clone --recurse-submodules --branch=0.1.2 https://github.com/AcaciaLinux/leaf
-	cd leaf
-	mkdir build &&
+	echo "nameserver 1.1.1.1" > /etc/resolv.conf
+
+	git clone --recurse-submodules --branch=dev https://github.com/AcaciaLinux/leaf
+	cd $PKG_NAME
+
+	mkdir build
 	cd build
+
 	cmake ..
 	make -j $(nproc)
 	make DESTDIR=$PKG_INSTALL_DIR install
