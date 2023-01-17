@@ -1,6 +1,6 @@
 name=shadow
 version=4.12.3
-real_version=1
+real_version=2
 source=https://github.com/shadow-maint/shadow/releases/download/4.12.3/shadow-4.12.3.tar.xz
 extra_sources=
 dependencies=[linux-pam]
@@ -122,8 +122,8 @@ build={
 
 	cat > $PKG_INSTALL_DIR/../postinstall.sh << "EOF"
 	#/bin/sh
-	/sbin/chroot $ROOTDIR /usr/sbin/pwconv
-	/sbin/chroot $ROOTDIR /usr/sbin/grpconv
+	/usr/sbin/pwconv
+	/usr/sbin/grpconv
 	EOF
 	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
 }

@@ -1,6 +1,6 @@
 name=polkit
 version=122
-real_version=0
+real_version=1
 source=https://gitlab.freedesktop.org/polkit/polkit/-/archive/122/polkit-122.tar.gz
 dependencies=[glib][shadow][duktape][gobject-introspection][libxslt][linux-pam][systemd][docbook-xml][docbook-xsl-nons]
 builddeps=[glib][duktape][gobject-introspection][libxslt][linux-pam][systemd][docbook-xml][docbook-xsl-nons][meson][pkg-config][gettext]
@@ -12,8 +12,8 @@ build={
 	cd    build
 
 	echo "#!/bin/sh" > $PKG_INSTALL_DIR/../preinstall.sh
-	echo "/sbin/chroot \$ROOTDIR /usr/sbin/groupadd -fg 27 polkitd" >> $PKG_INSTALL_DIR/../preinstall.sh
-	echo "/sbin/chroot \$ROOTDIR /usr/sbin/useradd -c \"PolicyKit Daemon Owner\" -d /etc/polkit-1 -u 27 -g polkitd -s /bin/false polkitd" >> $PKG_INSTALL_DIR/../preinstall.sh
+	echo "/usr/sbin/groupadd -fg 27 polkitd" >> $PKG_INSTALL_DIR/../preinstall.sh
+	echo "/usr/sbin/useradd -c \"PolicyKit Daemon Owner\" -d /etc/polkit-1 -u 27 -g polkitd -s /bin/false polkitd" >> $PKG_INSTALL_DIR/../preinstall.sh
 	chmod +x $PKG_INSTALL_DIR/../preinstall.sh
 
 	meson --prefix=/usr                         \

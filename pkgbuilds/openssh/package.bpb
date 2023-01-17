@@ -1,6 +1,6 @@
 name=openssh
 version=9.1p1
-real_version=0
+real_version=1
 source=https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.1p1.tar.gz
 extra_sources=[https://www.linuxfromscratch.org/blfs/downloads/systemd/blfs-systemd-units-20220720.tar.xz]
 dependencies=[linux-pam][coreutils][shadow]
@@ -12,10 +12,10 @@ build={
 	echo "Preparing preinstall.sh..."
 
 	echo "#!/bin/sh" > ../preinstall.sh
-	echo "install -v -m700 -d /var/lib/sshd" >> ../preinstall.sh
-	echo "chown -v root:sys /var/lib/sshd" >> ../preinstall.sh
-	echo "groupadd -g 50 sshd" >> ../preinstall.sh
-	echo "useradd  -c 'sshd PrivSep' -d /var/lib/sshd -g sshd -s /bin/false -u 50 sshd" >> ../preinstall.sh
+	echo "/usr/bin/install -v -m700 -d /var/lib/sshd" >> ../preinstall.sh
+	echo "/usr/bin/chown -v root:sys /var/lib/sshd" >> ../preinstall.sh
+	echo "/usr/sbin/groupadd -g 50 sshd" >> ../preinstall.sh
+	echo "/usr/sbin/useradd  -c 'sshd PrivSep' -d /var/lib/sshd -g sshd -s /bin/false -u 50 sshd" >> ../preinstall.sh
 	chmod +x ../preinstall.sh
 
 	echo "Done preparing preinstall.sh, executing it"

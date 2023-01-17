@@ -1,6 +1,6 @@
 name=systemd
 version=251
-real_version=0
+real_version=1
 source=https://github.com/systemd/systemd/archive/v251/systemd-251.tar.gz
 extra_sources=[https://files.pythonhosted.org/packages/source/M/MarkupSafe/MarkupSafe-2.1.1.tar.gz][https://files.pythonhosted.org/packages/source/J/Jinja2/Jinja2-3.1.2.tar.gz][https://www.linuxfromscratch.org/patches/lfs/11.2/systemd-251-glibc_2.36_fix-1.patch]
 dependencies=[acl][kbd][kmod][libcap][libelf][openssl][linux-pam][util-linux][xz]
@@ -44,9 +44,9 @@ build={
 	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 	cat > $PKG_INSTALL_DIR/../postinstall.sh << "EOF"
 	#/bin/sh
-	chroot $ROOTDIR systemd-machine-id-setup
-	chroot $ROOTDIR systemctl preset-all
-	chroot $ROOTDIR systemctl disable systemd-sysupdate
+	/usr/bin/systemd-machine-id-setup
+	/usr/bin/systemctl preset-all
+	/usr/bin/systemctl disable systemd-sysupdate
 	EOF
 	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
 	mkdir -pv $PKG_INSTALL_DIR/etc/pam.d
