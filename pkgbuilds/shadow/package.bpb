@@ -1,9 +1,9 @@
 name=shadow
 version=4.12.3
-real_version=2
+real_version=3
 source=https://github.com/shadow-maint/shadow/releases/download/4.12.3/shadow-4.12.3.tar.xz
 extra_sources=
-dependencies=[linux-pam]
+dependencies=[linux-pam][bash]
 builddeps=[linux-pam][findutils]
 description=The Shadow package contains programs for handling passwords in a secure way.
 build={
@@ -73,12 +73,12 @@ build={
 	session   include     system-session
 	password  include     system-password
 	# End /etc/pam.d/login
-	EOF
+EOF
 	cat > $PKG_INSTALL_DIR/etc/pam.d/passwd << "EOF"
 	# Begin /etc/pam.d/passwd
 	password  include     system-password
 	# End /etc/pam.d/passwd
-	EOF
+EOF
 	cat > $PKG_INSTALL_DIR/etc/pam.d/su << "EOF"
 	# Begin /etc/pam.d/su
 	# always allow root
@@ -98,7 +98,7 @@ build={
 	# include system session settings
 	session   include     system-session
 	# End /etc/pam.d/su
-	EOF
+EOF
 	cat > $PKG_INSTALL_DIR/etc/pam.d/chpasswd << "EOF"
 	# Begin /etc/pam.d/chpasswd
 	# always allow root
@@ -108,7 +108,7 @@ build={
 	account   include     system-account
 	password  include     system-password
 	# End /etc/pam.d/chpasswd
-	EOF
+EOF
 	sed -e s/chpasswd/newusers/ $PKG_INSTALL_DIR/etc/pam.d/chpasswd > $PKG_INSTALL_DIR/etc/pam.d/newusers
 	cat > $PKG_INSTALL_DIR/etc/pam.d/chage << "EOF"
 	# Begin /etc/pam.d/chage
@@ -118,12 +118,13 @@ build={
 	auth      include     system-auth
 	account   include     system-account
 	# End /etc/pam.d/chage
-	EOF
+EOF
 
-	cat > $PKG_INSTALL_DIR/../postinstall.sh << "EOF"
-	#/bin/sh
-	/usr/sbin/pwconv
-	/usr/sbin/grpconv
-	EOF
+	echo "#/bin/sh" > $PKG_INSTALL_DIR/../postinstall.sh
+	echo "echo shadow: pwconv..." >> $PKG_INSTALL_DIR/../postinstall.sh
+	echo "/usr/sbin/pwconv" >> $PKG_INSTALL_DIR/../postinstall.sh
+	echo "echo shadow: grpconv..." >> $PKG_INSTALL_DIR/../postinstall.sh
+	echo "/usr/sbin/grpconv" >> $PKG_INSTALL_DIR/../postinstall.sh
+
 	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
 }
