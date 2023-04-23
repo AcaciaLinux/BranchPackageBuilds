@@ -1,0 +1,24 @@
+name=xorg-amdgpu
+version=23.0.0
+description=The Xorg AMDGPU Driver package contains the X.Org Video Driver for newer AMD Radeon video cards and newer AMD-CPUs with integrated graphics (APUs).
+real_version=0
+source=https://www.x.org/pub/individual/driver/xf86-video-amdgpu-23.0.0.tar.xz
+extra_sources=
+dependencies=[xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-video-amdgpu-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

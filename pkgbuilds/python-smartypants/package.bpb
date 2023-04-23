@@ -1,0 +1,17 @@
+name=python-smartypants
+version=2.0.1
+description=Smartypants translates plain ASCII punctuation characters into “smart” typographic punctuation HTML entities. 
+real_version=0
+source=https://github.com/leohemsted/smartypants.py/archive/v2.0.1/smartypants-2.0.1.tar.gz
+extra_sources=
+dependencies=[python3][python-wheel]
+builddeps=[python3][python-wheel]
+crossdeps=
+build={
+	cd smartypants.py-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user smartypants --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

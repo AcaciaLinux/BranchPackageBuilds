@@ -1,0 +1,16 @@
+name=linux-firmware
+version=20230310
+description=Linux firmware files
+real_version=0
+source=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20230310.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    make DESTDIR=$PKG_INSTALL_DIR FIRMWAREDIR=/usr/lib/firmware/ install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

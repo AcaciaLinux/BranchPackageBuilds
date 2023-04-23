@@ -1,0 +1,17 @@
+name=python-typogrify
+version=2.0.7
+description= Typogrify provides filters to enhance web typography, including support for Django and Jinja templates.
+real_version=0
+source=https://files.pythonhosted.org/packages/source/t/typogrify/typogrify-2.0.7.tar.gz
+extra_sources=
+dependencies=[python3][python-wheel][python-smartypants]
+builddeps=[python3][python-wheel][python-smartypants]
+crossdeps=
+build={
+	cd typogrify-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user typogrify --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

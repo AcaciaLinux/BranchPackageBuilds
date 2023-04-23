@@ -1,0 +1,21 @@
+name=libevent
+version=2.1.12
+description=libevent is an asynchronous event notification software library.
+real_version=0
+source=https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+extra_sources=
+dependencies=[python3]
+builddeps=[python3]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION-stable
+
+	sed -i 's/python/&3/' event_rpcgen.py
+
+	./configure --prefix=/usr --disable-static
+
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

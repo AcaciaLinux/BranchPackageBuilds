@@ -1,0 +1,18 @@
+name=flac
+version=1.4.2
+description=An audio CODEC similar to MP3, but lossless, meaning that audio is compressed without losing any information.
+real_version=0
+source=https://downloads.xiph.org/releases/flac/flac-1.4.2.tar.xz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr \
+            --disable-thorough-tests \
+            --docdir=/usr/share/doc/flac-1.4.2
+            
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+}

@@ -1,0 +1,27 @@
+name=libsecret
+version=0.20.5
+description=The libsecret package contains a GObject based library for accessing the Secret Service API.
+real_version=0
+source=https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.5.tar.xz
+extra_sources=
+dependencies=[glib][libgcrypt][gobject-introspection][libxslt][vala][valgrind][gi-docgen]
+builddeps=[glib][libgcrypt][gobject-introspection][libxslt][vala][valgrind][gi-docgen][meson]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	mkdir bld
+	cd bld
+	meson --prefix=/usr --buildtype=release -Dgtk_doc=false ..
+	ninja
+
+	sed "s/api_version_major/'0.20.5'/" -i ../docs/reference/libsecret/meson.build
+	meson configure -Dgtk_doc=true
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+	mkdir $PKG_INSTALL_DIR/usr/share/doc/libsecret-1
+	mv -v $PKG_INSTALL_DIR/usr/share/doc/libsecret-{1,0.20.5}
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

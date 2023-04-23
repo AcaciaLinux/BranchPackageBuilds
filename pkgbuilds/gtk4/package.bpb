@@ -1,0 +1,25 @@
+name=gtk4
+version=4.8.3
+description=The GTK 4 package contains libraries used for creating graphical user interfaces for applications. 
+real_version=0
+source=https://download.gnome.org/sources/gtk/4.8/gtk-4.8.3.tar.xz
+extra_sources=
+dependencies=[fribidi][gdk-pixbuf][graphene][iso-codes][libepoxy][libxkbcommon][pango][python-gobject][wayland-protocols][adwaita-icon-theme][gst-plugins-bad][gst-plugins-good][hicolor-icon-theme][librsvg][colord][cups][libcloudproviders][sassc]
+builddeps=[fribidi][gdk-pixbuf][graphene][iso-codes][libepoxy][libxkbcommon][pango][python-gobject][wayland-protocols][adwaita-icon-theme][gst-plugins-bad][gst-plugins-good][hicolor-icon-theme][librsvg][colord][cups][libcloudproviders][sassc][gobject-introspection][meson][ninja]
+crossdeps=
+build={
+	cd gtk-$PKG_VERSION
+
+
+	mkdir build
+	cd    build
+
+	meson setup --prefix=/usr           \
+				--buildtype=release     \
+				-Dbroadway-backend=true \
+				..
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}
+}

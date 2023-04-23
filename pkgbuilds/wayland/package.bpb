@@ -1,0 +1,27 @@
+name=wayland
+version=1.21.0
+description=Wayland is a project to define a protocol for a compositor to talk to its clients as well as a library implementation of the protocol. 
+real_version=0
+source=https://gitlab.freedesktop.org/wayland/wayland/-/releases/1.21.0/downloads/wayland-1.21.0.tar.xz
+extra_sources=
+dependencies=[libxml2]
+builddeps=[libxml2][meson][ninja][python3][pkg-config]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	mkdir build
+	cd    build
+
+	meson --prefix=/usr       \
+	      --buildtype=release \
+	      -Ddocumentation=false
+
+	ninja
+
+	env -u XDG_RUNTIME_DIR ninja test
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

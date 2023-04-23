@@ -1,0 +1,24 @@
+name=spice
+version=0.15.1
+description=The SPICE server
+real_version=0
+source=https://www.spice-space.org/download/releases/spice-server/spice-0.15.1.tar.bz2
+extra_sources=
+dependencies=[pixman][opus][libjpeg-turbo][glib][libsasl][lz4][spice-protocol][python-six][python-pyparsing][lz4]
+builddeps=[ninja][meson][cmake][pixman][opus][libjpeg-turbo][glib][libsasl][lz4][spice-protocol][python-six][python-pyparsing][lz4]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    sed -i "s/if not version_info.contains('git')/if version_info.length() >= 4/" server/meson.build
+    sed -i "/meson-dist/d" meson.build
+
+    meson --prefix=/usr build -D gstreamer=no
+
+    cd build
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR meson install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

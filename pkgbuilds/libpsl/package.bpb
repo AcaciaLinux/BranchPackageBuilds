@@ -1,0 +1,19 @@
+name=libpsl
+version=0.21.2
+description=The libpsl package provides a library for accessing and resolving information from the Public Suffix List
+real_version=0
+source=https://github.com/rockdaboot/libpsl/releases/download/0.21.2/libpsl-0.21.2.tar.gz
+extra_sources=
+dependencies=[libidn2]
+builddeps=[libxslt][libunistring][libidn2][python3]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	sed -i 's/env python/&3/' src/psl-make-dafsa
+	./configure --prefix=/usr --disable-static PYTHON=python3
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

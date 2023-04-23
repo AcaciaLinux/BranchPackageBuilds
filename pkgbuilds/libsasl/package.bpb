@@ -1,0 +1,29 @@
+name=libsasl
+version=2.1.28
+description=Cyrus Simple Authentication Service Layer (SASL) library
+real_version=0
+source=https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
+extra_sources=
+dependencies=[gdbm][glibc][openssl][openldap]
+builddeps=[sqlite][gdbm][glibc][openssl][openldap]
+crossdeps=
+build={
+    cd cyrus-sasl-$PKG_VERSION
+
+    ./configure --prefix=/usr
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install-pkgconfigDATA
+
+    for target in include lib sasldb plugins utils; do
+        make DESTDIR=$PKG_INSTALL_DIR install -C $target
+    done
+
+    # remove files provided by extra/cyrus-sasl
+    rm -fv $PKG_INSTALL_DIR/usr/lib/sasl2/lib{gs2,gssapiv2,ldapdb,sql}.so*
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

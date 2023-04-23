@@ -1,0 +1,32 @@
+name=acpid
+version=2.0.34
+description=The acpid (Advanced Configuration and Power Interface event daemon) is a completely flexible, totally extensible daemon for delivering ACPI events.
+real_version=0
+source=https://downloads.sourceforge.net/acpid2/acpid-2.0.34.tar.xz
+extra_sources=[a52823f0-802d-4321-b9c3-3a7075c7980d][ca0d7e9d-c8b9-40d8-a9d2-5882dc90395f]
+dependencies=
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure --prefix=/usr \
+                --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    mkdir -pv $PKG_INSTALL_DIR/etc/acpi/
+    install -v -m755 -d $PKG_INSTALL_DIR/etc/acpi/events
+
+    mkdir -pv $PKG_INSTALL_DIR/usr/share/doc/
+    cp -r samples $PKG_INSTALL_DIR/usr/share/doc/$PKG_NAME-$PKG_VERSION
+
+    echo "Installing systemd files..."
+    mkdir -pv $PKG_INSTALL_DIR/usr/lib/systemd/system/
+    install -m 644 ../acpid.service $PKG_INSTALL_DIR/usr/lib/systemd/system/
+    install -m 644 ../acpid.socket $PKG_INSTALL_DIR/usr/lib/systemd/system/
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

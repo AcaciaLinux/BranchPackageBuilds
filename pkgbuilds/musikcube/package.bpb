@@ -1,0 +1,17 @@
+name=musikcube
+version=0.99.5
+description=A cross-platform, terminal-based music player, audio engine, metadata indexer, and server in c++
+real_version=0
+source=https://github.com/clangen/musikcube/archive/refs/tags/0.99.5.tar.gz
+extra_sources=
+dependencies=[libogg][libvorbis][libmicrohttpd][ffmpeg][lame][cmake][ncurses][pulseaudio][libpulse][alsa-lib][curl][libev][taglib][libopenmpt][pkg-config]
+builddeps=[libogg][libvorbis][libmicrohttpd][ffmpeg][lame][cmake][ncurses][pulseaudio][libpulse][alsa-lib][curl][libev][taglib][libopenmpt][pkg-config]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	
+	cmake -G "Unix Makefiles" .
+	make -j$(nproc)
+	                  
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

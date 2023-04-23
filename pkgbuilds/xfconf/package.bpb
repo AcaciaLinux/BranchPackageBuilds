@@ -1,0 +1,16 @@
+name=xfconf
+version=4.18.0
+description=Xfconf is the configuration storage system for Xfce.
+real_version=0
+source=https://archive.xfce.org/src/xfce/xfconf/4.18/xfconf-4.18.0.tar.bz2
+extra_sources=
+dependencies=[libxfce4util]
+builddeps=[libxfce4util][gobject-introspection][intltool][vala][gettext]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

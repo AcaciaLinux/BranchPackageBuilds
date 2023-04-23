@@ -1,0 +1,17 @@
+name=python-meson
+version=0.12.0
+description=The Meson_python module contains a Python build backend (PEP 517) for Meson projects.
+real_version=0
+source=https://files.pythonhosted.org/packages/source/m/meson_python/meson_python-0.12.0.tar.gz
+extra_sources=
+dependencies=[python3][python-metadata][patchelf][meson]
+builddeps=[python3][python-metadata][meson]
+crossdeps=
+build={
+	cd meson_python-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user meson_python --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

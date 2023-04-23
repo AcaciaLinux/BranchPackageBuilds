@@ -1,0 +1,16 @@
+name=rustup
+version=1.25.1
+description=The rust toolchain installer.
+real_version=0
+source=
+extra_sources=
+dependencies=
+builddeps=[rustc][git][pkg-config]
+crossdeps=
+build={
+	git clone https://github.com/rust-lang/rustup.git
+	cd $PKG_NAME
+	cargo build --release --features no-self-update --bin rustup-init
+	mkdir -p $PKG_INSTALL_DIR/usr/bin/
+	cp target/release/rustup-init $PKG_INSTALL_DIR/usr/bin
+}

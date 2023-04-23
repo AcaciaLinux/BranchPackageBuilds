@@ -1,0 +1,33 @@
+name=xterm
+version=379
+description=xterm is a terminal emulator for the X Window System.
+real_version=0
+source=https://invisible-mirror.net/archives/xterm/xterm-379.tgz
+extra_sources=
+dependencies=[xorg-apps]
+builddeps=[x11-build-environment][util-macros][pkg-config][xorg-apps]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    sed -i '/v0/{n;s/new:/new:kb=^?:/}' termcap
+    printf '\tkbs=\\177,\n' >> terminfo
+
+    TERMINFO=/usr/share/terminfo \
+    ./configure $XORG_CONFIG     \
+        --with-app-defaults=/etc/X11/app-defaults
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+    make DESTDIR=$PKG_INSTALL_DIR install-ti
+
+    mkdir -pv $PKG_INSTALL_DIR/usr/share/applications
+    cp -v *.desktop $PKG_INSTALL_DIR/usr/share/applications/
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

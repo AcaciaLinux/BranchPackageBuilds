@@ -1,0 +1,12 @@
+name=xorg-apps
+version=1
+description=The Xorg applications provide the expected applications available in previous X Window implementations.
+real_version=0
+source=
+extra_sources=
+dependencies=[iceauth][luit][mkfontscale][sessreg][setxkbmap][smproxy][x11perf][xauth][xbacklight][xcmsdb][xcursorgen][xdpyinfo][xdriinfo][xev][xgamma][xhost][xinput][xkbcomp][xkbevd][xkbutils][xkill][xlsatoms][xlsclients][xmessage][xmodmap][xpr][xprop][xrandr][xrdb][xrefresh][xset][xsetroot][xvinfo][xwd][xwininfo][xwud]
+builddeps=[iceauth][luit][mkfontscale][sessreg][setxkbmap][smproxy][x11perf][xauth][xbacklight][xcmsdb][xcursorgen][xdpyinfo][xdriinfo][xev][xgamma][xhost][xinput][xkbcomp][xkbevd][xkbutils][xkill][xlsatoms][xlsclients][xmessage][xmodmap][xpr][xprop][xrandr][xrdb][xrefresh][xset][xsetroot][xvinfo][xwd][xwininfo][xwud]
+crossdeps=
+build={
+    # This is a virtual package bundling all the other utilities
+}

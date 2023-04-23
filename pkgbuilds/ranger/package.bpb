@@ -1,0 +1,13 @@
+name=ranger
+version=1.9.3
+description=Simple, vim-like file manager
+real_version=0
+source=https://ranger.github.io/ranger-stable.tar.gz
+extra_sources=
+dependencies=[file][python3]
+builddeps=[file][python3]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+    make DESTDIR=$PKG_INSTALL_DIR install
+}

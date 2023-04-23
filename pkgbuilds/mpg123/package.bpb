@@ -1,0 +1,17 @@
+name=mpg123
+version=1.31.3
+description=A console-based MP3 player
+real_version=0
+source=https://downloads.sourceforge.net/mpg123/mpg123-1.31.3.tar.bz2
+extra_sources=
+dependencies=[alsa-lib][pulseaudio]
+builddeps=[alsa-lib][pulseaudio]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr
+	
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

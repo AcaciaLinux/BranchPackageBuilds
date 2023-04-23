@@ -1,0 +1,17 @@
+name=python-jinja
+version=3.1.2
+description=Jinja2 is a Python module that implements a simple pythonic template language. 
+real_version=0
+source=https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz
+extra_sources=
+dependencies=[python3][python-wheel][python-markupsafe]
+builddeps=[python3][python-wheel][python-markupsafe]
+crossdeps=
+build={
+	cd Jinja2-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --no-user --find-links dist Jinja2 --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

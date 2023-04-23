@@ -1,0 +1,29 @@
+name=speex
+version=1.2.1
+description=Speex is an audio compression format designed specifically for speech. It is well-adapted to internet applications and provides useful features that are not present in most other CODECs.
+real_version=0
+source=https://downloads.xiph.org/releases/speex/speex-1.2.1.tar.gz
+extra_sources=[https://downloads.xiph.org/releases/speex/speexdsp-1.2.1.tar.gz]
+dependencies=[libogg][valgrind]
+builddeps=[libogg][valgrind]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr \
+        --disable-static \
+        --docdir=/usr/share/doc/speex-1.2.1
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	cd ..                          
+	tar -xf speexdsp-1.2.1.tar.gz 
+	cd speexdsp-1.2.1             
+
+	./configure --prefix=/usr    \
+        --disable-static \
+        --docdir=/usr/share/doc/speexdsp-1.2.1
+	make
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

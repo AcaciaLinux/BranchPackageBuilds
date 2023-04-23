@@ -1,0 +1,23 @@
+name=libxfixes
+version=6.0.0
+description=The libxfixes package is part of xorg-libs
+real_version=0
+source=https://www.x.org/pub/individual/lib/libXfixes-6.0.0.tar.bz2
+extra_sources=
+dependencies=[fontconfig][libxcb][dbus][libxaw]
+builddeps=[x11-build-environment][util-macros][fontconfig][libxcb][dbus][xorg-proto][pkg-config][libxaw]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd libXfixes-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

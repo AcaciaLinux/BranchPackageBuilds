@@ -1,0 +1,17 @@
+name=btop
+version=1.2.13
+description=Resource monitor that shows usage and stats for processor, memory, disks, network and processes.
+real_version=1
+source=https://github.com/aristocratos/btop/archive/refs/tags/v1.2.13.zip
+extra_sources=
+dependencies=
+builddeps=[unzip]
+crossdeps=
+build={
+	unzip v$PKG_VERSION.zip
+	cd $PKG_NAME-$PKG_VERSION
+
+	make PREFIX=/usr -j$(nproc)
+	make PREFIX=/usr DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

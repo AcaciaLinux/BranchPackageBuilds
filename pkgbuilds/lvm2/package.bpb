@@ -1,0 +1,25 @@
+name=lvm2
+version=2.03.19
+description=The LVM2 package is a set of tools that manage logical partitions.
+real_version=0
+source=https://sourceware.org/ftp/lvm2/LVM2.2.03.19.tgz
+extra_sources=
+dependencies=[systemd][libaio]
+builddeps=[pkg-config][systemd][libaio]
+crossdeps=
+build={
+    cd LVM2.$PKG_VERSION
+
+    PATH+=:/usr/sbin                \
+    ./configure --prefix=/usr       \
+                --enable-cmdlib     \
+                --enable-pkgconfig  \
+                --enable-udev_sync
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+    make DESTDIR=$PKG_INSTALL_DIR install_systemd_units
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

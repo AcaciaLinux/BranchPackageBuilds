@@ -1,0 +1,31 @@
+name=libdrm
+version=2.4.115
+description=Libdrm provides a userspace library for accessing the direct rendering manager (DRM) on operating systems that support the ioctl interface.
+real_version=0
+source=https://dri.freedesktop.org/libdrm/libdrm-2.4.115.tar.xz
+extra_sources=
+dependencies=[xorg-libs]
+builddeps=[x11-build-environment][util-macros][xorg-libs][meson][pkg-config][ninja]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    mkdir -pv build
+    cd build
+
+    meson setup --prefix=$XORG_PREFIX \
+                --buildtype=release   \
+                -Dudev=true           \
+                -Dvalgrind=disabled   \
+                ..
+
+    ninja install
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

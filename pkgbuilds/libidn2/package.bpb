@@ -1,0 +1,18 @@
+name=libidn2
+version=2.3.4
+description=libidn2 is a package designed for internationalized string handling based on standards from the Internet Engineering Task Force
+real_version=0
+source=https://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz
+extra_sources=
+dependencies=
+builddeps=[libunistring]
+crossdeps=[libunistring]
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr --disable-static
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

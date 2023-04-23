@@ -1,0 +1,21 @@
+name=cdparanoia
+version=10.2
+description=The CDParanoia package contains a CD audio extraction tool
+real_version=0
+source=https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz
+extra_sources=[50c70ad7-a4ff-4114-a61e-6f73d8e36608]
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd $PKG_NAME-III-$PKG_VERSION
+
+	patch -Np1 -i ../cdparanoia-III-10.2-gcc_fixes-1.patch
+	./configure --prefix=/usr --mandir=/usr/share/man
+
+	# does not support parallel compilation
+	make -j1
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

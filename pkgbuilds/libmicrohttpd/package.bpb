@@ -1,0 +1,17 @@
+name=libmicrohttpd
+version=0.9.76
+description=A small C library that is supposed to make it easy to run an HTTP server as part of another application.
+real_version=0
+source=https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.76.tar.gz
+extra_sources=
+dependencies=[gnutls][curl]
+builddeps=[gnutls][curl]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

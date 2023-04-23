@@ -1,10 +1,12 @@
 name=mpfr
 version=4.1.1
+description=The MPFR package contains functions for multiple precision math.
 real_version=0
 source=https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.1.tar.xz
+extra_sources=
 dependencies=[glibc][gmp]
 builddeps=[glibc][gmp]
-description=The MPFR package contains functions for multiple precision math.
+crossdeps=
 build={
 	cd $PKG_NAME-$PKG_VERSION
 

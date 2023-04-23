@@ -1,0 +1,27 @@
+name=gparted
+version=1.5.0
+description=Gparted is the Gnome Partition Editor
+real_version=0
+source=https://downloads.sourceforge.net/gparted/gparted-1.5.0.tar.gz
+extra_sources=
+dependencies=[gtkmm][parted][polkit][intltool][gettext]
+builddeps=[gtkmm][parted][polkit][intltool][itstool][gettext]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+  	./configure --prefix=/usr \
+      --sbindir=/usr/bin \
+      --libexecdir=/usr/lib/gparted \
+      --enable-online-resize \
+      --enable-libparted-dmraid \
+      --enable-xhost-root
+
+
+  # Install fails here for whatever reason, touch it
+  touch org.gnome.gparted.policy
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

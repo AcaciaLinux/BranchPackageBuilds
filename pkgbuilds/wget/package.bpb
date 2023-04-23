@@ -1,0 +1,22 @@
+name=wget
+version=1.21.3
+description=The Wget package contains a utility useful for non-interactive downloading of files from the Web.
+real_version=0
+source=https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz
+extra_sources=
+dependencies=[gnutls][zlib][util-linux][certificate-ca]
+builddeps=[gnutls][perl][python3][pkg-config]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure --prefix=/usr      \
+                --sysconfdir=/etc  \
+                --with-ssl=openssl
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

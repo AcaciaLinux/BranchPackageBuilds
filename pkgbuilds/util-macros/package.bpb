@@ -1,0 +1,21 @@
+name=util-macros
+version=1.20.0
+description=The util-macros package contains the m4 macros used by all of the Xorg packages.
+real_version=0
+source=https://www.x.org/pub/individual/util/util-macros-1.20.0.tar.xz
+extra_sources=
+dependencies=
+builddeps=[x11-build-environment]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

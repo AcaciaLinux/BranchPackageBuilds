@@ -1,9 +1,0 @@
-name=cups
-version=2.4.2
-real_version=0
-source=https://github.com/OpenPrinting/cups/releases/download/v2.4.2/cups-2.4.2-source.tar.gz
-dependencies=[gnutls][colord][dbus][libusb][linux-pam][xdg-utils]
-builddeps=
-description=The Common Unix Printing System (CUPS) is a print spooler and associated utilities.
-build={
-}

@@ -1,0 +1,37 @@
+name=harfbuzz
+version=7.1.0
+description=The HarfBuzz package contains an OpenType text shaping engine.
+real_version=0
+source=https://github.com/harfbuzz/harfbuzz/releases/download/7.1.0/harfbuzz-7.1.0.tar.xz
+extra_sources=
+dependencies=[gobject-introspection][glib][graphite2][cairo]
+builddeps=[gobject-introspection][glib][graphite2][icu][cairo][python3][meson][pkg-config][freetype]
+crossdeps=
+build={
+    # Note (as of 25.03.23):
+    # Harfbuzz needs to be built with freetype support for
+    # pango to build successfully. Freetype's dependency on Harfbuzz
+    # creates a circular dependency. To resolve the issue:
+    #
+    # Build:
+    # - harfbuzz (no freetype)
+    # - freetype (with harfbuzz)
+    # - harfbuzz (with freetype)
+    #
+    # Maybe this package can be crossbuilt?
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    mkdir build
+    cd    build
+
+    meson   --prefix=/usr        \
+            --buildtype=release  \
+            -Dgraphite2=enabled
+    
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

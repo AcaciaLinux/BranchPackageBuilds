@@ -1,0 +1,16 @@
+name=zip
+version=3.0
+description=The Uip package contains Zip utilities. These are useful for compressing files into ZIP archives 
+real_version=0
+source=https://downloads.sourceforge.net/infozip/zip30.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd "$PKG_NAME"30
+
+	make -f unix/Makefile generic_gcc
+	
+	make prefix=$PKG_INSTALL_DIR/usr MANDIR=$PKG_INSTALL_DIR/usr/share/man/man1 -f unix/Makefile install
+}

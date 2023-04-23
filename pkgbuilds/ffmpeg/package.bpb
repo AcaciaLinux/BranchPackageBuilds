@@ -1,0 +1,40 @@
+name=ffmpeg
+version=6.0
+description=A solution to record, convert and stream audio and video
+real_version=0
+source=https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
+extra_sources=
+dependencies=[libass][fdk-aac][freetype][lame][libtheora][libvorbis][libvpx][opus][x264][x265][nasm][alsa-lib][libva][gcc]
+builddeps=[libass][fdk-aac][freetype][lame][libtheora][libvorbis][libvpx][opus][x264][x265][nasm][alsa-lib][libva][gcc]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr        \
+				--enable-gpl         \
+				--enable-version3    \
+				--enable-nonfree     \
+				--disable-static     \
+				--enable-shared      \
+				--disable-debug      \
+				--enable-libass      \
+				--enable-libfdk-aac  \
+				--enable-libfreetype \
+				--enable-libmp3lame  \
+				--enable-libopus     \
+				--enable-libtheora   \
+				--enable-libvorbis   \
+				--enable-libvpx      \
+				--enable-libx264     \
+				--enable-libx265     \
+				--enable-openssl     \
+				--docdir=/usr/share/doc/ffmpeg-6.0
+
+	make -j$(nproc)
+	
+	gcc tools/qt-faststart.c -o tools/qt-faststart
+	install -v -m755    tools/qt-faststart /usr/bin
+	install -v -m755 -d           /usr/share/doc/ffmpeg-6.0
+	install -v -m644    doc/*.txt /usr/share/doc/ffmpeg-6.0
+	
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

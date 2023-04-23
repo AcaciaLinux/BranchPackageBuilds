@@ -1,24 +1,27 @@
 name=sgml-common
 version=0.6.3
+description=The SGML Common package contains install-catalog.
 real_version=0
 source=https://sourceware.org/ftp/docbook-tools/new-trials/SOURCES/sgml-common-0.6.3.tgz
-extra_sources=[https://www.linuxfromscratch.org/patches/blfs/svn/sgml-common-0.6.3-manpage-1.patch]
+extra_sources=[ff59f1e4-d7a2-45bd-8508-65cca35cdb49]
 dependencies=[glibc]
 builddeps=[glibc]
-description=The SGML Common package contains install-catalog.
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
-	patch -Np1 -i ../$PKG_NAME-$PKG_VERSION-manpage-1.patch
+    cd $PKG_NAME-$PKG_VERSION
 
-	autoreconf -f -i
+    patch -Np1 -i ../$PKG_NAME-$PKG_VERSION-man.patch
 
-	./configure --prefix=/usr --sysconfdir=/etc
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR docdir=/usr/share/doc install
-	make docdir=/usr/share/doc install
+    autoreconf -f -i
+    ./configure --prefix=/usr --sysconfdir=/etc
 
-	install-catalog --add $PKG_INSTALL_DIR/etc/sgml/sgml-ent.cat $PKG_INSTALL_DIR/usr/share/sgml/sgml-iso-entities-8879.1986/catalog
-	install-catalog --add $PKG_INSTALL_DIR/etc/sgml/sgml-docbook.cat $PKG_INSTALL_DIR/etc/sgml/sgml-ent.cat
+    make -j$(nproc)
 
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    make DESTDIR=$PKG_INSTALL_DIR docdir=/usr/share/doc install
+    make docdir=/usr/share/doc install
+
+    install-catalog --add $PKG_INSTALL_DIR/etc/sgml/sgml-ent.cat $PKG_INSTALL_DIR/usr/share/sgml/sgml-iso-entities-8879.1986/catalog
+    install-catalog --add $PKG_INSTALL_DIR/etc/sgml/sgml-docbook.cat $PKG_INSTALL_DIR/etc/sgml/sgml-ent.cat
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

@@ -1,0 +1,26 @@
+name=usbutils
+version=015
+description=The USB Utils package contains utilities used to display information about USB buses in the system and the devices connected to them. 
+real_version=0
+source=https://github.com/gregkh/usbutils/archive/v015/usbutils-015.tar.gz
+extra_sources=
+dependencies=[libusb]
+builddeps=[libusb][autoconf][git][wget]
+crossdeps=
+build={
+	# TODO: Update usb.ids
+
+	cd $PKG_NAME-$PKG_VERSION
+
+	autoreconf -fiv
+
+	./configure --prefix=/usr --datadir=/usr/share/hwdata
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	install -dm755 $PKG_INSTALL_DIR/usr/share/hwdata/
+	wget http://www.linux-usb.org/usb.ids -O $PKG_INSTALL_DIR/usr/share/hwdata/usb.ids
+
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

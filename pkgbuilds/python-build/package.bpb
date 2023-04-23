@@ -1,0 +1,18 @@
+name=python-build
+version=0.10.0
+description=A simple, correct PEP 517 build frontend
+real_version=0
+source=https://github.com/pypa/build/archive/refs/tags/0.10.0.tar.gz
+extra_sources=
+dependencies=[python3]
+builddeps=[python3]
+crossdeps=
+build={
+    cd build-$PKG_VERSION
+
+    python -m build --wheel --skip-dependency-check --no-isolation
+
+    python -m installer --destdir=$PKG_INSTALL_DIR dist/*.whl
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

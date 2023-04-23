@@ -1,0 +1,23 @@
+name=font-bh-ttf
+version=1.0.4
+description=The font-bh-ttf package is part of xorg-fonts
+real_version=0
+source=https://www.x.org/pub/individual/font/font-bh-ttf-1.0.4.tar.xz
+extra_sources=
+dependencies=[xcursor-themes]
+builddeps=[x11-build-environment][util-macros][pkg-config][xcursor-themes]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd font-bh-ttf-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

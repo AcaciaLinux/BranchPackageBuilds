@@ -1,0 +1,25 @@
+name=librsvg
+version=2.54.5
+description=The librsvg package contains a library and tools used to manipulate, convert and view Scalable Vector Graphic (SVG) images.
+real_version=0
+source=https://download.gnome.org/sources/librsvg/2.54/librsvg-2.54.5.tar.xz
+extra_sources=
+dependencies=[pango][cairo]
+builddeps=[rustc][pango][cairo][vala][fontconfig][gdk-pixbuf][xorg-apps]
+crossdeps=
+build={
+	# CIRCULAR DEPENDENCY: librsvg is a runtime dependency of 
+	# gdk-pixbuf, but gdk-pixbuf is a compiletime dependency of
+	# librsvg
+
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr    \
+            --enable-vala    \
+            --disable-static \
+            --docdir=/usr/share/doc/librsvg-2.54.5
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

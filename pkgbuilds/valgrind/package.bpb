@@ -1,0 +1,18 @@
+name=valgrind
+version=3.20.0
+description=Valgrind is an instrumentation framework for building dynamic analysis tools. There are Valgrind tools that can automatically detect many memory management and threading bugs, and profile programs in detail. Valgrind can also be used to build new tools.
+real_version=0
+source=https://sourceware.org/pub/valgrind/valgrind-3.20.0.tar.bz2
+extra_sources=
+dependencies=[perl]
+builddeps=[perl][docbook-xml][docbook-xsl-nons][gdb]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	sed -i 's|/doc/valgrind||' docs/Makefile.in
+	./configure --prefix=/usr \
+        	--datadir=/usr/share/doc/valgrind-3.20.0
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,0 +1,24 @@
+name=xorg-evdev
+version=2.10.6
+description=The Xorg Evdev Driver package contains a Generic Linux input driver for the Xorg X server.
+real_version=0
+source=https://www.x.org/pub/individual/driver/xf86-input-evdev-2.10.6.tar.bz2
+extra_sources=
+dependencies=[libevdev][mtdev][xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][libevdev][mtdev][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-input-evdev-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,0 +1,16 @@
+name=xfce4-panel
+version=4.18.2
+description=The Xfce4 Panel package contains the Xfce4 Panel.
+real_version=0
+source=https://archive.xfce.org/src/xfce/xfce4-panel/4.18/xfce4-panel-4.18.2.tar.bz2
+extra_sources=
+dependencies=[exo][cairo][garcon][desktop-file-utils][hicolor-icon-theme][libwnck][libxfce4ui][xfconf]
+builddeps=[desktop-file-utils][exo][garcon][hicolor-icon-theme][libwnck][libxfce4ui][xfconf][gobject-introspection][intltool][gettext][vala]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr --sysconfdir=/etc
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

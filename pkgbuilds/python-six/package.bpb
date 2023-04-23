@@ -1,0 +1,16 @@
+name=python-six
+version=1.16.0
+description=Python 2 and 3 compatibility utilities
+real_version=0
+source=https://pypi.io/packages/source/s/six/six-1.16.0.tar.gz
+extra_sources=
+dependencies=[python3]
+builddeps=[python3]
+crossdeps=
+build={
+    cd six-$PKG_VERSION
+
+    python setup.py install --root $PKG_INSTALL_DIR --optimize=1
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

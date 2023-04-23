@@ -1,0 +1,18 @@
+name=libsndfile
+version=1.2.0
+description=Libsndfile is a library of C routines for reading and writing files containing sampled audio data.
+real_version=0
+source=https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
+extra_sources=
+dependencies=[flac][opus][libvorbis]
+builddeps=[flac][opus][libvorbis][python3]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr    \
+        --docdir=/usr/share/doc/libsndfile-1.2.0
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

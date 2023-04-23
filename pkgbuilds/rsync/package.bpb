@@ -1,0 +1,19 @@
+name=rsync
+version=3.2.7
+description=The rsync package contains the rsync utility. This is useful for synchronizing large file archives over a network.
+real_version=0
+source=https://www.samba.org/ftp/rsync/src/rsync-3.2.7.tar.gz
+extra_sources=
+dependencies=[popt]
+builddeps=[popt]
+crossdeps=
+build={
+cd $PKG_NAME-$PKG_VERSION
+./configure --prefix=/usr    \
+            --disable-lz4    \
+            --disable-xxhash \
+            --without-included-zlib &&
+make
+make check
+make DESTDIR=$PKG_INSTALL_DIR install
+}

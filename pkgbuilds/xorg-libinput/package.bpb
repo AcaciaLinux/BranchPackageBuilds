@@ -1,0 +1,25 @@
+name=xorg-libinput
+version=1.2.1
+description=The X.Org Libinput Driver is a thin wrapper around libinput and allows for libinput to be used for input devices in X.
+real_version=0
+source=https://www.x.org/pub/individual/driver/xf86-input-libinput-1.2.1.tar.xz
+extra_sources=
+dependencies=[libinput][xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][libinput][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-input-libinput-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make -j$(nproc) check
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,0 +1,29 @@
+name=libnotify
+version=0.8.1
+description=The libnotify library is used to send desktop notifications to a notification daemon
+real_version=0
+source=https://download.gnome.org/sources/libnotify/0.8/libnotify-0.8.1.tar.xz
+extra_sources=
+dependencies=[gtk+3]
+builddeps=[gtk+3][gobject-introspection][meson]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	mkdir build
+	cd    build
+	
+	meson --prefix=/usr \
+      --buildtype=release \
+      -Dgtk_doc=false \
+      -Dman=false ..
+	
+	ninja
+
+	mkdir -p $PKG_INSTALL_DIR/usr/share/doc/libnotify
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	mv -v $PKG_INSTALL_DIR/usr/share/doc/libnotify{,-0.8.1}
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

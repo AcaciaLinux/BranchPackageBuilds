@@ -1,0 +1,23 @@
+name=dosfstools
+version=4.2
+description=FAT family filesystem tools
+real_version=0
+source=https://github.com/dosfstools/dosfstools/releases/download/v4.2/dosfstools-4.2.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr            \
+				--enable-compat-symlinks \
+				--mandir=/usr/share/man  \
+				--docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
+
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

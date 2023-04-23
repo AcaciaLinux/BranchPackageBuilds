@@ -1,0 +1,24 @@
+name=spice-protocol
+version=0.14.4
+description=Headers for the SPICE protocol
+real_version=0
+source=https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.4/spice-protocol-v0.14.4.tar.gz
+extra_sources=
+dependencies=
+builddeps=[meson][ninja]
+crossdeps=
+build={
+    cd $PKG_NAME-v$PKG_VERSION
+
+    mkdir -pv build
+
+    meson setup \
+        --prefix /usr \
+        ./build
+
+    ninja -v -C ./build
+
+    DESTDIR=$PKG_INSTALL_DIR ninja -C ./build install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

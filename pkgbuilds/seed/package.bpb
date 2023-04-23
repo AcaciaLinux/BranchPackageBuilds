@@ -1,0 +1,18 @@
+name=seed
+version=0.1
+description=The AcaciaLinux installer daemon
+real_version=0
+source=
+extra_sources=
+dependencies=[leaf][parted]
+builddeps=[rustc][leaf][parted][git][clang]
+crossdeps=
+build={
+	git clone --recursive https://github.com/AcaciaLinux/seed
+
+	cd seed
+
+	cargo install --path . --root=$PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

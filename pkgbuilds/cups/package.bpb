@@ -1,0 +1,21 @@
+name=cups
+version=2.4.2
+description=The Common Unix Printing System (CUPS) is a print spooler and associated utilities.
+real_version=0
+source=https://github.com/OpenPrinting/cups/releases/download/v2.4.2/cups-2.4.2-source.tar.gz
+extra_sources=[69a752ac-8971-46e8-bb39-df518a1a405a]
+dependencies=[acl][dbus][hicolor-icon-theme][libpaper][linux-pam][systemd]
+builddeps=[acl][dbus][hicolor-icon-theme][libpaper][linux-pam][systemd][acl][avahi][colord][gnutls][libpaper][libusb]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --libdir=/usr/lib            \
+            --with-system-groups=lpadmin \
+            --with-docdir=/usr/share/cups/doc-2.4.2
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

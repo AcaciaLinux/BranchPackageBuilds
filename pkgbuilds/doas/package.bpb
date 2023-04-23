@@ -1,0 +1,17 @@
+name=doas
+version=6.8.2
+description=Doas allows a normal user to gain root privileges
+real_version=0
+source=https://github.com/Duncaen/OpenDoas/releases/download/v6.8.2/opendoas-6.8.2.tar.xz
+extra_sources=
+dependencies=[linux-pam]
+builddeps=[linux-pam][autoconf][shadow]
+crossdeps=
+build={
+	cd opendoas-$PKG_VERSION
+
+	./configure --prefix=/usr --with-timestamp
+
+	make -j$(nproc)
+	make -j1 DESTDIR=$PKG_INSTALL_DIR install
+}

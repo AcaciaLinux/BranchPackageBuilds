@@ -1,0 +1,51 @@
+name=llvm
+version=15.0.7
+description=The LLVM package contains a collection of modular and reusable compiler and toolchain technologies.
+real_version=0
+source=https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/llvm-15.0.7.src.tar.xz
+extra_sources=[https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/cmake-15.0.7.src.tar.xz][6a30cf1b-0a1c-4c04-8dc3-b6db0c6031a5]
+dependencies=[libstdcpp][perl][libffi][libxml2][zstd]
+builddeps=[perl][cmake][libxml2][rsync][python3][ninja][libstdcpp][zlib][zstd][libffi][git]
+crossdeps=
+build={
+    tar -xf cmake-$PKG_VERSION.src.tar.xz
+    mv cmake{-$PKG_VERSION.src,}
+
+    cd $PKG_NAME-$PKG_VERSION.src
+
+    # Build only minimal debug info to reduce size
+    CFLAGS="-g1"
+    CXXFLAGS="-g1"
+
+    # Set the host triple
+    TGT=$(uname -m)-acacia-linux-gnu
+    echo "TGT: $TGT"
+    echo "CFLAGS: $CFLAGS, CXXFLAGS: $CXXFLAGS"
+
+    mkdir -v  build
+    cd        build
+
+    CC=gcc CXX=g++ cmake ..                     \
+        -G Ninja                                \
+        -DCMAKE_BUILD_TYPE=Release              \
+        -DCMAKE_INSTALL_DOCDIR=share/doc        \
+        -DCMAKE_INSTALL_PREFIX=/usr             \
+        -DLLVM_BINUTILS_INCDIR=/usr/include     \
+        -DLLVM_BUILD_LLVM_DYLIB=ON              \
+        -DLLVM_ENABLE_FFI=ON                    \
+        -DLLVM_ENABLE_RTTI=ON                   \
+        -DLLVM_HOST_TRIPLE=$TGT                 \
+        -DLLVM_INCLUDE_BENCHMARKS=OFF           \
+        -DLLVM_LINK_LLVM_DYLIB=ON               \
+        -DLLVM_ENABLE_BINDINGS=OFF              \
+        -DLLVM_INSTALL_UTILS=ON                 \
+        -DCMAKE_SKIP_RPATH=ON                   \
+        -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+        -DLLVM_USE_PERF=ON
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    rm -rfv $PKG_INSTALL_DIR/usr/share/info/dir
+}

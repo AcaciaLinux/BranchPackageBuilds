@@ -1,0 +1,47 @@
+name=lld
+version=15.0.7
+description=The llvm linker
+real_version=0
+source=https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/llvm-15.0.7.src.tar.xz
+extra_sources=[https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/lld-15.0.7.src.tar.xz][https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/cmake-15.0.7.src.tar.xz]
+dependencies=
+builddeps=[llvm][cmake][python3][ninja]
+crossdeps=
+build={
+
+    # Extract extra sources
+    tar -xf cmake-$PKG_VERSION.src.tar.xz
+    tar -xf lld-$PKG_VERSION.src.tar.xz
+
+    # Move the top level cmake scripts
+    mv cmake{-$PKG_VERSION.src,}
+
+    # Change into the lld tree
+    cd $PKG_NAME-$PKG_VERSION.src
+
+    # Build only minimal debug info to reduce size
+    CFLAGS="-g1"
+    CXXFLAGS="-g1"
+
+    # Set the host triple
+    TGT=$(uname -m)-acacia-linux
+    echo "TGT: $TGT"
+    echo "CFLAGS: $CFLAGS, CXXFLAGS: $CXXFLAGS"
+
+    mkdir -v  build
+    cd        build
+
+    CC=gcc CXX=g++ cmake ..                     \
+        -G Ninja                                \
+        -DCMAKE_BUILD_TYPE=Release              \
+        -DCMAKE_INSTALL_PREFIX=/usr             \
+        -DCMAKE_INSTALL_DOCDIR=share/doc        \
+        -DCMAKE_SKIP_RPATH=ON                   \
+        -DLLVM_ENABLE_RTTI=ON                   \
+        -DLLVM_LINK_LLVM_DYLIB=ON               \
+        -DLLVM_MAIN_SRC_DIR=../llvm-$PKG_VERSION.src
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+}

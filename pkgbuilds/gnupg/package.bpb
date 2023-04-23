@@ -1,21 +1,19 @@
 name=gnupg
 version=2.3.4
+description=The GnuPG package is GNU's tool for secure communication and data storage.
 real_version=0
 source=https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.3.4.tar.bz2
+extra_sources=
 dependencies=[libassuan][libgcrypt][libksba][npth][gnutls][pinentry]
 builddeps=[libassuan][libgcrypt][libksba][npth][gnutls][pinentry]
-description=The GnuPG package is GNU's tool for secure communication and data storage.
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
-
-	./configure --prefix=/usr            \
-	            --localstatedir=/var     \
-	            --sysconfdir=/etc        \
-	            --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
-
-	make -j$(nproc)
-
-	make DESTDIR=$PKG_INSTALL_DIR install
-
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+cd $PKG_NAME-$PKG_VERSION
+./configure --prefix=/usr            \
+            --localstatedir=/var     \
+            --sysconfdir=/etc        \
+            --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
+make -j$(nproc)
+make DESTDIR=$PKG_INSTALL_DIR install
+rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

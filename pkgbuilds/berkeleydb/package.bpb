@@ -1,0 +1,32 @@
+name=berkeleydb
+version=5.3.28
+description=The Berkeley DB package contains programs and utilities used by many other applications for database related functions.
+real_version=0
+source=https://anduin.linuxfromscratch.org/BLFS/bdb/db-5.3.28.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd db-$PKG_VERSION
+
+	sed -i 's/\(__atomic_compare_exchange\)/\1_db/' src/dbinc/atomic.h
+
+	cd build_unix
+
+	../dist/configure --prefix=/usr \
+        --enable-compat185 \
+        --enable-dbm \
+        --disable-static \
+        --enable-cxx
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	chown -v -R root:root \
+      $PKG_INSTALL_DIR/usr/bin/db_* \
+      $PKG_INSTALL_DIR/usr/include/db{,_185,_cxx}.h  \
+      $PKG_INSTALL_DIR/usr/lib/libdb*.{so,la}
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

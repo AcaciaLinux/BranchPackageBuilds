@@ -1,0 +1,41 @@
+name=avahi
+version=0.8
+description=The Avahi package is a system which facilitates service discovery on a local network.
+real_version=0
+source=https://github.com/lathiat/avahi/releases/download/v0.8/avahi-0.8.tar.gz
+extra_sources=
+dependencies=[dbus][expat][gdbm][glib][libcap][libdaemon]
+builddeps=[dbus][expat][gdbm][libcap][libdaemon][dbus][doxygen][gobject-introspection][libevent][python-dbus][python-gobject]
+crossdeps=
+build={
+	ls
+
+	cd $PKG_NAME-$PKG_VERSION
+
+	# TODO: Add Avahi Systemd unit
+
+	# 30-03-2023
+	# Note: --disable-qt5 set, since it's not built yet.
+	# --disable-gtk3, since it's not built yet.
+
+	./configure \
+		--prefix=/usr        \
+		--sysconfdir=/etc    \
+		--localstatedir=/var \
+		--disable-static     \
+		--disable-libevent   \
+		--disable-mono       \
+		--disable-monodoc    \
+		--disable-python     \
+		--disable-qt3        \
+		--disable-qt4        \
+		--disable-gtk3		 \
+		--disable-qt5 		 \
+		--enable-core-docs   \
+		--with-distro=none   \
+		--with-dbus-system-address='unix:path=/run/dbus/system_bus_socket'
+	
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

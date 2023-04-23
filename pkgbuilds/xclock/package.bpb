@@ -1,0 +1,24 @@
+name=xclock
+version=1.1.1
+description=The xclock package contains a simple clock application which is used in the default xinit configuration.
+real_version=0
+source=https://www.x.org/pub/individual/app/xclock-1.1.1.tar.xz
+extra_sources=
+dependencies=[xorg-libs]
+builddeps=[x11-build-environment][util-macros][pkg-config][xorg-libs]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

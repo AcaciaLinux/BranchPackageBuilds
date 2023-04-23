@@ -1,0 +1,22 @@
+name=nano
+version=7.2
+description=A small, simple text editor inspired by Pico
+real_version=0
+source=https://www.nano-editor.org/dist/v7/nano-7.2.tar.xz
+extra_sources=
+dependencies=[file][ncurses]
+builddeps=[file][ncurses]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure --prefix=/usr     \
+            --sysconfdir=/etc \
+            --enable-utf8     \
+            --docdir=/usr/share/doc/nano-7.2
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    install -v -m644 doc/{nano.html,sample.nanorc} $PKG_INSTALL_DIR/usr/share/doc/nano-7.2
+}

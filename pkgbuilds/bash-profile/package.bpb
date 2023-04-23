@@ -1,24 +1,28 @@
 name=bash-profile
 version=1.0
-real_version=0
-source=https://acacialinux.org/pkgbuilds/bash-profile/profile
-extra_sources=[https://acacialinux.org/pkgbuilds/bash-profile/bash_completion.sh][https://acacialinux.org/pkgbuilds/bash-profile/dircolors.sh][https://acacialinux.org/pkgbuilds/bash-profile/extrapaths.sh][https://acacialinux.org/pkgbuilds/bash-profile/i18n.sh][https://acacialinux.org/pkgbuilds/bash-profile/readline.sh][https://acacialinux.org/pkgbuilds/bash-profile/umask.sh]
+description=This package contains a basic bash profile configuration
+real_version=2
+source=
+extra_sources=[1ae7c764-545c-428a-a72c-fed27c4b0abb][fd5625dd-e556-4bdd-a2f2-21198bf1a061][d70f8997-f9d9-47e2-b868-a9b7a7026c3d][cabaeb31-116b-45b4-9f7a-cd452b98d5e4][ad231932-0e6a-4182-9a2c-fe9b88e073bf][08400742-c800-4fbb-ba1d-5e9877ebfd9e][ae370156-a8ae-4f3c-9b7a-3ed35f048c56][cecb0276-6ff5-4d12-bda0-bd66c48af04e]
 dependencies=
 builddeps=[coreutils]
-description=This package contains a basic bash profile configuration
+crossdeps=
 build={
-	mkdir -pv $PKG_INSTALL_DIR/etc
+    mkdir -pv $PKG_INSTALL_DIR/etc
 
-	install --directory --mode=0755 --owner=root --group=root $PKG_INSTALL_DIR/etc/profile.d
-	install --directory --mode=0755 --owner=root --group=root $PKG_INSTALL_DIR/etc/bash_completion.d
+    install --directory --mode=0755 --owner=root --group=root $PKG_INSTALL_DIR/etc/profile.d
+    install --directory --mode=0755 --owner=root --group=root $PKG_INSTALL_DIR/etc/bash_completion.d
 
-	cp -v profile $PKG_INSTALL_DIR/etc/profile
-	cp -v bash_completion.sh $PKG_INSTALL_DIR/etc/profile.d/
-	cp -v dircolors.sh $PKG_INSTALL_DIR/etc/profile.d/
-	cp -v extrapaths.sh $PKG_INSTALL_DIR/etc/profile.d/
-	cp -v readline.sh $PKG_INSTALL_DIR/etc/profile.d/
-	cp -v umask.sh $PKG_INSTALL_DIR/etc/profile.d/
-	cp -v i18n.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v profile $PKG_INSTALL_DIR/etc/profile
+    cp -v bash_completion.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v dircolors.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v extrapaths.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v i18n.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v readline.sh $PKG_INSTALL_DIR/etc/profile.d/
+    cp -v umask.sh $PKG_INSTALL_DIR/etc/profile.d/
 
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    mkdir -v $PKG_INSTALL_DIR/root/
+    cp -v bashrc $PKG_INSTALL_DIR/root/.bashrc
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

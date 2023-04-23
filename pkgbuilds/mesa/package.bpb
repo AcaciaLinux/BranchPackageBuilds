@@ -1,0 +1,37 @@
+name=mesa
+version=22.3.6
+description=Mesa is an OpenGL compatible 3D graphics library.
+real_version=0
+source=https://mesa.freedesktop.org/archive/mesa-22.3.6.tar.xz
+extra_sources=[https://files.pythonhosted.org/packages/source/M/Mako/Mako-1.2.4.tar.gz]
+dependencies=[libdrm][wayland-protocols]
+builddeps=[x11-build-environment][util-macros][libdrm][llvm][wayland-protocols][meson][pkg-config][ninja][bison][flex]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    pip3 install Mako
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    mkdir -pv build
+    cd build
+
+    meson setup                 \
+        --prefix=$XORG_PREFIX   \
+        --buildtype=release     \
+        -Dplatforms=x11,wayland \
+        -Dgallium-drivers=auto  \
+        -Dvulkan-drivers=""     \
+        -Dvalgrind=disabled     \
+        -Dlibunwind=disabled    \
+        ..
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

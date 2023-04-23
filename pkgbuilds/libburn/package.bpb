@@ -1,0 +1,20 @@
+name=libburn
+version=1.5.4
+description=Library for reading, mastering and writing optical discs.
+real_version=0
+source=https://files.libburnia-project.org/releases/libburn-1.5.4.tar.gz
+extra_sources=
+dependencies=[glibc]
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure --prefix=/usr --disable-static
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

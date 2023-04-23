@@ -1,0 +1,22 @@
+name=libssh2
+version=1.10.0
+description= Libssh2 package is a client-side C library implementing the SSH2 protocol. 
+real_version=0
+source=https://www.libssh2.org/download/libssh2-1.10.0.tar.gz
+extra_sources=[e832ca3c-4245-491e-a469-1e11dac04946]
+dependencies=[gnupg][libgcrypt][openssh]
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    patch -Np1 -i ../libssh2-1.10.0.patch
+
+    ./configure --prefix=/usr --disable-static &&
+
+    make -j$(nproc)
+    make check
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

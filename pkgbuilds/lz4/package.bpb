@@ -1,0 +1,18 @@
+name=lz4
+version=1.9.4
+description=Extremely fast compression algorithm
+real_version=0
+source=https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz
+extra_sources=
+dependencies=[glibc]
+builddeps=[glibc]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    make -j$(nproc) PREFIX=/usr
+
+    make DESTDIR=$PKG_INSTALL_DIR PREFIX=/usr install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

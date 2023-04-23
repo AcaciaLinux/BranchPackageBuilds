@@ -1,0 +1,24 @@
+name=xorg-synaptics
+version=1.9.2
+description=The Xorg Synaptics Driver package contains the X.Org Input Driver, support programs and SDK for Synaptics touchpads.
+real_version=0
+source=https://www.x.org/pub/individual/driver/xf86-input-synaptics-1.9.2.tar.xz
+extra_sources=
+dependencies=[libevdev][xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][libevdev][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-input-synaptics-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,0 +1,26 @@
+name=gtk+2
+version=2.24.33
+description=The GTK+ 2 package contains libraries used for creating graphical user interfaces for applications.
+real_version=0
+source=https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.33.tar.xz
+extra_sources=[49864124-919a-4e68-b396-5b248f0d3fea]
+dependencies=[gdk-pixbuf][at-spi2-core][pango][hicolor-icon-theme][cairo][xorg-libs]
+builddeps=[gdk-pixbuf][at-spi2-core][pango][hicolor-icon-theme][gobject-introspection][cairo][xorg-libs]
+crossdeps=
+build={
+	mv gtk2+-post-install.sh $PKG_INSTALL_DIR/../postinstall.sh
+	chmod +x $PKG_INSTALL_DIR/../postinstall.sh
+
+	cd gtk+-$PKG_VERSION
+
+	sed -e 's#l \(gtk-.*\).sgml#& -o \1#' \
+    	-i docs/{faq,tutorial}/Makefile.in
+
+	./configure --prefix=/usr --sysconfdir=/etc
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

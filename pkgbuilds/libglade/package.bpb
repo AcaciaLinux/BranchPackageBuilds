@@ -1,0 +1,19 @@
+name=libglade
+version=2.6.4
+description=The libglade package contains libglade libraries. These are useful for loading Glade interface files in a program at runtime. 
+real_version=0
+source=https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
+extra_sources=
+dependencies=[libxml2][gtk+2]
+builddeps=[libxml2][gtk+2]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	sed -i '/DG_DISABLE_DEPRECATED/d' glade/Makefile.in
+	./configure --prefix=/usr --disable-static
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

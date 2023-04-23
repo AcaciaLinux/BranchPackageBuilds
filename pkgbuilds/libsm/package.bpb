@@ -1,0 +1,23 @@
+name=libsm
+version=1.2.4
+description=The libsm package is part of xorg-libs
+real_version=0
+source=https://www.x.org/pub/individual/lib/libSM-1.2.4.tar.xz
+extra_sources=
+dependencies=[fontconfig][libxcb][dbus][libice]
+builddeps=[x11-build-environment][util-macros][fontconfig][libxcb][dbus][xorg-proto][pkg-config][libice]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd libSM-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,16 +1,16 @@
 name=psmisc
 version=23.5
+description=The Psmisc package contains programs for displaying information about running processes.
 real_version=0
 source=https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.5.tar.xz
+extra_sources=
 dependencies=[ncurses]
 builddeps=[ncurses]
-description=The Psmisc package contains programs for displaying information about running processes.
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
-
-	./configure --prefix=/usr
-
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR install
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+cd $PKG_NAME-$PKG_VERSION
+./configure --prefix=/usr
+make -j$(nproc)
+make DESTDIR=$PKG_INSTALL_DIR install
+rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

@@ -1,0 +1,18 @@
+name=itstool
+version=2.0.7
+description=Itstool extracts messages from XML files and outputs PO template files
+real_version=0
+source=https://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
+extra_sources=
+dependencies=[docbook-xml][python3][libxml2]
+builddeps=[docbook-xml][python3][libxml2]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	PYTHON=/usr/bin/python3 ./configure --prefix=/usr
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

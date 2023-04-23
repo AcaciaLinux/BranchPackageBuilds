@@ -1,0 +1,34 @@
+name=xwayland
+version=22.1.8
+description=The Xwayland package is an Xorg server running on top of the wayland server.
+real_version=0
+source=https://www.x.org/pub/individual/xserver/xwayland-22.1.8.tar.xz
+extra_sources=
+dependencies=[libxcvt][pixman][wayland-protocols][font-util][libepoxy][libtirpc][mesa][libxdmcp]
+builddeps=[x11-build-environment][util-macros][libxcvt][pixman][wayland-protocols][font-util][libepoxy][libtirpc][mesa][libxdmcp][ninja][meson][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    sed -i '/install_man/,$d' meson.build
+
+    mkdir -pv build
+    cd build
+
+    meson setup --prefix=$XORG_PREFIX         \
+                --buildtype=release           \
+                -Dxkb_output_dir=/var/lib/xkb \
+                ..
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    install -vm755 hw/vfb/Xvfb $PKG_INSTALL_DIR/usr/bin
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

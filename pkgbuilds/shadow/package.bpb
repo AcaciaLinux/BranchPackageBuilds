@@ -1,11 +1,12 @@
 name=shadow
 version=4.12.3
+description=The Shadow package contains programs for handling passwords in a secure way.
 real_version=3
 source=https://github.com/shadow-maint/shadow/releases/download/4.12.3/shadow-4.12.3.tar.xz
 extra_sources=
 dependencies=[linux-pam][bash]
 builddeps=[linux-pam][findutils]
-description=The Shadow package contains programs for handling passwords in a secure way.
+crossdeps=
 build={
 	cd $PKG_NAME-$PKG_VERSION
 	sed -i 's/groups$(EXEEXT) //' src/Makefile.in          &&

@@ -1,14 +1,26 @@
 name=squashfs-tools
-version=4.5.1
-real_version=0
-source=https://github.com/plougher/squashfs-tools/archive/refs/tags/4.5.1.zip
-dependencies=
-builddeps=[make][gcc]
+version=4.6.1
 description=This package provides squashfs tools
+real_version=1
+source=https://github.com/plougher/squashfs-tools/archive/refs/tags/4.6.1.zip
+extra_sources=[7589b21d-8b5d-41fb-aca4-a0fb786e3139]
+dependencies=[xz][zstd]
+builddeps=[patch][unzip][xz][zstd][gzip][pkg-config]
+crossdeps=
 build={
-	unzip 4.5.1.zip
-	cd squashfs-tools-4.5.1
-	cd squashfs-tools
-	make -j$(nproc)
-	make INSTALL_PREFIX=$PKG_INSTALL_DIR/usr/local install
+    unzip $PKG_VERSION.zip
+
+    cd $PKG_NAME-$PKG_VERSION
+    cd $PKG_NAME
+
+    patch Makefile < ../../squashfs-tools-4.5.1.patch
+
+    make -j$(nproc)
+
+    # Make install is broken, just copy manually...
+    mkdir -p $PKG_INSTALL_DIR/bin
+	cp mksquashfs $PKG_INSTALL_DIR/bin
+	cp unsquashfs $PKG_INSTALL_DIR/bin
+	ln -fs unsquashfs $PKG_INSTALL_DIR/bin/sqfscat
+	ln -fs mksquashfs $PKG_INSTALL_DIR/bin/sqfstar
 }

@@ -1,0 +1,17 @@
+name=patchelf
+version=0.17.2
+description=The patchelf package contains a small utility to modify the dynamic linker and RPATH of ELF executables.
+real_version=0
+source=https://github.com/NixOS/patchelf/releases/download/0.17.2/patchelf-0.17.2.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr --docdir=/usr/share/doc/patchelf-0.17.2
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

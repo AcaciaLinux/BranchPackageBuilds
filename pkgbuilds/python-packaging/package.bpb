@@ -1,0 +1,18 @@
+name=python-packaging
+version=23.0
+description=The Packaging library provides utilities that implement the interoperability specifications which have clearly one correct behaviour or benefit greatly from having a single shared implementation.
+real_version=0
+source=https://files.pythonhosted.org/packages/source/p/packaging/packaging-23.0.tar.gz
+extra_sources=
+dependencies=[python-flitcore][python3]
+builddeps=[python-flitcore][python3]
+crossdeps=
+build={
+	ls
+	cd packaging-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user packaging --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

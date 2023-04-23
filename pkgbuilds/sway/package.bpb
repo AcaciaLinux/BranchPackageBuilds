@@ -1,0 +1,23 @@
+name=sway
+version=1.8.1
+description=sway is an i3-compatible Wayland compositor.
+real_version=0
+source=https://github.com/swaywm/sway/releases/download/1.8.1/sway-1.8.1.tar.gz
+extra_sources=
+dependencies=[wlroots][wayland-protocols][json-c][pango][cairo][seatd][libinput][xcb-util-cursor][xcb-util-wm]
+builddeps=[meson][wlroots][wayland][pcre2][json-c][pango][cairo][scdoc][git][cmake][seatd][libinput][xcb-util-cursor][xcb-util-wm]
+crossdeps=
+build={
+	# ADD: Once GTK is further along, add gdk-pixbuf2
+	# to support systray.
+
+	cd $PKG_NAME-$PKG_VERSION
+
+	meson --prefix=/usr build/
+	ninja -C build/
+	DESTDIR=$PKG_INSTALL_DIR ninja -C build/ install
+
+	chmod a+s $PKG_INSTALL_DIR/usr/bin/sway
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

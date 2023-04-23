@@ -1,0 +1,22 @@
+name=xcb-util-renderutil
+version=0.3.10
+description=The xcb-util-renderutil package provides additional extensions to the XCB library.
+real_version=0
+source=https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.10.tar.xz
+extra_sources=
+dependencies=[libxcb]
+builddeps=[x11-build-environment][util-macros][libxcb][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

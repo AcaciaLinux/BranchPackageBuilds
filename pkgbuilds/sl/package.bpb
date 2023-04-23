@@ -1,0 +1,16 @@
+name=sl
+version=5.02
+description=steam locomotive
+real_version=0
+source=https://github.com/mtoyoda/sl/archive/refs/tags/5.02.zip
+extra_sources=
+dependencies=
+builddeps=[unzip]
+crossdeps=
+build={
+	unzip $PKG_VERSION.zip
+	cd $PKG_NAME-$PKG_VERSION
+	make -j$(nproc)
+	mkdir -p $PKG_INSTALL_DIR/usr/bin
+	mv sl $PKG_INSTALL_DIR/usr/bin
+}

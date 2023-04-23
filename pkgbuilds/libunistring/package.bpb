@@ -1,22 +1,19 @@
 name=libunistring
 version=1.1
+description=libunistring is a library that provides functions for manipulating Unicode strings and for manipulating C strings according to the Unicode standard. 
 real_version=0
 source=https://ftp.gnu.org/gnu/libunistring/libunistring-1.1.tar.xz
+extra_sources=
 dependencies=
 builddeps=
-description=libunistring is a library that provides functions for manipulating Unicode strings and for manipulating C strings according to the Unicode standard. 
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
-
-	./configure --prefix=/usr    \
-	            --disable-static \
-	            --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
-	
-	make -j$(nproc)
-
-	make check
-
-	make DESTDIR=$PKG_INSTALL_DIR -j1 install
-
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+cd $PKG_NAME-$PKG_VERSION
+./configure --prefix=/usr    \
+            --disable-static \
+            --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
+make -j$(nproc)
+make check
+make DESTDIR=$PKG_INSTALL_DIR -j1 install
+rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

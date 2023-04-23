@@ -1,0 +1,27 @@
+name=libcairomm
+version=1.14.0
+description=The libcairomm-1.0 package provides a C++ interface to Cairo. 
+real_version=0
+source=https://www.cairographics.org/releases/cairomm-1.14.0.tar.xz
+extra_sources=
+dependencies=[cairo][libsigcpp][boost][libxcb][xcb-util-renderutil]
+builddeps=[cairo][libsigcpp][boost][meson][ninja][fontconfig][libxcb][xcb-util-renderutil][cmake][libxrender]
+crossdeps=
+build={
+	cd cairomm-$PKG_VERSION
+
+	mkdir bld
+	cd    bld
+
+	meson --prefix=/usr       \
+		--buildtype=release \
+		-Dbuild-tests=false  \
+		-Dboost-shared=true \
+		..
+
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	find $PKG_INSTALL_DIR
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

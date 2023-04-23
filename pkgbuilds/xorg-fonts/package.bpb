@@ -1,0 +1,12 @@
+name=xorg-fonts
+version=1
+description=The Xorg font packages provide some scalable fonts and supporting packages for Xorg applications.
+real_version=0
+source=
+extra_sources=
+dependencies=[font-util][encodings][font-alias][font-adobe-utopia-type1][font-bh-ttf][font-bh-type1][font-ibm-type1][font-misc-ethiopic][font-xfree86-type1]
+builddeps=[font-util][encodings][font-alias][font-adobe-utopia-type1][font-bh-ttf][font-bh-type1][font-ibm-type1][font-misc-ethiopic][font-xfree86-type1]
+crossdeps=
+build={
+    # This package is a collection of other packages, hence all the dependencies
+}

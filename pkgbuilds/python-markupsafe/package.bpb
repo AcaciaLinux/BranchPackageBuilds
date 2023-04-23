@@ -1,0 +1,17 @@
+name=python-markupsafe
+version=2.1.2
+description=MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML. 
+real_version=0
+source=https://files.pythonhosted.org/packages/95/7e/68018b70268fb4a2a605e2be44ab7b4dd7ce7808adae6c5ef32e34f4b55a/MarkupSafe-2.1.2.tar.gz
+extra_sources=
+dependencies=[python3][python-wheel]
+builddeps=[python3][python-wheel]
+crossdeps=
+build={
+	cd MarkupSafe-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user MarkupSafe --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

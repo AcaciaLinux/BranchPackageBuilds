@@ -1,0 +1,22 @@
+name=unixodbc
+version=2.3.11
+description=The unixODBC package is an Open Source ODBC (Open DataBase Connectivity) sub-system and an ODBC SDK for Linux, Mac OSX, and UNIX.
+real_version=0
+source=https://github.com/lurcher/unixODBC/releases/download/2.3.11/unixODBC-2.3.11.tar.gz
+extra_sources=
+dependencies=[libtool][readline]
+builddeps=[libtool][readline]
+crossdeps=
+build={
+	cd unixODBC-$PKG_VERSION
+
+	./configure --prefix=/usr --sysconfdir=/etc/unixODBC
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	find doc -name "Makefile*" -delete
+	chmod 644 doc/{lst,ProgrammerManual/Tutorial}/*
+	install -v -m755 -d $PKG_INSTALL_DIR /usr/share/doc/unixODBC-2.3.11
+	cp      -v -R doc/* $PKG_INSTALL_DIR /usr/share/doc/unixODBC-2.3.11
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

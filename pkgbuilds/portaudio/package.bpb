@@ -1,0 +1,19 @@
+name=portaudio
+version=19.7.0
+description=A free, cross-platform, open source, audio I/O library.
+real_version=0
+source=https://github.com/portaudio/portaudio/archive/v19.7.0/portaudio-v19.7.0.tar.gz
+extra_sources=
+dependencies=[libstdcpp][alsa-lib][pulseaudio]
+builddeps=[alsa-lib][cmake][libstdcpp][alsa-lib][pulseaudio]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr --enable-cxx
+
+	CFLAGS="-Wdeprecated-declarations" make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	install -vDm 644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+	install -vDm 644 README.* -t "$pkgdir/usr/share/doc/$pkgname/"
+}

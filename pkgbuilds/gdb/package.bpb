@@ -1,0 +1,23 @@
+name=gdb
+version=12.1
+description=GDB, the GNU Project debugger, allows you to see what is going on "inside" another program while it executes -- or what another program was doing at the moment it crashed.
+real_version=0
+source=https://ftp.gnu.org/gnu/gdb/gdb-12.1.tar.xz
+extra_sources=
+dependencies=
+builddeps=[gcc][python3]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	sed '/return/s/rl.*characters/(char *) &/' -i gdb/completer.c
+	
+	mkdir build &&
+	cd    build &&
+	
+	../configure --prefix=/usr          \
+	     --with-system-readline			\
+	     --with-python=/usr/bin/python3
+	make -j$(nproc)
+	
+	make DESTDIR=$PKG_INSTALL_DIR -C gdb install
+}

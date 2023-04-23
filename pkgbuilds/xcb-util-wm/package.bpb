@@ -1,0 +1,22 @@
+name=xcb-util-wm
+version=0.4.2
+description=The xcb-util-wm package contains libraries which provide client and window-manager helpers for EWMH and ICCCM.
+real_version=0
+source=https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.2.tar.xz
+extra_sources=
+dependencies=[libxcb]
+builddeps=[x11-build-environment][util-macros][libxcb][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

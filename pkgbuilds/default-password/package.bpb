@@ -1,0 +1,14 @@
+name=default-password
+version=1.0
+description=Sets the root password to root.
+real_version=0
+source=
+extra_sources=
+dependencies=[openssl][shadow]
+builddeps=
+crossdeps=
+build={
+    echo "#!/bin/sh" > $PKG_INSTALL_DIR/../postinstall.sh
+    echo "usermod --password \$(echo root | openssl passwd -1 -stdin) root" >> $PKG_INSTALL_DIR/../postinstall.sh
+    chmod +x $PKG_INSTALL_DIR/../postinstall.sh
+}

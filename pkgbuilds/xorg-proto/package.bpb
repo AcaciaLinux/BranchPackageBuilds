@@ -1,0 +1,26 @@
+name=xorg-proto
+version=2022.2
+description=The xorgproto package provides the header files required to build the X Window system, and to allow other applications to build against the installed X Window system. 
+real_version=0
+source=https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2022.2.tar.xz
+extra_sources=
+dependencies=
+builddeps=[x11-build-environment][util-macros][libxslt][meson][ninja]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd xorgproto-$PKG_VERSION
+
+    mkdir build
+    cd    build
+
+    meson --prefix=$XORG_PREFIX -Dlegacy=true ..
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+    mv -v $PKG_INSTALL_DIR/$XORG_PREFIX/share/doc/xorgproto{,-2022.2}
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

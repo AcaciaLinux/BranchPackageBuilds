@@ -1,0 +1,24 @@
+name=libxpm
+version=3.5.15
+description=The libxpm package is part of xorg-libs
+real_version=0
+source=https://www.x.org/pub/individual/lib/libXpm-3.5.15.tar.xz
+extra_sources=
+dependencies=[fontconfig][libxcb][dbus][libxmu]
+builddeps=[x11-build-environment][util-macros][fontconfig][libxcb][dbus][xorg-proto][pkg-config][libxmu][gettext]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd libXpm-$PKG_VERSION
+
+    sed -i '/TestAll.*TRUE/s|^|//|' test/TestAllFiles.h
+    ./configure $XORG_CONFIG --disable-open-zfile
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

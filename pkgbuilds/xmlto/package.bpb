@@ -1,0 +1,19 @@
+name=xmlto
+version=0.0.28
+description=The xmlto package is a front-end to a XSL toolchain.
+real_version=0
+source=https://releases.pagure.org/xmlto/xmlto-0.0.28.tar.bz2
+extra_sources=
+dependencies=[docbook-xml][docbook-xsl-nons][libxslt]
+builddeps=[docbook-xml][docbook-xsl-nons][libxslt][util-linux]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	LINKS="/usr/bin/links" \
+	./configure --prefix=/usr
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

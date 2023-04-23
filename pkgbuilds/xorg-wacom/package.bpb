@@ -1,0 +1,24 @@
+name=xorg-wacom
+version=1.1.0
+description=The Xorg Wacom Driver package contains the X.Org X11 driver and SDK for Wacom and Wacom-like tablets
+real_version=0
+source=https://github.com/linuxwacom/xf86-input-wacom/releases/download/xf86-input-wacom-1.1.0/xf86-input-wacom-1.1.0.tar.bz2
+extra_sources=
+dependencies=[xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-input-wacom-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

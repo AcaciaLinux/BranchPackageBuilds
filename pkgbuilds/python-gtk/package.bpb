@@ -1,0 +1,18 @@
+name=python-gtk
+version=2.24.0
+description=PyGTK lets you to easily create programs with a graphical user interface using the Python programming language. 
+real_version=0
+source=https://download.gnome.org/sources/pygtk/2.24/pygtk-2.24.0.tar.bz2
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

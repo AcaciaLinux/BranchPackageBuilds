@@ -1,0 +1,31 @@
+name=doxygen
+version=1.9.6
+description=
+real_version=0
+source=
+extra_sources=[52b72858-2859-480c-9132-d30f3a0901f9]
+dependencies=[libstdcpp]
+builddeps=[libstdcpp][cmake][flex][python3][gzip][file][bison]
+crossdeps=
+build={
+    # NOTE: As of 30-03-2023 the upstream source url
+    # returns an error. (Tracked as extra source)
+
+    gunzip doxygen-1.9.6.src.tar.gz
+    tar xf doxygen-1.9.6.src.tar
+
+    cd $PKG_NAME-$PKG_VERSION
+    mkdir -v build
+    cd       build
+
+    cmake -G "Unix Makefiles"         \
+        -DCMAKE_BUILD_TYPE=Release  \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -Wno-dev ..
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+    mkdir -p $PKG_INSTALL_DIR/usr/share/man/man1/
+    install -vm644 ../doc/*.1 $PKG_INSTALL_DIR/usr/share/man/man1       
+}

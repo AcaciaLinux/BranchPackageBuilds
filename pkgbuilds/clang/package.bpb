@@ -1,0 +1,120 @@
+name=clang
+version=15.0.7
+description=The clang package contains the C anc C++ frontent built on llvm
+real_version=0
+source=https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/llvm-15.0.7.src.tar.xz
+extra_sources=[https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/cmake-15.0.7.src.tar.xz][https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/clang-15.0.7.src.tar.xz][https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/clang-tools-extra-15.0.7.src.tar.xz][6a30cf1b-0a1c-4c04-8dc3-b6db0c6031a5]
+dependencies=[gcc][llvm][compiler-rt]
+builddeps=[llvm][cmake][python3][ninja][compiler-rt]
+crossdeps=
+build={
+
+    # Extract extra sources
+    tar -xf cmake-$PKG_VERSION.src.tar.xz
+    tar -xf clang-$PKG_VERSION.src.tar.xz
+    tar -xf clang-tools-extra-$PKG_VERSION.src.tar.xz
+
+    # Move the top level cmake scripts
+    mv cmake{-$PKG_VERSION.src,}
+
+    # Change into the clang tree
+    cd $PKG_NAME-$PKG_VERSION.src
+
+    # Move clang and patch the strong stack protector
+    mv ../clang-tools-extra-$PKG_VERSION.src tools/extra
+    patch -Np2 -i ../clang-15.0.7-en_ssp.patch
+
+    # Patch python scripts for python3
+    grep -rl '#!.*python' | xargs sed -i '1s/python$/python3/'
+
+    # Build only minimal debug info to reduce size
+    CFLAGS="-g1"
+    CXXFLAGS="-g1"
+
+    # Set the host triple
+    TGT=$(uname -m)-acacia-linux-gnu
+    echo "TGT: $TGT"
+    echo "CFLAGS: $CFLAGS, CXXFLAGS: $CXXFLAGS"
+
+    mkdir -v  build
+    cd        build
+
+    CC=gcc CXX=g++ cmake ..                     \
+        -G Ninja -Wno-dev                       \
+        -DCMAKE_BUILD_TYPE=Release              \
+        -DCMAKE_INSTALL_PREFIX=/usr             \
+        -DCMAKE_INSTALL_DOCDIR=share/doc        \
+        -DCMAKE_SKIP_RPATH=ON                   \
+        -DCLANG_DEFAULT_PIE_ON_LINUX=ON         \
+        -DCLANG_LINK_CLANG_DYLIB=ON             \
+        -DENABLE_LINKER_BUILD_ID=ON             \
+        -DLLVM_ENABLE_RTTI=ON                   \
+        -DLLVM_LINK_LLVM_DYLIB=ON               \
+        -DLLVM_HOST_TRIPLE=$TGT                 \
+        -DLLVM_MAIN_SRC_DIR=../
+
+        #-DLIBCXX_USE_COMPILER_RT=ON             \
+        #-DLIBCXXABI_USE_COMPILER_RT=ON          \
+        #-DLLVM_EXTERNAL_LIT=/usr/bin/lit        \
+        #-DCMAKE_SYSTEM_NAME=$TGT                \
+        #To use the clang compiler runtime and not -lgcc????
+        
+        #-DSPHINX_WARNINGS_AS_ERRORS=OFF
+        #-DLLVM_INCLUDE_DOCS=ON                  \
+        #-DLLVM_ENABLE_SPHINX=ON                 \
+        #-DLLVM_BUILD_DOCS=ON                    \
+        #-DLLVM_BUILD_TESTS=ON                   \
+
+    # To not get killed by OOMkiller...
+    ninja -j8
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    # Build only minimal debug info to reduce size
+    #CFLAGS=${CFLAGS/-g /-g1 }                       \
+    #CXXFLAGS=${CXXFLAGS/-g /-g1 }                   \
+    #CC=gcc CXX=g++                                  \
+    #cmake .. -G Ninja -Wno-dev \
+		#-DCMAKE_BUILD_TYPE=MinSizeRel \
+		#-DCMAKE_C_FLAGS_MINSIZEREL_INIT="$CFLAGS" \
+		#-DCMAKE_CXX_FLAGS_MINSIZEREL_INIT="$CXXFLAGS" \
+		#-DCMAKE_EXE_LINKER_FLAGS_MINSIZEREL_INIT="$LDFLAGS -Wl,-z,stack-size=2097152" \
+		#-DCMAKE_INSTALL_PREFIX=/usr \
+		#-DCMAKE_VERBOSE_MAKEFILE=OFF \
+		#-DCLANG_VENDOR=Acacia \
+		#-DCLANG_BUILD_EXAMPLES=OFF \
+		#-DCLANG_PLUGIN_SUPPORT=ON \
+		#-DLIBCLANG_BUILD_STATIC=ON \
+		#-DLLVM_ENABLE_EH=ON \
+		#-DLLVM_ENABLE_RTTI=ON                     \
+    #-DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+    #-DLLVM_BINUTILS_INCDIR=/usr/include       \
+    #-DLLVM_INCLUDE_BENCHMARKS=OFF             \
+    #-DCLANG_DEFAULT_PIE_ON_LINUX=ON
+
+		#-DCLANG_INCLUDE_DOCS=ON \
+		#-DLLVM_BUILD_DOCS=ON \
+		#-DLLVM_ENABLE_SPHINX=ON \
+		#-DSPHINX_WARNINGS_AS_ERRORS=OFF \
+		#-DCLANG_INCLUDE_TESTS=ON \
+
+    #CC=gcc CXX=g++                                  \
+    #cmake -DCMAKE_INSTALL_PREFIX=/usr               \
+    #      -DLLVM_ENABLE_FFI=ON                      \
+    #      -DCMAKE_BUILD_TYPE=Release                \
+    #      -DLLVM_BUILD_LLVM_DYLIB=ON                \
+    #      -DLLVM_LINK_LLVM_DYLIB=ON                 \
+    #      -DLLVM_ENABLE_RTTI=ON                     \
+    #      -DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+    #      -DLLVM_BINUTILS_INCDIR=/usr/include       \
+    #      -DLLVM_INCLUDE_BENCHMARKS=OFF             \
+    #      -DCLANG_DEFAULT_PIE_ON_LINUX=ON           \
+    #      -Wno-dev -G Ninja ..                      
+
+    # use 8 jobs to avoid getting killed by OOMkiller
+    #ninja -j8
+    #ninja check-all
+
+    #DESTDIR=$PKG_INSTALL_DIR ninja install
+    #cp bin/FileCheck $PKG_INSTALL_DIR/usr/bin
+}

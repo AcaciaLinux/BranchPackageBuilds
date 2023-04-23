@@ -1,0 +1,19 @@
+name=sdl2
+version=2.26.3
+description=The Simple DirectMedia Layer Version 2 (SDL2 for short) is a cross-platform library designed to make it easy to write multimedia software, such as games and emulators.
+real_version=0
+source=https://www.libsdl.org/release/SDL2-2.26.3.tar.gz
+extra_sources=
+dependencies=[libxrender][libxext][libx11][libusb][glibc][libxcursor]
+builddeps=[libx11][cmake][wayland-protocols][libxrender][libxext][alsa-lib][libxinerama][mesa][libxcursor][libxkbcommon][libusb][libxrandr][ninja][wayland]
+crossdeps=
+build={
+	ls
+	cd SDL2-$PKG_VERSION
+
+	./configure --prefix=/usr
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

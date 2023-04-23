@@ -1,0 +1,17 @@
+name=libopenmpt
+version=0.6.9
+description=A library to render tracker music to a PCM audio stream
+real_version=0
+source=https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.6.9+release.autotools.tar.gz
+extra_sources=
+dependencies=[flac][pulseaudio][gcc][glibc][libogg][libsndfile][libvorbis][mpg123][zlib][portaudio]
+builddeps=[flac][pulseaudio][gcc][glibc][libogg][libsndfile][libvorbis][mpg123][zlib][portaudio]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION+release.autotools
+
+	./configure --prefix=/usr
+	
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

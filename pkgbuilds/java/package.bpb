@@ -1,0 +1,22 @@
+name=java
+version=19.0.2
+description=The java binary package.
+real_version=0
+source=https://anduin.linuxfromscratch.org/BLFS/OpenJDK/OpenJDK-19.0.2/OpenJDK-19.0.2+7-x86_64-bin.tar.xz
+extra_sources=
+dependencies=[xorg-libs]
+builddeps=
+crossdeps=
+build={
+	cd OpenJDK-19.0.2+7-x86_64-bin
+
+	mkdir $PKG_INSTALL_DIR/opt/
+	mkdir -p $PKG_INSTALL_DIR/usr/bin
+
+	install -vdm755 $PKG_INSTALL_DIR/opt/OpenJDK-19.0.2-bin
+	mv -v * $PKG_INSTALL_DIR/opt/OpenJDK-19.0.2-bin
+	chown -R root:root $PKG_INSTALL_DIR/opt/OpenJDK-19.0.2-bin
+
+	ln -s /opt/OpenJDK-$PKG_VERSION-bin/bin/java $PKG_INSTALL_DIR/usr/bin/java
+	ln -s /opt/OpenJDK-$PKG_VERSION-bin/bin/javac $PKG_INSTALL_DIR/usr/bin/javac
+}

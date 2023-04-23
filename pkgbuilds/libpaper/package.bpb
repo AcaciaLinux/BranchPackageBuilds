@@ -1,0 +1,22 @@
+name=libpaper
+version=1.1.24+nmu5
+description=
+real_version=0
+source=https://ftp.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu5.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	autoreconf -fi
+	./configure --prefix=/usr     \
+				--sysconfdir=/etc \
+				--disable-static
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	mkdir -vp $PKG_INSTALL_DIR/etc/libpaper.d
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

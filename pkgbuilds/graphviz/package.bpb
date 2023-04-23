@@ -1,0 +1,21 @@
+name=graphviz
+version=7.1.0
+description=The Graphviz package contains graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks
+real_version=0
+source=https://gitlab.com/graphviz/graphviz/-/archive/7.1.0/graphviz-7.1.0.tar.bz2
+extra_sources=
+dependencies=[pango][yacc]
+builddeps=[pango][meson][ninja][yacc]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	sed -i '/LIBPOSTFIX="64"/s/64//' configure.ac &&
+
+	./autogen.sh
+	./configure --prefix=/usr --docdir=/usr/share/doc/graphviz-7.1.0
+	make -j$(nproc)
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

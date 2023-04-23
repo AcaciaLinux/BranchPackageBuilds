@@ -1,0 +1,29 @@
+name=cyrussasl
+version=2.1.28
+description=The Cyrus SASL package contains a Simple Authentication and Security Layer implementation, a method for adding authentication support to connection-based protocols.
+real_version=0
+source=https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
+extra_sources=
+dependencies=[berkeleydb]
+builddeps=
+crossdeps=
+build={
+	cd cyrus-sasl-$PKG_VERSION
+
+	./configure --prefix=/usr \
+        --sysconfdir=/etc \
+        --enable-auth-sasldb \
+        --with-dbpath=/var/lib/sasl/sasldb2 \
+        --with-sphinx-build=no \
+        --with-saslauthd=/var/run/saslauthd
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	install -v -dm755                          $PKG_INSTALL_DIR/usr/share/doc/cyrus-sasl-2.1.28/html
+	install -v -m644  saslauthd/LDAP_SASLAUTHD $PKG_INSTALL_DIR/usr/share/doc/cyrus-sasl-2.1.28
+	install -v -m644  doc/legacy/*.html        $PKG_INSTALL_DIR/usr/share/doc/cyrus-sasl-2.1.28/html
+	install -v -dm700 $PKG_INSTALL_DIR/var/lib/sasl
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

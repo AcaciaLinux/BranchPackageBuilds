@@ -1,24 +1,25 @@
 name=neofetch
 version=7.1.0
-real_version=0
+description=Flex your distro
+real_version=1
 source=https://github.com/dylanaraps/neofetch/archive/refs/tags/7.1.0.zip
-extra_sources=[https://acacialinux.org/images/acacia_ascii/acacia_ascii]
+extra_sources=[e09c75bf-6cd7-4925-91da-3f07e8173980][c86b66f8-02e5-4604-bba2-04ad4f12c5d0]
 dependencies=[bash]
 builddeps=[unzip]
-description=Flex your distro
+crossdeps=
 build={
-	unzip 7.1.0.zip
-	cd $PKG_NAME-$PKG_VERSION
+    unzip 7.1.0.zip
+    cd $PKG_NAME-$PKG_VERSION
 
-	make DESTDIR=$PKG_INSTALL_DIR install
-	mv -v $PKG_INSTALL_DIR/usr/bin/neofetch $PKG_INSTALL_DIR/usr/bin/neofetch_
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    make DESTDIR=$PKG_INSTALL_DIR install
 
-	cat > $PKG_INSTALL_DIR/usr/bin/neofetch << "EOF"
-	/usr/bin/neofetch_ --source /usr/share/acacia/acacia_ascii --colors 2 255 255 2 255 255 --ascii_colors 2 95
-	EOF
+    mv -v $PKG_INSTALL_DIR/usr/bin/neofetch $PKG_INSTALL_DIR/usr/bin/neofetch_
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 
-	mkdir -pv $PKG_INSTALL_DIR/usr/share/acacia
-	cp -v ../acacia_ascii $PKG_INSTALL_DIR/usr/share/acacia/acacia_ascii
-	chmod +x $PKG_INSTALL_DIR/usr/bin/neofetch
+    cp -v ../neofetch $PKG_INSTALL_DIR/usr/bin/neofetch
+
+    mkdir -pv $PKG_INSTALL_DIR/usr/share/acacia
+
+    cp -v ../acacia_ascii $PKG_INSTALL_DIR/usr/share/acacia/acacia_ascii
+    chmod +x $PKG_INSTALL_DIR/usr/bin/neofetch
 }

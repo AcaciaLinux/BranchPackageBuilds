@@ -1,0 +1,15 @@
+name=libseccomp
+version=2.5.4
+description=Interface to the Linux kernel's syscall filtering mechanism
+real_version=0
+source=https://github.com/seccomp/libseccomp/releases/download/v2.5.4/libseccomp-2.5.4.tar.gz
+extra_sources=
+dependencies=[gperf]
+builddeps=[gperf]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr --disable-static &&
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

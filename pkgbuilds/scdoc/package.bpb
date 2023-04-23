@@ -1,0 +1,17 @@
+name=scdoc
+version=1.11.2
+description=The Bash package contains the Bourne-Again SHell.
+real_version=0
+source=https://git.sr.ht/~sircmpwn/scdoc/archive/1.11.2.tar.gz
+extra_sources=
+dependencies=
+builddeps=
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    make PREFIX=/usr
+    make PREFIX=/usr DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

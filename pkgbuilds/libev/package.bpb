@@ -1,0 +1,17 @@
+name=libev
+version=4.33
+description=A full-featured and high-performance event loop that is loosely modelled after libevent
+real_version=0
+source=http://dist.schmorp.de/libev/libev-4.33.tar.gz
+extra_sources=
+dependencies=[glibc]
+builddeps=[glibc]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+}

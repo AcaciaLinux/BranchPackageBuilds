@@ -1,0 +1,25 @@
+name=gst-plugins-good
+version=1.22.0
+description=The GStreamer Good Plug-ins is a set of plug-ins considered by the GStreamer developers to have good quality code, correct functionality, and the preferred license
+real_version=0
+source=https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.22.0.tar.xz
+extra_sources=
+dependencies=[gst-plugins-base]
+builddeps=[gst-plugins-base][cairo][flac][gdk-pixbuf][lame][libsoup2][libsoup3][libxml2][nghttp2][sqlite][gobject-introspection][vala][meson][ninja]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	mkdir build
+	cd    build
+
+	meson  --prefix=/usr       \
+		--buildtype=release \
+		-Dpackage-origin=https://www.linuxfromscratch.org/blfs/view/11.3-systemd/ \
+		-Dpackage-name="GStreamer 1.22.0 AcaciaLinux" &&
+	
+	ninja
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

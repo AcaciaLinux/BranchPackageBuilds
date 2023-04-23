@@ -1,0 +1,19 @@
+name=wlroots
+version=0.16.2
+description=Pluggable, composable, unopinionated modules for building a Wayland compositor
+real_version=0
+source=https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/0.16.2/downloads/wlroots-0.16.2.tar.gz
+extra_sources=
+dependencies=[wayland][xwayland][libdrm][libxkbcommon][hwdata][systemd][seatd]
+builddeps=[meson][wayland][wayland-protocols][xwayland][libdrm][libinput][libxkbcommon][cmake][hwdata][systemd][seatd][libxcb][xcb-util-renderutil][xcb-util-wm]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	meson setup --prefix=/usr build/
+	ninja -C build
+
+	DESTDIR=$PKG_INSTALL_DIR ninja -C build/ install
+
+	find $PKG_INSTALL_DIR
+}

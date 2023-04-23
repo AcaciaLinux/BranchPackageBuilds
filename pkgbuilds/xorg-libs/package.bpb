@@ -1,0 +1,13 @@
+name=xorg-libs
+version=2
+description=The Xorg libraries provide library routines that are used within all X Window applications.
+real_version=0
+source=
+extra_sources=
+dependencies=[libxshmfence]
+builddeps=[libxshmfence]
+crossdeps=
+build={
+    # Dummy package containing all libraries
+    # libxshmfence has the dependency tree all the way down...
+}

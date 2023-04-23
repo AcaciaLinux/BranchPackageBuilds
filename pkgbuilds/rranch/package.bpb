@@ -1,0 +1,13 @@
+name=rranch
+version=2.0
+description=A branch client written in Rust
+real_version=0
+source=
+extra_sources=
+dependencies=[curl]
+builddeps=[rustc][pkg-config][curl]
+crossdeps=
+build={
+	CARGO_INSTALL_ROOT=$PKG_INSTALL_DIR/usr cargo install -vv --no-track --git https://github.com/GamingGuy003/rranch.git --branch main
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

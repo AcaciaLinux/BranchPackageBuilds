@@ -1,0 +1,28 @@
+name=lynx
+version=2.8.9rel.1
+description=Lynx is a text based web browser. 
+real_version=0
+source=https://invisible-mirror.net/archives/lynx/tarballs/lynx2.8.9rel.1.tar.bz2
+extra_sources=
+dependencies=[gnutls][zip][unzip]
+builddeps=[gnutls][zip][unzip]
+crossdeps=
+build={
+	cd $PKG_NAME$PKG_VERSION
+
+	./configure --prefix=/usr          \
+            --sysconfdir=/etc/lynx \
+            --datadir=/usr/share/doc/lynx-2.8.9rel.1 \
+            --with-zlib            \
+            --with-bzlib           \
+            --with-ssl             \
+            --with-screen=ncursesw \
+            --enable-locale-charset
+	
+	make -j$(nproc)
+	
+	make DESTDIR=$PKG_INSTALL_DIR install-full
+	chgrp -v -R root $PKG_INSTALL_DIR/usr/share/doc/lynx-2.8.9rel.1/lynx_doc
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

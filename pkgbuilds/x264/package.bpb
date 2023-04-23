@@ -1,0 +1,20 @@
+name=x264
+version=20230215
+description=x264 package provides a library for encoding video streams into the H.264/MPEG-4 AVC format.
+real_version=0
+source=https://anduin.linuxfromscratch.org/BLFS/x264/x264-20230215.tar.xz
+extra_sources=
+dependencies=
+builddeps=[nasm]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr \
+				--enable-shared \
+				--disable-cli
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

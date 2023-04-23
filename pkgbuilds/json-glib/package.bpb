@@ -1,0 +1,21 @@
+name=json-glib
+version=1.6.6
+description=The JSON GLib package is a library providing serialization and deserialization support for the JavaScript Object Notation (JSON) format described by RFC 4627.
+real_version=0
+source=https://download.gnome.org/sources/json-glib/1.6/json-glib-1.6.6.tar.xz
+extra_sources=
+dependencies=[glib]
+builddeps=[gobject-introspection][glib][docbook-xsl-nons][ninja][meson][gettext]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	mkdir build
+	cd    build
+
+	meson --prefix=/usr --buildtype=release ..
+	ninja
+
+	DESTDIR=$PKG_INSTALL_DIR ninja install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

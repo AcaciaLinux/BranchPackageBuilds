@@ -1,18 +1,60 @@
 name=grub
 version=2.06
+description= The GRUB package contains the GRand Unified Bootloader. 
 real_version=0
 source=https://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
-dependencies=
-builddeps=[python3][bison][pkg-config][flex]
-description= The GRUB package contains the GRand Unified Bootloader. 
+extra_sources=[c6d4cf4f-3c93-4486-a081-b949a2546a07][bdb7adca-df06-4d2c-8758-e0a5b9aee908][79a4490d-cc2c-4697-80d9-d22e0799ec98][https://unifoundry.com/pub/unifont/unifont-15.0.01/font-builds/unifont-15.0.01.pcf.gz]
+dependencies=[freetype][sed][grep]
+builddeps=[python3][bison][pkg-config][flex][tar][freetype]
+crossdeps=
 build={
-	cd grub-2.06
-	./configure --prefix=/usr          \
-	            --sysconfdir=/etc      \
-	            --disable-efiemu       \
-	            --disable-werror
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR install
-	echo "Removing conflicting files.."
-	rm $PKG_INSTALL_DIR/usr/share/info/dir
+    mkdir -pv $PKG_INSTALL_DIR/etc/default
+    cp -v etc_d_grub $PKG_INSTALL_DIR/etc/default/grub
+
+    mkdir -pv /usr/share/fonts/unifont
+    gunzip -c unifont-15.0.01.pcf.gz > /usr/share/fonts/unifont/unifont.pcf
+
+    mkdir -pv $PKG_INSTALL_DIR/usr/share/fonts/unifont
+    gunzip -c unifont-15.0.01.pcf.gz > $PKG_INSTALL_DIR/usr/share/fonts/unifont/unifont.pcf
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    patch -Np1 -i ../grub-fixes.patch
+
+    unset {C,CPP,CXX,LD}FLAGS
+
+    # First build the BIOS version
+    mkdir b_bios
+    cd b_bios
+    ../configure --prefix=/usr        \
+                --sysconfdir=/etc    \
+                --disable-efiemu     \
+                --enable-grub-mkfont \
+                --with-platform=pc  \
+                --target=x86_64      \
+                --disable-werror
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+    cd ..
+
+    # And now the efi config
+    mkdir b_efi
+    cd b_efi
+    ../configure --prefix=/usr        \
+                --sysconfdir=/etc    \
+                --disable-efiemu     \
+                --enable-grub-mkfont \
+                --with-platform=efi  \
+                --target=x86_64      \
+                --disable-werror
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+    cd ..
+
+    # Copy the custom script for generating the config
+    cp -v ../10_linux $PKG_INSTALL_DIR/etc/grub.d/10_linux
+
+    rm $PKG_INSTALL_DIR/usr/share/info/dir
 }

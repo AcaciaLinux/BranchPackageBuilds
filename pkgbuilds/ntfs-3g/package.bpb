@@ -1,0 +1,23 @@
+name=ntfs-3g
+version=2022.10.3
+description=The Ntfs-3g package contains a stable, read-write open source driver for NTFS partitions.
+real_version=0
+source=https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2022.10.3.tgz
+extra_sources=
+dependencies=[glibc]
+builddeps=[glibc]
+crossdeps=
+build={
+    cd ntfs-3g_ntfsprogs-$PKG_VERSION
+
+    ./configure --prefix=/usr        \
+                --disable-static     \
+                --with-fuse=internal \
+                --docdir=/usr/share/doc/$PKG_NAME-$PKG_VERSION
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

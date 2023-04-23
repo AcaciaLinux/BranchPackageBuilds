@@ -1,0 +1,17 @@
+name=python-metadata
+version=0.7.0
+description=The Pyproject-Metadata module contains a data class for PEP 621 metadata with support for “core metadata” (PEP 643) generation.
+real_version=0
+source=https://files.pythonhosted.org/packages/source/p/pyproject-metadata/pyproject-metadata-0.7.0.tar.gz
+extra_sources=
+dependencies=[python-packaging][python-wheel][python3]
+builddeps=[python-packaging][python-wheel][python3]
+crossdeps=
+build={
+	cd pyproject-metadata-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user pyproject-metadata --root $PKG_INSTALL_DIR
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

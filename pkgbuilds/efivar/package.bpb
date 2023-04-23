@@ -1,0 +1,20 @@
+name=efivar
+version=38
+description=Tools and libraries to manipulate EFI variables.
+real_version=0
+source=https://github.com/rhboot/efivar/releases/download/38/efivar-38.tar.bz2
+extra_sources=
+dependencies=[mandoc]
+builddeps=[mandoc]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	sed '/prep :/a\\ttouch prep' -i src/Makefile
+
+	make -j1
+
+	make DESTDIR=$PKG_INSTALL_DIR install LIBDIR=/usr/lib -j1
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

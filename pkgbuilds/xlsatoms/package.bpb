@@ -1,0 +1,23 @@
+name=xlsatoms
+version=1.1.4
+description=The xlsatoms package is part of xorg-apps
+real_version=0
+source=https://www.x.org/pub/individual/app/xlsatoms-1.1.4.tar.xz
+extra_sources=
+dependencies=[libpng][mesa][xbitmaps][xcb-util]
+builddeps=[x11-build-environment][util-macros][pkg-config][libpng][mesa][xbitmaps][xcb-util]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xlsatoms-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

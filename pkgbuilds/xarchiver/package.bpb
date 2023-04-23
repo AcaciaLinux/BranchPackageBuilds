@@ -1,0 +1,21 @@
+name=xarchiver
+version=0.5.4.20
+description=XArchiver is a GTK+ archive manager with support for tar, xz, bzip2, gzip, zip, 7z, rar, lzo and many other archive formats. 
+real_version=0
+source=https://github.com/ib/xarchiver/archive/0.5.4.20/xarchiver-0.5.4.20.tar.gz
+extra_sources=
+dependencies=[gtk+2][cpio][unzip][zip][gettext]
+builddeps=[gtk+2][cpio][unzip][zip][intltool][gettext]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure  --prefix=/usr               \
+             --libexecdir=/usr/lib/xfce4 \
+             --docdir=/usr/share/doc/xarchiver-0.5.4.20 \
+			 --disable-gtk3
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

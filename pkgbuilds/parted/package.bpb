@@ -1,0 +1,28 @@
+name=parted
+version=3.5
+description=
+real_version=0
+source=https://ftp.gnu.org/gnu/parted/parted-3.5.tar.xz
+extra_sources=
+dependencies=
+builddeps=[texinfo][util-linux]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr --disable-static --disable-device-mapper
+	make -j$(nproc)
+
+	make -C doc html
+	makeinfo --html      -o doc/html       doc/parted.texi
+	makeinfo --plaintext -o doc/parted.txt doc/parted.texi
+
+	make check || true
+
+	make DESTDIR=$PKG_INSTALL_DIR install
+	install -v -m755 -d $PKG_INSTALL_DIR/usr/share/doc/parted-3.5/html
+	install -v -m644    doc/html/* $PKG_INSTALL_DIR/usr/share/doc/$PKG_NAME-$PKG_VERSION/html
+	install -v -m644    doc/{FAT,API,parted.{txt,html}} $PKG_INSTALL_DIR/usr/share/doc/$PKG_NAME-$PKG_VERSION
+
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

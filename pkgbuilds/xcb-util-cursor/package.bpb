@@ -1,0 +1,22 @@
+name=xcb-util-cursor
+version=0.1.4
+description=The xcb-util-cursor package provides a module that implements the XCB cursor library. It is the XCB replacement for libXcursor.
+real_version=0
+source=https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.4.tar.xz
+extra_sources=
+dependencies=[xcb-util-image][xcb-util-renderutil]
+builddeps=[x11-build-environment][util-macros][xcb-util-image][xcb-util-renderutil][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,18 +1,18 @@
 name=perl
 version=5.36.0
+description=The Perl package contains the Practical Extraction and Report Language.
 real_version=0
 source=https://www.cpan.org/src/5.0/perl-5.36.0.tar.xz
+extra_sources=
 dependencies=[gdbm][glibc][zlib][bzip2]
 builddeps=[gdbm][glibc][zlib][bzip2]
-description=The Perl package contains the Practical Extraction and Report Language.
+crossdeps=
 build={
-	#TODO: libcrypt, procps-ng deps?
-	cd $PKG_NAME-$PKG_VERSION
-
-	export BUILD_ZLIB=False
-	export BUILD_BZIP2=0
-
-	sh Configure -des                                         \
+#TODO: libcrypt, procps-ng deps?
+cd $PKG_NAME-$PKG_VERSION
+export BUILD_ZLIB=False
+export BUILD_BZIP2=0
+sh Configure -des                                         \
              -Dprefix=/usr                                \
              -Dvendorprefix=/usr                          \
              -Dprivlib=/usr/lib/perl5/5.36/core_perl      \
@@ -26,10 +26,9 @@ build={
              -Dpager="/usr/bin/less -isR"                 \
              -Duseshrplib                                 \
              -Dusethreads || true
-
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR install
+make -j$(nproc)
+make DESTDIR=$PKG_INSTALL_DIR install
     unset BUILD_ZLIB BUILD_BZIP2
     set -e
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

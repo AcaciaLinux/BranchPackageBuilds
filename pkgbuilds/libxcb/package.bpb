@@ -1,0 +1,26 @@
+name=libxcb
+version=1.15
+description=The libxcb package provides an interface to the X Window System protocol, which replaces the current Xlib interface. Xlib can also use XCB as a transport layer, allowing software to make requests and receive responses with both.
+real_version=0
+source=https://xorg.freedesktop.org/archive/individual/lib/libxcb-1.15.tar.xz
+extra_sources=
+dependencies=[libxau][xcb-proto]
+builddeps=[x11-build-environment][util-macros][libxau][xcb-proto][python3][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+    cd $PKG_NAME-$PKG_VERSION
+
+    PYTHON=python3                \
+    ./configure $XORG_CONFIG      \
+                --without-doxygen \
+                --docdir='${datadir}'/doc/libxcb-1.15
+    make -j$(nproc)
+    make check
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

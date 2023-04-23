@@ -1,39 +1,42 @@
 name=nss
-version=3.86
+version=3.88.1
+description=The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications.
 real_version=0
-source=https://archive.mozilla.org/pub/security/nss/releases/NSS_3_86_RTM/src/nss-3.86.tar.gz
-extra_sources=[https://www.linuxfromscratch.org/patches/blfs/svn/nss-3.86-standalone-1.patch]
+source=https://archive.mozilla.org/pub/security/nss/releases/NSS_3_88_1_RTM/src/nss-3.88.1.tar.gz
+extra_sources=[49ecc0f0-2b01-484f-99a7-1b4e7f8ff758]
 dependencies=[nspr][sqlite][p11-kit]
 builddeps=[nspr][sqlite][p11-kit]
-description=The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications.
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
+    cd $PKG_NAME-$PKG_VERSION
 
-	patch -Np1 -i ../$PKG_NAME-$PKG_VERSION-standalone-1.patch
+    patch -Np1 -i ../$PKG_NAME-$PKG_VERSION-standalone-1.patch
 
-	cd nss
+    cd nss
 
-	make -j$(nproc) BUILD_OPT=1                  \
-	  NSPR_INCLUDE_DIR=/usr/include/nspr  \
-	  USE_SYSTEM_ZLIB=1                   \
-	  ZLIB_LIBS=-lz                       \
-	  NSS_ENABLE_WERROR=0                 \
-	 $([ $(uname -m) = x86_64 ] && echo USE_64=1) \
-	 $([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)
+    make -j$(nproc) BUILD_OPT=1                 \
+            NSPR_INCLUDE_DIR=/usr/include/nspr  \
+            USE_SYSTEM_ZLIB=1                   \
+            ZLIB_LIBS=-lz                       \
+            NSS_ENABLE_WERROR=0                 \
+            $([ $(uname -m) = x86_64 ] && echo USE_64=1) \
+            $([ -f /usr/include/sqlite3.h ] && echo NSS_USE_SYSTEM_SQLITE=1)
 
-	cd ../dist                                                          
+    cd ../dist
 
-	install -v -m755 -d $PKG_INSTALL_DIR/usr/lib
-	install -v -m755 Linux*/lib/*.so              $PKG_INSTALL_DIR/usr/lib              
-	install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $PKG_INSTALL_DIR/usr/lib              
-	install -v -m755 -d                           $PKG_INSTALL_DIR/usr/include/nss      
-	cp -v -RL {public,private}/nss/*              $PKG_INSTALL_DIR/usr/include/nss      
-	chmod -v 644                                  $PKG_INSTALL_DIR/usr/include/nss/*   
- 
-	mkdir -v $PKG_INSTALL_DIR/usr/bin
-	install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $PKG_INSTALL_DIR/usr/bin
-	mkdir -pv $PKG_INSTALL_DIR/usr/lib/pkgconfig
-	install -v -m644 Linux*/lib/pkgconfig/nss.pc  $PKG_INSTALL_DIR/usr/lib/pkgconfig
+    install -v -m755 -d $PKG_INSTALL_DIR/usr/lib
+    install -v -m755 Linux*/lib/*.so              $PKG_INSTALL_DIR/usr/lib
+    install -v -m644 Linux*/lib/{*.chk,libcrmf.a} $PKG_INSTALL_DIR/usr/lib
+    install -v -m755 -d                           $PKG_INSTALL_DIR/usr/include/nss
 
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    cp -v -RL {public,private}/nss/*              $PKG_INSTALL_DIR/usr/include/nss
+    chmod -v 644                                  $PKG_INSTALL_DIR/usr/include/nss/*
+
+    mkdir -v $PKG_INSTALL_DIR/usr/bin
+    install -v -m755 Linux*/bin/{certutil,nss-config,pk12util} $PKG_INSTALL_DIR/usr/bin
+
+    mkdir -pv $PKG_INSTALL_DIR/usr/lib/pkgconfig
+    install -v -m644 Linux*/lib/pkgconfig/nss.pc  $PKG_INSTALL_DIR/usr/lib/pkgconfig
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

@@ -1,20 +1,29 @@
 name=python3
-version=3.10.5
-real_version=0
-source=https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
-dependencies=[bzip2][expat][gdbm][libffi][openssl][zlib][xz]
-builddeps=[bzip2][expat][gdbm][libffi][openssl][zlib][xz][findutils]
+version=3.11.2
 description=The Python 3 package contains the Python development environment. 
+real_version=1
+source=https://www.python.org/ftp/python/3.11.2/Python-3.11.2.tar.xz
+extra_sources=
+dependencies=[bzip2][expat][gdbm][libffi][openssl][zlib][xz]
+builddeps=[bzip2][expat][gdbm][libffi][openssl][zlib][xz][findutils][file]
+crossdeps=
 build={
-	cd Python-3.10.5
-	CXX="/usr/bin/g++"               \
-	./configure --prefix=/usr        \
-	            --enable-shared      \
-	            --with-system-expat  \
-	            --with-system-ffi    \
-	            --enable-optimizations &&
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR install
+    # python symlink
+    touch /usr/bin/python3
 
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    mkdir -p $PKG_INSTALL_DIR/usr/bin/
+    ln -s /usr/bin/python3 $PKG_INSTALL_DIR/usr/bin/python
+
+    cd Python-$PKG_VERSION
+    CXX="/usr/bin/g++"               \
+    ./configure --prefix=/usr        \
+                --enable-shared      \
+                --with-system-expat  \
+                --with-system-ffi    \
+                --enable-optimizations &&
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

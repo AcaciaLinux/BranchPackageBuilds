@@ -1,0 +1,28 @@
+name=openjpeg
+version=2.5.0
+description=An open-source implementation of the JPEG-2000 standard
+real_version=0
+source=https://github.com/uclouvain/openjpeg/archive/v2.5.0/openjpeg-2.5.0.tar.gz
+extra_sources=
+dependencies=
+builddeps=[cmake]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	mkdir build
+	cd build
+
+	cmake -DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DBUILD_STATIC_LIBS=OFF ..
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+
+	pushd ../doc
+	for man in man/man?/* ; do
+		install -v -D -m 644 $man /usr/share/$man
+	done
+	popd
+}

@@ -1,0 +1,23 @@
+name=libxfont2
+version=2.0.6
+description=The libxfont2 package is part of xorg-libs
+real_version=0
+source=https://www.x.org/pub/individual/lib/libXfont2-2.0.6.tar.xz
+extra_sources=
+dependencies=[fontconfig][libxcb][dbus][libfontenc]
+builddeps=[x11-build-environment][util-macros][fontconfig][libxcb][dbus][xorg-proto][pkg-config][libfontenc]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd libXfont2-$PKG_VERSION
+
+    ./configure $XORG_CONFIG  --disable-devel-docs
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

@@ -1,0 +1,13 @@
+name=python-wheel
+version=1
+description=Wheels are the new standard of Python distribution and are intended to replace eggs.
+real_version=0
+source=
+extra_sources=
+dependencies=[python3]
+builddeps=[python3]
+crossdeps=
+build={
+	pip3 install wheel --root $PKG_INSTALL_DIR
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

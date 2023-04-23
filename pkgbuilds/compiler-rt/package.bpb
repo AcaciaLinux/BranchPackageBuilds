@@ -1,0 +1,37 @@
+name=compiler-rt
+version=15.0.7
+description=Compiler runtime libraries for clang
+real_version=0
+source=https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/compiler-rt-15.0.7.src.tar.xz
+extra_sources=[https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.7/cmake-15.0.7.src.tar.xz]
+dependencies=[gcc]
+builddeps=[llvm][cmake][python3][ninja]
+crossdeps=
+build={
+    # Extract extra sources
+    tar -xf cmake-$PKG_VERSION.src.tar.xz
+
+    # Move the top level cmake scripts
+    mv cmake{-$PKG_VERSION.src,}
+
+    # Change into the tree
+    cd $PKG_NAME-$PKG_VERSION.src
+
+    # Build only minimal debug info to reduce size
+    CFLAGS="-g1"
+    CXXFLAGS="-g1"
+
+    mkdir -v  build
+    cd        build
+
+    CC=gcc CXX=g++                                  \
+    cmake .. -G Ninja                               \
+    -DCMAKE_BUILD_TYPE=Release                      \
+    -DCMAKE_INSTALL_PREFIX=/usr                     \
+    -DCMAKE_SKIP_RPATH=ON                           \
+    -DCOMPILER_RT_INSTALL_PATH=/usr/lib/clang/$PKG_VERSION
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+}

@@ -1,0 +1,18 @@
+name=startup-notification
+version=0.12
+description=The startup-notification package contains startup-notification libraries
+real_version=0
+source=https://www.freedesktop.org/software/startup-notification/releases/startup-notification-0.12.tar.gz
+extra_sources=
+dependencies=[xorg-libs][xcb-util]
+builddeps=[xorg-libs][xcb-util]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+
+	./configure --prefix=/usr --disable-static
+
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

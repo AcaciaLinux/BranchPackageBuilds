@@ -1,0 +1,24 @@
+name=python-docutils
+version=0.19
+description=
+real_version=0
+source=https://downloads.sourceforge.net/docutils/docutils-0.19.tar.gz
+extra_sources=
+dependencies=[python3][python-wheel]
+builddeps=[python3][python-wheel]
+crossdeps=
+build={
+	cd docutils-$PKG_VERSION
+
+	pip3 wheel -w dist --no-build-isolation --no-deps $PWD
+	pip3 install --no-index --find-links dist --no-cache-dir --no-user docutils --root $PKG_INSTALL_DIR
+
+	for f in $PKG_INSTALL_DIR/usr/bin/rst*.py; do
+		ln -svf $(basename $f) $PKG_INSTALL_DIR/usr/bin/$(basename $f .py)
+	done
+
+	# remove __pycache__
+	rm -rfv /usr/bin/__pycache__
+	
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

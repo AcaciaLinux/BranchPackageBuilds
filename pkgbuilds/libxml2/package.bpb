@@ -1,18 +1,35 @@
 name=libxml2
 version=2.9.13
-real_version=0
-source=https://download.gnome.org/sources/libxml2/2.9/libxml2-2.9.13.tar.xz
-dependencies=
-builddeps=
 description=The libxml2 package contains libraries and utilities used for parsing XML files.
+real_version=0
+source=
+extra_sources=
+dependencies=[python3][python-wheel]
+builddeps=[python3][python-wheel][git]
+crossdeps=
 build={
-	cd $PKG_NAME-$PKG_VERSION
-	./configure --prefix=/usr    \
-	            --disable-static \
-	            --with-history   \
-	            --with-python=/usr/bin/python3 \
-	            --docdir=/usr/share/doc/libxml2-2.9.13 &&
-	make -j$(nproc)
-	make DESTDIR=$PKG_INSTALL_DIR install
-	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+    git clone https://gitlab.gnome.org/GNOME/libxml2.git
+    cd libxml2
+
+                # commit taken from the Arch packagebuild,
+                # guess libxml2 doesn't do proper releases?
+    git checkout f507d167f1755b7eaea09fb1a44d29aab828b6d1
+    NOCONFIGURE=1 ./autogen.sh
+
+    ./configure --prefix=/usr    \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --with-threads \
+        --with-history \
+        --with-python=/usr/bin/python \
+        --with-python-install-dir=sond \
+        --with-icu \
+        --disable-static
+
+    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
 }

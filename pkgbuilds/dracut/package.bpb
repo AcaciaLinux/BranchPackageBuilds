@@ -1,0 +1,27 @@
+name=dracut
+version=056
+description=An event driven initramfs infrastructure
+real_version=0
+source=https://mirrors.edge.kernel.org/pub/linux/utils/boot/dracut/dracut-056.tar.xz
+extra_sources=
+dependencies=[cpio][findutils][grep][gzip][procps-ng][sed][systemd][util-linux][xz]
+builddeps=[cpio][findutils][grep][gzip][procps-ng][sed][systemd][util-linux][xz]
+crossdeps=
+build={
+    cd $PKG_NAME-$PKG_VERSION
+
+    ./configure \
+        --sysconfdir=/etc \
+        --prefix=/usr \
+        --libdir=/usr/lib \
+        --systemdsystemunitdir=/usr/lib/systemd/system \
+        --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion)
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    mkdir -pv $PKG_INSTALL_DIR/var/tmp
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

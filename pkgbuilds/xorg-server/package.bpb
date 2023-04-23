@@ -1,0 +1,33 @@
+name=xorg-server
+version=21.1.7
+description=The Xorg Server is the core of the X Window system.
+real_version=0
+source=https://www.x.org/pub/individual/xserver/xorg-server-21.1.7.tar.xz
+extra_sources=
+dependencies=[libxcvt][pixman][xorg-fonts][xkeyboard-config][libepoxy][libtirpc][systemd][acpid][libxdmcp]
+builddeps=[x11-build-environment][util-macros][libxcvt][pixman][font-util][xkeyboard-config][libepoxy][libtirpc][systemd][acpid][libxdmcp][meson][ninja][pkg-config]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd $PKG_NAME-$PKG_VERSION
+
+    mkdir -pv build
+    cd build
+
+    meson setup ..              \
+          --prefix=$XORG_PREFIX \
+          --localstatedir=/var  \
+          -Dsuid_wrapper=true   \
+          -Dxkb_output_dir=/var/lib/xkb
+
+    ninja
+
+    DESTDIR=$PKG_INSTALL_DIR ninja install
+
+    mkdir -pv $PKG_INSTALL_DIR/etc/X11/xorg.conf.d
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

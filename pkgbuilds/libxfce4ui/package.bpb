@@ -1,0 +1,16 @@
+name=libxfce4ui
+version=4.18.2
+description=The libxfce4ui package contains GTK+ 2 widgets that are used by other Xfce applications.
+real_version=1
+source=https://archive.xfce.org/src/xfce/libxfce4ui/4.18/libxfce4ui-4.18.2.tar.bz2
+extra_sources=
+dependencies=[gtk+3][xfconf][startup-notification]
+builddeps=[gtk+3][xfconf][startup-notification][intltool][gettext]
+crossdeps=
+build={
+	cd $PKG_NAME-$PKG_VERSION
+	./configure --prefix=/usr --sysconfdir=/etc
+	make -j$(nproc)
+	make DESTDIR=$PKG_INSTALL_DIR install
+	rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

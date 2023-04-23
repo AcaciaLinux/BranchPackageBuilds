@@ -1,0 +1,23 @@
+name=libfs
+version=1.0.9
+description=The libfs package is part of xorg-libs
+real_version=0
+source=https://www.x.org/pub/individual/lib/libFS-1.0.9.tar.xz
+extra_sources=
+dependencies=[fontconfig][libxcb][dbus][libxext]
+builddeps=[x11-build-environment][util-macros][fontconfig][libxcb][dbus][xorg-proto][pkg-config][libxext]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd libFS-$PKG_VERSION
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}

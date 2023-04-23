@@ -1,0 +1,26 @@
+name=xorg-ati
+version=19.1.0
+description=The Xorg ATI Driver package contains the X.Org Video Driver for ATI Radeon video cards including all chipsets ranging from R100 to the "Volcanic Islands" chipsets.
+real_version=0
+source=https://www.x.org/pub/individual/driver/xf86-video-ati-19.1.0.tar.bz2
+extra_sources=[e9a7a6ae-d019-4610-af0f-d13e000d8044]
+dependencies=[xorg-server]
+builddeps=[x11-build-environment][util-macros][meson][ninja][pkg-config][xorg-server]
+crossdeps=
+build={
+    source /etc/profile.d/xorg.sh
+    echo "XORG_PREFIX=$XORG_PREFIX"
+    echo "XORG_CONFIG=$XORG_CONFIG"
+
+    cd xf86-video-ati-$PKG_VERSION
+
+    patch -Np1 -i ../xorg-ati.patch
+
+    ./configure $XORG_CONFIG
+
+    make -j$(nproc)
+
+    make DESTDIR=$PKG_INSTALL_DIR install
+
+    rm -fv $PKG_INSTALL_DIR/usr/share/info/dir
+}
